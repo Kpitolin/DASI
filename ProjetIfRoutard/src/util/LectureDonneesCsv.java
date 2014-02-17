@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import metier.modele.Client;
+import metier.modele.Conseiller;
 import metier.modele.Pays;
 import metier.service.Service;
 
@@ -206,22 +207,81 @@ public class LectureDonneesCsv {
         
     }
     
+        /**
+     * Lit le fichier CSV, affiche son en-tête, puis appelle la création de Conseiller pour chaque ligne.
+     * @param limite Nombre maximum de lignes à lire ou -1 pour ne pas limiter
+     * @throws IOException 
+     */
+    /*
+    public void lireConseiller(int limite) throws IOException {
+
+        String[] nextLine;
+
+         // En-tete du fichier CSV
+        nextLine = this.lecteurFichier.readNext();
+        afficherEnTeteCsv(nextLine);
+        
+        
+        // Lecture des lignes
+        while ((nextLine = this.lecteurFichier.readNext()) != null) {
+        
+            creerConseiller(nextLine);
+            
+            // Limite (ou -1 si pas de limite)
+            if ( !(limite < 0) && (--limite < 1) ) {
+                break;
+            }
+        }
+
+    }
+    
+    /**
+     * Créée un Conseiller à partir de sa description.
+     * La date de naissance est notamment interpétée comme un objet Date.
+     * @param descriptionClient Ligne du fichier CSV de Clients.
+     */
+    /*
+    public void creerConseiller(String[] descriptionConseiller) {
+        
+        String civilite = descriptionConseiller[0];
+        String nom = descriptionConseiller[1];
+        String prenom = descriptionConseiller[2];
+        Date dateNaissance = parseDate(descriptionConseiller[3]);
+        String adresse = descriptionConseiller[4];
+        String telephone = descriptionConseiller[5];
+        String email = descriptionConseiller[6];
+        System.out.println("Client: "+  civilite + " " + nom + " " + prenom + ", né le " + formatDate(dateNaissance) + ", habitant à " + adresse + ", téléphone: " + telephone + ", e-mail: " + email);
+        
+        // À implémenter...
+        Conseiller conseiller = new Conseiller(civilite,nom,prenom,dateNaissance,adresse,telephone,email);
+        String PaysConseille [];
+        int taille = 7 ;
+        while( taille < descriptionConseiller.length)
+        {
+           // conseiller.addPays(descriptionConseiller[taille]);
+            taille ++;
+        }
+        System.out.println(conseiller);
+        Service.creerConseiller(conseiller);
+        
+    }*/
+    
     /**
      * Cette méthode main() permet de tester cette classe avant de l'intégrer dans votre code.
      * Elle exploite initialement un fichier de Client et un fichier de Pays, en limitant la lecture aux
      * 10 premiers éléments de chaque fichier.
      * @param args non utilisé ici
-     */
+     */  
     public static void initClientEtPays() {
         
         try {
             String fichierClients = "C:\\Temp\\IFRoutard-Clients.csv";
             String fichierPays = "C:\\Temp\\IFRoutard-Pays.csv";
-            
+            //String fichierConseiller = "C:\\Temp\\IFRoutard-Conseillers.csv";
             LectureDonneesCsv lectureDonneesCsv_Clients = new LectureDonneesCsv(fichierClients);
             
             // Pour tester: limite à 10
-            lectureDonneesCsv_Clients.lireClients(20);
+            lectureDonneesCsv_Clients.lireClients(2);
             // Puis, quand tout est au point!
             //lectureDonneesCsv_Clients.lireClients(-1);
 
@@ -229,9 +289,15 @@ public class LectureDonneesCsv {
 
             LectureDonneesCsv lectureDonneesCsv_Pays = new LectureDonneesCsv(fichierPays);
             
-            lectureDonneesCsv_Pays.lirePays(20);
+            lectureDonneesCsv_Pays.lirePays(2);
             
             lectureDonneesCsv_Pays.fermer();
+            
+           /* LectureDonneesCsv lectureDonneesCsv_Conseiller = new LectureDonneesCsv(fichierConseiller);
+
+            lectureDonneesCsv_Conseiller.lireConseiller(2);
+
+            lectureDonneesCsv_Conseiller.fermer();*/
             
         } catch (IOException ex) {
             ex.printStackTrace(System.err);

@@ -4,9 +4,11 @@
  */
 package metier.service;
 
-import dao.PersisteObjet;
+import metier.modele.Circuit;
 import metier.modele.Client;
+import metier.modele.Conseiller;
 import metier.modele.Pays;
+import metier.modele.Sejour;
 
 /**
  *
@@ -27,6 +29,24 @@ public class Service {
         
     }    
     
-    
+       
+     
+      public static void creerConseiller (Conseiller c){
+        PersisteObjet.persit(c);
+        
+    }  
+      
+      
+      
+      
+      public static void creerCircuit (Circuit circuit){
+        PersisteObjet.persit(circuit);
+        
+    }  
+      
+       public static void creerSejour (Sejour s){
+        PersisteObjet.persit(s);
+        
+    }  
     
 }
