@@ -71,7 +71,8 @@ public class VoyageDao {
         public static List<Circuit> listerCircuitsParPays(String nomPays) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
         EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("select c from Voyage c where c.paysDuVoyage.nom = :nom AND IN select ci from Circuit ci"); // Changer Requète
+        Query query = em.createQuery("select c from Voyage c where c in (select ci from Circuit ci ) "
+                                                        + " and c.paysDuVoyage.nom = :nom "); // Changer Requète
         query.setParameter("nom", nomPays);
         List<Circuit> circuits = (List<Circuit>) query.getResultList();
         if (circuits == null) {
@@ -83,7 +84,7 @@ public class VoyageDao {
     public static List<Sejour> listerSejoursParPays(String nomPays) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
         EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("select s from Voyage s where s.paysDuVoyage.nom = :nom AND IN select se from Sejour se"); // Changer Requète
+        Query query = em.createQuery("select s from Voyage s where s in (select se from Sejour se) and s.paysDuVoyage.nom = :nom "); // Changer Requète
         query.setParameter("nom", nomPays);
         List<Sejour> sejours = (List<Sejour>) query.getResultList();
         if (sejours == null) {
