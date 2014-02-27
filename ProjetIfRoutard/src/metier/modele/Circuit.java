@@ -31,22 +31,9 @@ public class Circuit extends Voyage{
     public String toString() {
         return super.toString() + "Transport=" + Transport + ", Kilometres=" + Kilometres + '}';
     }
+    
 
-   
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+ 
     
     public String getTransport() {
         return Transport;
