@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
@@ -34,6 +35,8 @@ public class Conseiller {
     private String email;
     @ManyToMany(mappedBy = "conseillers")
     List<Pays> paysConseilles = new ArrayList();
+    @OneToMany
+    List <Client> clients= new ArrayList();
 
     public Conseiller() {
     }
@@ -159,4 +162,10 @@ public class Conseiller {
     public void addPays(Pays pays) {
         this.paysConseilles.add(pays);
     }
+    
+    
+    public void addClient(Client client) {
+        this.clients.add(client);
+    }
 }
+     

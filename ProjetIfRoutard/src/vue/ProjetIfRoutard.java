@@ -32,7 +32,7 @@ public class ProjetIfRoutard {
     
     public static void main(String[] args) {
         // TODO code application logic here
-       ServiceInit.initialisation();
+       //ServiceInit.initialisation();
        
        
        
@@ -55,11 +55,25 @@ public class ProjetIfRoutard {
        System.out.println("COPY : " + PaysDao.findPaysByCodePays("FR"));
        
        */
-       
+       // Creation sejours et circuits fictifs
        Sejour s = new Sejour ("Hotel 5 etoiles","FR","FGHJK" ,"Voyage à Meulun" ,3650 , "Une escursion magnifique dans la vielle ville de meulun en bus");
        Service.creerSejour(s);
        System.out.println(s);
+     
+       Sejour s2 = new Sejour ("Hotel IBIS","BEL","FGHJK" ,"Voyage à ????" ,3650 , " Non def");
+       Service.creerSejour(s2);
+       System.out.println(s2);
        
+       Circuit c = new Circuit ("jeep",11232,"BEL","FGHJK" ,"Visite du plat pays" ,100 , "Vélo et randonée");
+       Service.creerCircuit(c);
+       System.out.println(c);
+       
+       Circuit c2 = new Circuit ("jeep",11232,"FR","FGHJK" ,"Visite " ,100 , "randonée");
+       Service.creerCircuit(c2);
+       System.out.println(c2);
+       
+       
+       // Crea Pays
        float sup = 550;
        float pop = 66;
        Pays Fr = new Pays("France", "FR", "europe", "Paris", "francais", sup, pop, "république");
@@ -67,16 +81,18 @@ public class ProjetIfRoutard {
        
         float supb = 100;
        float popb = 15;
-       Pays Bel = new Pays("Belgique", "BEL", "europe", "Bruxelle", "francais, néélanrdais, allemand", sup, pop, "Monarchie");
+       Pays Bel = new Pays("Belgique", "BEL", "europe", "Bruxelle", "francais, néélanrdais, allemand", supb, popb, "Monarchie");
        Service.creerPays(Bel); 
  
-      Circuit c = new Circuit ("jeep",11232,"BEL","FGHJK" ,"Visite du plat pays" ,100 , "Vélo et randonée");
-       Service.creerCircuit(c);
-       System.out.println(c);
+       // Mises a jour des objets persistés
+      
        c.setPaysDuVoyage(PaysDao.findPaysByCodePays(c.getCodePays()));
        Service.miseAjourBase(c);
        Bel.addVoyage(c);
         
+       c2.setPaysDuVoyage(PaysDao.findPaysByCodePays(c2.getCodePays()));
+       Service.miseAjourBase(c2);
+       Bel.addVoyage(c2);
        
        InfoPrincipale i  = new InfoPrincipale("Lyon", null, 100, "bus");
        Service.creerInfoPrincipale(i);
@@ -91,6 +107,13 @@ public class ProjetIfRoutard {
        s.setPaysDuVoyage(PaysDao.findPaysByCodePays(s.getCodePays()));
        Service.miseAjourBase(s);
        Fr.addVoyage(s);
+       
+       s2.setPaysDuVoyage(PaysDao.findPaysByCodePays(s2.getCodePays()));
+       Service.miseAjourBase(s2);
+       Fr.addVoyage(s2);
+       
+       //tests de listage
+       
        System.out.println(" affichages de tous les pays ");
        Service.listerTousLesPays();
       System.out.println(" affichages de tous les voyages ");

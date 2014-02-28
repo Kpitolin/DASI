@@ -18,11 +18,9 @@ import javax.persistence.Temporal;
 @Entity
 public class Client {
 
- 
-
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private Integer idClient;
     private String civilite;
     private String nom;
@@ -32,7 +30,8 @@ public class Client {
     private String adresse;
     private String telephone;
     private String email;
-    
+    private boolean autorisationPartenaires;
+
     public Client() {
     }
 
@@ -45,9 +44,6 @@ public class Client {
         this.telephone = telephone;
         this.email = email;
     }
-
- 
-
 
     @Override
     public boolean equals(Object obj) {
@@ -63,7 +59,7 @@ public class Client {
         }
         return true;
     }
-     
+
     public void setCivilite(String civilite) {
         this.civilite = civilite;
     }
@@ -75,7 +71,6 @@ public class Client {
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
-
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
@@ -92,12 +87,11 @@ public class Client {
     public void setDateNaissance(Date dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
-    
-    
+
     public Integer getIdClient() {
-    return idClient;
+        return idClient;
     }
-    
+
     public String getCivilite() {
         return civilite;
     }
@@ -109,7 +103,6 @@ public class Client {
     public String getPrenom() {
         return prenom;
     }
-
 
     public String getAdresse() {
         return adresse;
@@ -127,11 +120,16 @@ public class Client {
         return dateNaissance;
     }
 
+    public boolean isAutorisationPartenaires() {
+        return autorisationPartenaires;
+    }
+
+    public void setAutorisationPartenaires(boolean autorisationPartenaires) {
+        this.autorisationPartenaires = autorisationPartenaires;
+    }
+
     @Override
     public String toString() {
         return "Client{" + "civilite=" + civilite + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance + ", adresse=" + adresse + ", telephone=" + telephone + ", email=" + email + '}';
     }
-    
-    
-    
 }

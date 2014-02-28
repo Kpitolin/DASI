@@ -10,6 +10,7 @@ import java.util.List;
 import metier.modele.Circuit;
 import metier.modele.Client;
 import metier.modele.Conseiller;
+import metier.modele.Devis;
 import metier.modele.InfoPrincipale;
 import metier.modele.Pays;
 import metier.modele.Sejour;
@@ -23,6 +24,7 @@ public class Service {
 
     public static void creerClient(Client c) {
         PersisteObjet.persit(c);
+        envoyerMailPartenaires(c);
 
     }
 
@@ -112,6 +114,28 @@ public class Service {
         }
     }
 
+    
+    
+    public static void envoyerMailPartenaires(Client client){
+        
+        if(client.isAutorisationPartenaires()){
+             String civilite = client.getCivilite();
+        String nom = client.getNom();
+        String prenom = client.getPrenom();
+        String email = client.getEmail();
+        
+        System.out.println("Nous sommes heureux de vous prévenir de l'adhésion de "
+                +civilite+" " + nom +" "+ prenom + " dont l'adresse électronique est "+
+                    email+" ."); 
+        }
+      
+        
+        
+    }
+    public static void choisirConseiller (Devis d) {
+        
+    
+}
     public static void listerVoyagesParPaysEtType(String nomPays, String type) {
 
         if (type == "Sejour") {
