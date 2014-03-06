@@ -5,10 +5,12 @@
 package vue;
 
 
+import dao.JpaUtil;
 import dao.PaysDao;
 import metier.modele.Circuit;
 import metier.modele.Client;
 import metier.modele.Conseiller;
+import metier.modele.Devis;
 import metier.modele.InfoPrincipale;
 import metier.modele.Pays;
 import metier.modele.Sejour;
@@ -56,6 +58,12 @@ public class ProjetIfRoutard {
        
        */
        // Creation sejours et circuits fictifs
+        
+        
+        JpaUtil.creerEntityManager();
+        JpaUtil.ouvrirTransaction();
+        
+        
        Sejour s = new Sejour ("Hotel 5 etoiles","FR","FGHJK" ,"Voyage à Meulun" ,3650 , "Une escursion magnifique dans la vielle ville de meulun en bus");
        Service.creerSejour(s);
        System.out.println(s);
@@ -83,38 +91,56 @@ public class ProjetIfRoutard {
        float popb = 15;
        Pays Bel = new Pays("Belgique", "BEL", "europe", "Bruxelle", "francais, néélanrdais, allemand", supb, popb, "Monarchie");
        Service.creerPays(Bel); 
- 
+       
+       JpaUtil.validerTransaction();
        // Mises a jour des objets persistés
-      
+       JpaUtil.ouvrirTransaction();
+
        c.setPaysDuVoyage(PaysDao.findPaysByCodePays(c.getCodePays()));
-       Service.miseAjourBase(c);
+       Service.miseAjour(c);
        Bel.addVoyage(c);
         
        c2.setPaysDuVoyage(PaysDao.findPaysByCodePays(c2.getCodePays()));
-       Service.miseAjourBase(c2);
+       Service.miseAjour(c2);
        Bel.addVoyage(c2);
        
        InfoPrincipale i  = new InfoPrincipale("Lyon", null, 100, "bus");
        Service.creerInfoPrincipale(i);
        
        s.addInfos(i);
-       Service.miseAjourBase(s);
+       Service.miseAjour(s);
        i.setVoyageAssocie(s);
-       Service.miseAjourBase(i);
-       
+       Service.miseAjour(i);
+      
        
        
        s.setPaysDuVoyage(PaysDao.findPaysByCodePays(s.getCodePays()));
-       Service.miseAjourBase(s);
+       Service.miseAjour(s);
        Fr.addVoyage(s);
        
        s2.setPaysDuVoyage(PaysDao.findPaysByCodePays(s2.getCodePays()));
-       Service.miseAjourBase(s2);
+       Service.miseAjour(s2);
        Fr.addVoyage(s2);
        
+        Conseiller toto = new Conseiller("M", "toto", "jean", null , "Lyon", " 060606060606", "toto.jean@insa-lyon.fr");
+        Conseiller tito = new Conseiller("M", "titi", "tata", null , "Lyon", " 060606060606", "titi.jean@insa-lyon.fr");
+
+       Fr.addConseillers(toto);
+       Bel.addConseillers(tito);
+       Bel.addConseillers(toto);
+       Service.creerConseiller(toto);
+       Service.creerConseiller(tito);
+       Service.miseAjour(Fr);
+       Service.miseAjour(Bel);
+       Client clientBelge = new Client("Mme", "Hamne", "pascale", null, null, null, null);
+       Service.creerClient(clientBelge);
+        Devis d = new Devis (null,c,clientBelge);
+       Service.creerDevis(d);
+       Service.choisirConseiller(d);
+       JpaUtil.validerTransaction();
        //tests de listage
        
-       System.out.println(" affichages de tous les pays ");
+       /* System.out.println(" affichages de tous les pays ");
        Service.listerTousLesPays();
       System.out.println(" affichages de tous les voyages ");
        Service.listerTousLesVoyages();
@@ -128,6 +154,8 @@ public class ProjetIfRoutard {
       System.out.println(" affichages des séjour pour un pays fr : ");
       Service.listerVoyagesParPaysEtType("France", "Sejour");
        System.out.println(" affichages des circuits pour un pays bel : ");
-      Service.listerVoyagesParPaysEtType("Belgique", "Circuit");
+      Service.listerVoyagesParPaysEtType("Belgique", "Circuit");*/
+       
+       
     }
 }

@@ -9,6 +9,7 @@
     <class>metier.modele.Circuit</class>
     <class>metier.modele.Sejour</class>
     <class>metier.modele.InfoPrincipale</class>
+    <class>metier.modele.Devis</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/DASI"/>
       <property name="javax.persistence.jdbc.password" value="305932dasi"/>

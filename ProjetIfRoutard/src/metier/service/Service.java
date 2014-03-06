@@ -4,6 +4,8 @@
  */
 package metier.service;
 
+import dao.DevisDao;
+import dao.JpaUtil;
 import dao.PaysDao;
 import dao.VoyageDao;
 import java.util.List;
@@ -21,40 +23,50 @@ import metier.modele.Voyage;
  * @author Administrateur
  */
 public class Service {
+    
+    /**
+     *
+     */
 
+    
+    public static void creerDevis (Devis d){
+        JpaUtil.persist(d);
+       
+    }
     public static void creerClient(Client c) {
-        PersisteObjet.persit(c);
+        
+        JpaUtil.persist(c);
         envoyerMailPartenaires(c);
 
     }
 
     public static void creerPays(Pays p) {
-        PersisteObjet.persit(p);
+        JpaUtil.persist(p);
 
     }
 
     public static void creerConseiller(Conseiller c) {
-        PersisteObjet.persit(c);
+        JpaUtil.persist(c);
 
     }
 
     public static void creerInfoPrincipale(InfoPrincipale info) {
-        PersisteObjet.persit(info);
+        JpaUtil.persist(info);
 
     }
 
     public static void creerCircuit(Circuit circuit) {
-        PersisteObjet.persit(circuit);
+        JpaUtil.persist(circuit);
 
     }
 
     public static void creerSejour(Sejour s) {
-        PersisteObjet.persit(s);
+        JpaUtil.persist(s);
 
     }
 
-    public static void miseAjourBase(Object o) {
-        PersisteObjet.merge(o);
+    public static void miseAjour(Object o) {
+        JpaUtil.merge(o);
     }
 
     public static void listerTousLesPays() {
@@ -132,8 +144,10 @@ public class Service {
         
         
     }
+    
+   
     public static void choisirConseiller (Devis d) {
-        
+    d.setConseillerDevis(DevisDao.choixConseiller(d));
     
 }
     public static void listerVoyagesParPaysEtType(String nomPays, String type) {

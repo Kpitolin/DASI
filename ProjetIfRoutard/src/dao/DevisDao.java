@@ -33,14 +33,14 @@ public class DevisDao {
     
     
     
-    public static Conseiller chooseConselor(Pays pays){
+    public static Conseiller choixConseiller(Devis d){
          EntityManagerFactory emf =  Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
             EntityManager em = emf.createEntityManager();
             Query query = em.createQuery("select cons from Pays.conseillers cons where emp.ID=e.EMPLOYE_ID group by emp having SIZE(cons.clients) = (select min(SIZE(Pays.conseillers.clients)) from EMPLOYE emp join EMPLOYE_CLIENT e where emp.ID=e.EMPLOYE_ID group by emp)  " );
-            query.setParameter("pays", pays);
+            query.setParameter("pays", d.getVoyageDuDevis().getPaysDuVoyage());
             Conseiller conseiller = (Conseiller) query.getSingleResult();
             if (conseiller == null) {
-                throw  new EntityNotFoundException("Impossible de trouver conseiller pour le pays :  " + pays );
+                throw  new EntityNotFoundException("Impossible de trouver conseiller pour le pays :  " + d.getVoyageDuDevis().getPaysDuVoyage() );
                 }
             return conseiller;
     }

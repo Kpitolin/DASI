@@ -4,6 +4,7 @@
  */
 package metier.service;
 
+import dao.JpaUtil;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -18,13 +19,12 @@ public class PersisteObjet {
     
     
     public static void persit (Object o){
-        EntityManagerFactory emf =  Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-        em.persist(o);
-        tx.commit();
-        em.close();
+        JpaUtil.creerEntityManager();
+        JpaUtil.ouvrirTransaction();
+        JpaUtil.validerTransaction();
+        
+        
+        
     }
     
         public static void merge (Object o){
