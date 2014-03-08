@@ -30,7 +30,7 @@ public class Devis {
     private Voyage voyageDuDevis;
     @OneToOne
     private Conseiller conseillerDevis;
-    @OneToOne
+    @ManyToOne
     private Client clientDevis;
     private Integer nbPersonnes;
     @OneToOne
