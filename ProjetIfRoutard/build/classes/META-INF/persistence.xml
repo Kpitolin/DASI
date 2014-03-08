@@ -9,12 +9,14 @@
     <class>metier.modele.Circuit</class>
     <class>metier.modele.Sejour</class>
     <class>metier.modele.InfoPrincipale</class>
+    <class>metier.modele.Devis</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/BDDRoutard"/>
-      <property name="javax.persistence.jdbc.password" value="B3131"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/SecondeBase"/>
+      <property name="javax.persistence.jdbc.password" value="gcottancin"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
-      <property name="javax.persistence.jdbc.user" value="B3131"/>
+      <property name="javax.persistence.jdbc.user" value="gcottancin"/>
       <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>

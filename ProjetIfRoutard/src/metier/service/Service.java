@@ -31,37 +31,44 @@ public class Service {
     
     public static void creerDevis (Devis d){
         JpaUtil.persist(d);
+        System.out.println(d);
        
     }
     public static void creerClient(Client c) {
         
         JpaUtil.persist(c);
+        System.out.println(c);
         envoyerMailPartenaires(c);
 
     }
 
     public static void creerPays(Pays p) {
         JpaUtil.persist(p);
+        System.out.println(p);
 
     }
 
     public static void creerConseiller(Conseiller c) {
         JpaUtil.persist(c);
+        System.out.println(c);
 
     }
 
     public static void creerInfoPrincipale(InfoPrincipale info) {
         JpaUtil.persist(info);
+        System.out.println(info);
 
     }
 
     public static void creerCircuit(Circuit circuit) {
         JpaUtil.persist(circuit);
+        System.out.println(circuit);
 
     }
 
     public static void creerSejour(Sejour s) {
         JpaUtil.persist(s);
+        System.out.println(s);
 
     }
 

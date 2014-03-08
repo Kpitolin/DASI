@@ -7,6 +7,7 @@ package vue;
 
 import dao.JpaUtil;
 import dao.PaysDao;
+import dao.ConseillerDao;
 import metier.modele.Circuit;
 import metier.modele.Client;
 import metier.modele.Conseiller;
@@ -15,7 +16,6 @@ import metier.modele.InfoPrincipale;
 import metier.modele.Pays;
 import metier.modele.Sejour;
 import metier.service.Service;
-import metier.service.ServiceInit;
 /**
  *
  * @author Administrateur
@@ -66,19 +66,15 @@ public class ProjetIfRoutard {
         
        Sejour s = new Sejour ("Hotel 5 etoiles","FR","FGHJK" ,"Voyage à Meulun" ,3650 , "Une escursion magnifique dans la vielle ville de meulun en bus");
        Service.creerSejour(s);
-       System.out.println(s);
      
        Sejour s2 = new Sejour ("Hotel IBIS","BEL","FGHJK" ,"Voyage à ????" ,3650 , " Non def");
        Service.creerSejour(s2);
-       System.out.println(s2);
        
        Circuit c = new Circuit ("jeep",11232,"BEL","FGHJK" ,"Visite du plat pays" ,100 , "Vélo et randonée");
        Service.creerCircuit(c);
-       System.out.println(c);
        
        Circuit c2 = new Circuit ("jeep",11232,"FR","FGHJK" ,"Visite " ,100 , "randonée");
        Service.creerCircuit(c2);
-       System.out.println(c2);
        
        
        // Crea Pays
@@ -87,7 +83,7 @@ public class ProjetIfRoutard {
        Pays Fr = new Pays("France", "FR", "europe", "Paris", "francais", sup, pop, "république");
        Service.creerPays(Fr); 
        
-        float supb = 100;
+       float supb = 100;
        float popb = 15;
        Pays Bel = new Pays("Belgique", "BEL", "europe", "Bruxelle", "francais, néélanrdais, allemand", supb, popb, "Monarchie");
        Service.creerPays(Bel); 
@@ -134,9 +130,17 @@ public class ProjetIfRoutard {
        Service.miseAjour(Bel);
        Client clientBelge = new Client("Mme", "Hamne", "pascale", null, null, null, null);
        Service.creerClient(clientBelge);
-        Devis d = new Devis (null,c,clientBelge);
+        Devis d = new Devis (null,c2,clientBelge);
        Service.creerDevis(d);
+       
+       
+       JpaUtil.validerTransaction();
+       // Mises a jour des objets persistés
+       JpaUtil.ouvrirTransaction();
+       
+       
        Service.choisirConseiller(d);
+       
        JpaUtil.validerTransaction();
        //tests de listage
        
