@@ -7,7 +7,7 @@ package vue;
 
 import dao.JpaUtil;
 import dao.PaysDao;
-import dao.ConseillerDao;
+import static java.lang.System.exit;
 import metier.modele.Circuit;
 import metier.modele.Client;
 import metier.modele.Conseiller;
@@ -16,6 +16,7 @@ import metier.modele.InfoPrincipale;
 import metier.modele.Pays;
 import metier.modele.Sejour;
 import metier.service.Service;
+import util.Saisie;
 /**
  *
  * @author Administrateur
@@ -139,9 +140,35 @@ public class ProjetIfRoutard {
        JpaUtil.ouvrirTransaction();
        
        
-       Service.choisirConseiller(d);
+       //Service.choisirConseiller(d);
        
        JpaUtil.validerTransaction();
+       
+       for(;;)
+       {
+           String str = Saisie.lireChaine("Taper D pour renter un client ou taper C pour créer un client Et Q pour quitter");
+           System.out.println("");
+           
+           if( str.equals("C") || str.equals("c"))
+           {
+              JpaUtil.ouvrirTransaction(); 
+              Service.SaisirClient();
+              JpaUtil.validerTransaction();   
+           }
+          
+           if( str.equals("D") || str.equals("d") )
+            { 
+              JpaUtil.ouvrirTransaction(); 
+              Service.SaisirDevis();
+              JpaUtil.validerTransaction();
+            }
+            
+           if( str.equals("Q") || str.equals("q") )
+            {
+                System.out.println("Fin de l'application");
+                exit(0);
+            }
+       }
        //tests de listage
        
        /* System.out.println(" affichages de tous les pays ");

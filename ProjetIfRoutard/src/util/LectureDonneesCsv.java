@@ -11,7 +11,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import metier.modele.Client;
-import metier.modele.Conseiller;
 import metier.modele.Pays;
 import metier.service.Service;
 
@@ -136,7 +135,7 @@ public class LectureDonneesCsv {
      * La date de naissance est notamment interpétée comme un objet Date.
      * @param descriptionClient Ligne du fichier CSV de Clients.
      */
-    public void creerClient(String[] descriptionClient) {
+    public static void creerClient(String[] descriptionClient) {
         
         String civilite = descriptionClient[0];
         String nom = descriptionClient[1];
@@ -187,7 +186,7 @@ public class LectureDonneesCsv {
      * La superficie et la population sont notamment interpétées comme des nombres.
      * @param descriptionClient Ligne du fichier CSV de Pays.
      */
-    public void creerPays(String[] descriptionPays) {
+    public static void creerPays(String[] descriptionPays) {
         
         String nom = descriptionPays[0];
         String code = descriptionPays[1];

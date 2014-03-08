@@ -17,6 +17,8 @@ import metier.modele.InfoPrincipale;
 import metier.modele.Pays;
 import metier.modele.Sejour;
 import metier.modele.Voyage;
+import util.LectureDonneesCsv;
+import util.Saisie;
 
 /**
  *
@@ -182,5 +184,30 @@ public class Service {
         {
             System.out.println("Choisissez le type Sejour ou Circuit");
         }
+    }
+    
+    public static void SaisirClient(){
+        
+        String[] descriptionClient = new String [7];
+        System.out.println("Veuillez écrire : \"CIVILITE\" \"NOM\" \"PRENOM\" "
+         + "\"AAAA-JJ-MM\" \"ADRESSE\" \"TELEPHONE\" \"EMAIL\" ");
+        
+        descriptionClient[0] = Saisie.lireChaine("CIVILITE");
+        descriptionClient[1] = Saisie.lireChaine("NOM");
+        descriptionClient[2] = Saisie.lireChaine("PRENOM");
+        descriptionClient[3] = Saisie.lireChaine("AAAA-JJ-MM");
+        descriptionClient[4] = Saisie.lireChaine("ADRESSE");
+        descriptionClient[5] = Saisie.lireChaine("TELEPHONE");
+        descriptionClient[6] = Saisie.lireChaine("EMAIL");
+        LectureDonneesCsv.creerClient(descriptionClient);
+        
+    }
+    
+        public static void SaisirDevis(){
+        
+            System.out.println("ne fais rien");
+            System.out.println("Veuillez écrire : \"AAAA-JJ-MM\" \"CODEVOYAGE\" \"CODEPAYS\" "
+            + "\"CLIENT\" \"NBPERSONNES\" \"CHOIXDEPART\"  ");
+        
     }
 }
