@@ -271,8 +271,10 @@ public class LectureDonneesCsv {
             //String fichierClients = "C:\\Temp\\IFRoutard-Clients.csv";
             //String fichierPays = "C:\\Temp\\IFRoutard-Pays.csv";
             //String fichierConseiller = "C:\\Temp\\IFRoutard-Conseillers.csv";
-            String fichierClients = "C:\\Users\\Ordi\\Desktop\\INSA\\3IF\\TP_DASI\\DASI-master\\Projets\\data\\IFRoutard-Clients.csv";
-            String fichierPays = "C:\\Users\\Ordi\\Desktop\\INSA\\3IF\\TP_DASI\\DASI-master\\Projets\\data\\IFRoutard-Pays.csv";
+            //String fichierClients = "C:\\Users\\Ordi\\Desktop\\INSA\\3IF\\TP_DASI\\DASI-master\\Projets\\data\\IFRoutard-Clients.csv";
+            //String fichierPays = "C:\\Users\\Ordi\\Desktop\\INSA\\3IF\\TP_DASI\\DASI-master\\Projets\\data\\IFRoutard-Pays.csv";
+            String fichierClients = "/Users/KEV/NetBeansProjects/GitHub/DASI/Projets/data/IFRoutard-Clients.csv";
+            String fichierPays = "/Users/KEV/NetBeansProjects/GitHub/DASI/Projets/data/IFRoutard-Pays.csv";
             
             LectureDonneesCsv lectureDonneesCsv_Clients = new LectureDonneesCsv(fichierClients);
             

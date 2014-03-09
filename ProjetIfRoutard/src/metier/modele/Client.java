@@ -142,4 +142,18 @@ public class Client {
     public String toString() {
         return "Client{" + "civilite=" + civilite + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance + ", adresse=" + adresse + ", telephone=" + telephone + ", email=" + email + '}';
     }
+    
+    public String listeDevis() {
+        String chaine = "";
+          for (int i = 0; i < this.devisDuClient.size(); i++) {
+
+                chaine += "   Devis" + i + " " + this.devisDuClient.get(i).afficheDevis()+"\n";
+        }
+        
+        
+        
+        
+        
+        return chaine;
+    }
 }

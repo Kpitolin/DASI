@@ -89,4 +89,15 @@ public class Devis {
         this.choixCaracteristiques = choixCaracteristiques;
     }
 
+    @Override
+    public String toString() {
+        return "Devis {" + "dateDevis=" + dateDevis + ", voyageDuDevis=" + voyageDuDevis.getDescription() + "Client "+clientDevis+'}';
+    }
+    
+    public String afficheDevis(){
+                return "{" + "dateDevis=" + dateDevis + ", voyageDuDevis=" + voyageDuDevis.getDescription() + ", conseillerDevis=" + conseillerDevis.getNom()+" "+conseillerDevis.getPrenom() + ", nbPersonnes=" + nbPersonnes + ", choixCaracteristiques=" + choixCaracteristiques + '}';
+
+    }
+    
+
 }

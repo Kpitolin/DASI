@@ -134,10 +134,10 @@ public class ProjetIfRoutard {
        Service.creerConseiller(tito);
        Service.miseAjour(Fr);
        Service.miseAjour(Bel);
-       Client clientBelge = new Client("Mme", "Hamne", "pascale", null, null, null, null);
+       /*Client clientBelge = new Client("Mme", "Hamne", "pascale", null, null, null, null);
        Service.creerClient(clientBelge);
         Devis d = new Devis (null,c2,clientBelge);
-       Service.creerDevis(d);
+       Service.creerDevis(d);*/
        
        
        JpaUtil.validerTransaction();
@@ -174,7 +174,7 @@ public class ProjetIfRoutard {
        for(;;)
        {
            String str = Saisie.lireChaine("Taper D pour renter un devis ou taper C pour créer un client Et Q pour quitter\n");
-           System.out.println("");
+           System.out.println("Taper LV, LC, ou LP pour lister les voyages, les clients ou les pays ");
            
            if( str.equals("C") || str.equals("c"))
            {
@@ -195,6 +195,19 @@ public class ProjetIfRoutard {
                 System.out.println("Fin de l'application");
                 exit(0);
             }
+            if( str.equals("LC") || str.equals("lc") )
+            {
+               Service.listerClients();
+            }
+            if( str.equals("LV") || str.equals("lv") )
+            {
+               Service.listerTousLesVoyages();
+            }
+            if( str.equals("LP") || str.equals("lp") )
+            {
+               Service.listerTousLesPays();
+            }
+            
        }
        //tests de listage
        
