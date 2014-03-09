@@ -21,6 +21,7 @@ import metier.modele.InfoPrincipale;
 import metier.modele.Pays;
 import metier.modele.Sejour;
 import metier.modele.Voyage;
+import util.Aleatoire;
 import util.Saisie;
 
 /**
@@ -164,7 +165,7 @@ public class Service {
 }
     public static void listerVoyagesParPaysEtType(String nomPays, String type) {
 
-        if (type == "Sejour") {
+        if (type.equals("Sejour")) {
             List<Sejour> voyages = VoyageDao.listerSejoursParPays(nomPays);
             for (int i = 0; i < voyages.size(); i++) {
 
@@ -173,7 +174,7 @@ public class Service {
             if (voyages.isEmpty()) {
                 System.out.println("Aucun séjour pour le pays " + nomPays);
             }
-        } else if (type == "Circuit") {
+        } else if (type.equals("Circuit")) {
             List<Circuit> voyages = VoyageDao.listerCircuitsParPays(nomPays);
             for (int i = 0; i < voyages.size(); i++) {
 
@@ -214,18 +215,36 @@ public class Service {
     
         public static void SaisirDevis(){
         
-            System.out.println("ne fais rien");
             System.out.println("Veuillez écrire : \"AAAA-JJ-MM\" \"CODEVOYAGE\" \"CODEPAYS\" "
             + "\"CLIENT\" \"NBPERSONNES\" \"CHOIXDEPART\"  ");
-        
+            
+            String [] descriptionDevis = new String [2];
+            descriptionDevis[0] = Saisie.lireChaine("ADDRESSE EMAIL CLIENT\n");
+            descriptionDevis[1] = Saisie.lireChaine("CODE VOYAGE\n");
             
     }
+        public int ChoisirNbPassager()
+        {
+          return Aleatoire.random(2, 5);
+        }
         
-    public static Date parseDate(String date) {
+        public InfoPrincipale ChoisirInfoPrincipale(String CodeVoyage)
+        {
+            int TailleListeInfoPrincipale = VoyageDao.findVoyageByCodeVoayge(CodeVoyage).size();
+            if (TailleListeInfoPrincipale >0)
+            {
+                int indexInfoPrincipale = Aleatoire.random(0, TailleListeInfoPrincipale);
+  
+            }
+            
+        }
+        
+        
+         public static Date parseDate(String date) {
         try {
             return USR_BIRTH_DATE.parse(date);
         } catch (ParseException ex) {
             return new Date();
+            }
         }
-    }
 }
