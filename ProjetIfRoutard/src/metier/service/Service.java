@@ -561,10 +561,10 @@ public class Service {
         if (choixMode.equals("T") || choixMode.equals("t")) {
             System.out.println("Choisissez C pour Circuit ou S pour Séjour");
             String type = Saisie.lireChaine("TYPE\n");
-            if (type.equals("C")) {
+            if (type.equals("C") || type.equals("c")) {
                 listerCircuits();
 
-            } else if (type.equals("S")) {
+            } else if (type.equals("S") || type.equals("s")) {
                 listerSejours();
             }
             System.out.println("Choisissez un voyage : ");
