@@ -10,8 +10,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import metier.modele.Client;
-import metier.modele.Pays;
 import metier.service.Service;
 
 /**
