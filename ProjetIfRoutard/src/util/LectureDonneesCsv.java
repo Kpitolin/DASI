@@ -29,6 +29,8 @@ public class LectureDonneesCsv {
     public static final String fichierDeparts = cheminFichier+"IFRoutard-Departs.csv";
     public static final String fichierCircuits = cheminFichier+"IFRoutard-Circuits.csv";
     public static final String fichierSejours = cheminFichier+"IFRoutard-Sejours.csv";
+    public static final String fichierConseillers = cheminFichier+"IFRoutard-Conseillers.csv";
+
     public static int NBLIGNES = 10;
 
     /**
@@ -253,9 +255,7 @@ public class LectureDonneesCsv {
         String adresse = descriptionConseiller[4];
         String telephone = descriptionConseiller[5];
         String email = descriptionConseiller[6];
-        //System.out.println("Client: "+  civilite + " " + nom + " " + prenom + 
-               // ", né le " + formatDate(dateNaissance) + ", habitant à " + 
-                //adresse + ", téléphone: " + telephone + ", e-mail: " + email);
+        
         String[] PaysConseilles = new String[descriptionConseiller.length - 7];
         for (int tailletab = 0; tailletab <descriptionConseiller.length - 7;
                 tailletab++)
@@ -464,13 +464,30 @@ public class LectureDonneesCsv {
         }
 
     }
+           public static void initConseillers() {
         
+        try {
+          
+            LectureDonneesCsv lectureDonneesCsv_Conseillers = new LectureDonneesCsv(fichierConseillers);
+      
+            lectureDonneesCsv_Conseillers.lireConseiller(NBLIGNES);
+            
+            lectureDonneesCsv_Conseillers.fermer();
+            
+        
+        } catch (IOException ex) {
+            ex.printStackTrace(System.err);
+        }
+
+    }
         public static void initAll(){
             initPays();
-            initClient();
+            initConseillers();
             initCircuits();
             initSejours();
             initDeparts();
+            initClient();
+            
             
         }
      
