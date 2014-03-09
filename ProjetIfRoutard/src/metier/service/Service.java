@@ -178,9 +178,7 @@ public class Service {
         JpaUtil.merge(pays);
         JpaUtil.validerTransaction();
     }
-    public static void miseAjour(Object o) {
-        JpaUtil.merge(o);
-    }
+
 
     public static void listerTousLesPays() {
 
