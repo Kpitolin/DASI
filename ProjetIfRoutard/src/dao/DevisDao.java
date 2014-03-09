@@ -32,10 +32,15 @@ public class DevisDao {
             query.setParameter("nomPays", d.getVoyageDuDevis().getPaysDuVoyage().getNom());
             //Conseiller conseiller = (Conseiller) query.getSingleResult();
             query.setMaxResults(MAXRESULT);
-            Conseiller conseiller = (Conseiller) query.getSingleResult();
-            if (conseiller == null) {
+            
+            if (query.getSingleResult() == null) {
                 throw  new EntityNotFoundException("Impossible de trouver conseiller pour le pays :  " + d.getVoyageDuDevis().getPaysDuVoyage().getNom() );
                 }
+            else 
+            {
+                Conseiller conseiller = (Conseiller) query.getSingleResult();
+            }
+            
             return conseiller;
     }
 }
