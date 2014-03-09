@@ -147,6 +147,7 @@ public class ProjetIfRoutard {
        Service.creerClient("M", "Cot", "ga", "27-01-1993", "chap", "01456", "gc@mail.fr");
        //Service.choisirConseiller(d);
        JpaUtil.validerTransaction();
+       
        JpaUtil.ouvrirTransaction();
         System.out.println(ClientDao.findClientByMail("gc@mail.fr"));
        Service.creerDevis("FGHJK1", "gc@mail.fr");
@@ -176,6 +177,16 @@ public class ProjetIfRoutard {
        System.out.println("Test creation inforincipale");
        Service.creerInfoPrincipale("toulouse", "10-03-2014", 1248, "Boeing", "FGHJK3");
        JpaUtil.validerTransaction();
+       
+       JpaUtil.ouvrirTransaction();
+       System.out.println("Test creation sejour");
+       Service.creerSejour("igloo", "BEL", "BELTOL", "Nanouk", 10000,
+               "Vivez les expériences d'un esquimeau en belgique");
+       JpaUtil.validerTransaction();
+       
+
+       
+       
        for(;;)
        {
            String str = Saisie.lireChaine("Taper D pour renter un devis ou taper C pour créer un client Et Q pour quitter\n");
