@@ -164,7 +164,7 @@ public class ProjetIfRoutard {
        for(;;)
        {
            String str = Saisie.lireChaine("Taper D pour renter un devis ou taper C pour créer un client Et Q pour quitter\n");
-           System.out.println("Taper ");
+           System.out.println("Taper LV, LC, ou LP pour lister les voyages, les clients ou les pays ");
            
            if( str.equals("C") || str.equals("c"))
            {
