@@ -134,9 +134,7 @@ public class Service {
         JpaUtil.validerTransaction();
     }
 
-    public static void creerInfoPrincipale(InfoPrincipale info) {
-
-    }
+    
 
     public static void creerInfoPrincipale(String villeDepart, String DateDepart,
             int Prix, String transport, String codeVoyage) {
@@ -333,15 +331,67 @@ public class Service {
 
     public static void SaisirDevis() {
         String[] descriptionDevis = new String[4];
+        String choixMode = "";
         System.out.println("Identifiez-vous : ");
 
         descriptionDevis[0] = Saisie.lireChaine("ADDRESSE EMAIL CLIENT\n");
-        listerTousLesVoyages();
-        System.out.println("Choisissez un voyage : ");
+        System.out.println("Choisissez un mode de choix : "
+                + "\n Par pays et type (PT) \n"
+                + "Par Pays (P) "
+                + "\n Par Type (T)\n"
+                + "Depuis catalogue entier (C) \n");
+        choixMode = Saisie.lireChaine("MODE CHOIX\n");
+
+        if(choixMode.equals("C")) {
+            listerTousLesVoyages();
+             System.out.println("Choisissez un voyage : ");
         descriptionDevis[1] = Saisie.lireChaine("CODE VOYAGE\n");
          System.out.println("Choix des caractéristiques ");
-        descriptionDevis[2] = Saisie.lireChaine("CHOIX DEPART\n");
+        descriptionDevis[2] = Saisie.lireChaine("CODE CHOIX\n");
         descriptionDevis[3] = Saisie.lireChaine("NOMBRE PARTICIPANTS\n");
+        } 
+        if(choixMode.equals("P")){
+            listerTousLesPays();
+             System.out.println("Choisissez un pays : ");
+             String pays  = Saisie.lireChaine("CODE Pays\n");
+             listerVoyagesParPays(pays);
+             System.out.println("Choisissez un voyage : ");
+        descriptionDevis[1] = Saisie.lireChaine("CODE VOYAGE\n");
+         System.out.println("Choix des caractéristiques ");
+        descriptionDevis[2] = Saisie.lireChaine("CODE CHOIX\n");
+        descriptionDevis[3] = Saisie.lireChaine("NOMBRE PARTICIPANTS\n");
+        }
+         if(choixMode.equals("T")){
+            System.out.println("Choisissez C pour Circuit ou S pour Séjour");
+            String type = Saisie.lireChaine("TYPE\n");
+            if(type.equals("C")){
+                listerCircuits();
+                
+            }else if(type.equals("S")){
+                listerSejours();
+            }
+                System.out.println("Choisissez un voyage : ");
+        descriptionDevis[1] = Saisie.lireChaine("CODE VOYAGE\n");
+         System.out.println("Choix des caractéristiques ");
+        descriptionDevis[2] = Saisie.lireChaine("CODE CHOIX\n");
+        descriptionDevis[3] = Saisie.lireChaine("NOMBRE PARTICIPANTS\n");
+            
+        }
+         if(choixMode.equals("PT")){
+             listerTousLesPays();
+             System.out.println("Choisissez un pays : ");
+             String pays  = Saisie.lireChaine("CODE Pays\n");
+             System.out.println("Choisissez Circuit ou Sejour");
+            String type = Saisie.lireChaine("TYPE\n");
+             listerVoyagesParPaysEtType(pays, type);
+             System.out.println("Choisissez un voyage : ");
+        descriptionDevis[1] = Saisie.lireChaine("CODE VOYAGE\n");
+         System.out.println("Choix des caractéristiques ");
+        descriptionDevis[2] = Saisie.lireChaine("CODE CHOIX\n");
+        descriptionDevis[3] = Saisie.lireChaine("NOMBRE PARTICIPANTS\n");
+            
+        }
+       
 
         creerDevis(descriptionDevis[1], descriptionDevis[0], descriptionDevis[2], descriptionDevis[3]);
     }
