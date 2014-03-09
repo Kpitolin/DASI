@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
+        <file>
+            <url>src/metier/service/Service.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>43</line>
+                <key/>
+            </bookmark>
+            <bookmark id="2">
+                <name/>
+                <line>213</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Ordi/Documents/NetBeansProjects/DASI-master/ProjetIfRoutard/src/util/LectureDonneesCsv.java</file>
-            <file>file:/C:/Users/Ordi/Documents/NetBeansProjects/DASI-master/ProjetIfRoutard/src/vue/ProjetIfRoutard.java</file>
-            <file>file:/C:/Users/Ordi/Documents/NetBeansProjects/DASI-master/ProjetIfRoutard/src/dao/DevisDao.java</file>
-            <file>file:/C:/Users/Ordi/Documents/NetBeansProjects/DASI-master/ProjetIfRoutard/src/META-INF/persistence.xml</file>
+            <file>file:/C:/Users/Ordi/Documents/NetBeansProjects/DASI/ProjetIfRoutard/src/metier/modele/Client.java</file>
+            <file>file:/C:/Users/Ordi/Documents/NetBeansProjects/DASI/ProjetIfRoutard/src/dao/JpaUtil.java</file>
+            <file>file:/C:/Users/Ordi/Documents/NetBeansProjects/DASI/ProjetIfRoutard/src/metier/service/Service.java</file>
+            <file>file:/C:/Users/Ordi/Documents/NetBeansProjects/DASI/ProjetIfRoutard/src/metier/service/PersisteObjet.java</file>
+            <file>file:/C:/Users/Ordi/Documents/NetBeansProjects/DASI/ProjetIfRoutard/src/META-INF/persistence.xml</file>
+            <file>file:/C:/Users/Ordi/Documents/NetBeansProjects/DASI/ProjetIfRoutard/src/vue/ProjetIfRoutard.java</file>
         </group>
     </open-files>
 </project-private>
