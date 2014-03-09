@@ -67,7 +67,7 @@ public class ProjetIfRoutard {
         JpaUtil.creerEntityManager();
         JpaUtil.ouvrirTransaction();
         
-        ServiceInit.initialisation();
+        //ServiceInit.initialisation();
         
        Sejour s = new Sejour ("Hotel 5 etoiles","FR","FGHJK" ,"Voyage à Meulun" ,3650 , "Une escursion magnifique dans la vielle ville de meulun en bus");
        Service.creerSejour(s);
@@ -78,7 +78,7 @@ public class ProjetIfRoutard {
        Circuit c = new Circuit ("jeep",11232,"BEL","FGHJK" ,"Visite du plat pays" ,100 , "Vélo et randonée");
        Service.creerCircuit(c);
        
-       Circuit c2 = new Circuit ("jeep",11232,"FR","FGHJK" ,"Visite " ,100 , "randonée");
+       Circuit c2 = new Circuit ("jeep",11232,"BEL","FGHJK" ,"Visite " ,100 , "randonée");
        Service.creerCircuit(c2);
        
        

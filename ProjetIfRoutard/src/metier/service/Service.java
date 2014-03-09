@@ -4,6 +4,7 @@
  */
 package metier.service;
 
+import dao.DevisDao;
 import dao.JpaUtil;
 import dao.PaysDao;
 import dao.VoyageDao;
@@ -159,6 +160,11 @@ public class Service {
     
    
     public static void choisirConseiller (Devis d) {
+         List<Conseiller> conseiller = DevisDao.choixConseiller(d);
+            for (int i = 0; i < conseiller.size(); i++) {
+
+                System.out.print(conseiller.get(i) + "\n");
+            }
    // d.setConseillerDevis(DevisDao.choixConseiller(d));
     
 }

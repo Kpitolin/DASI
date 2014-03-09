@@ -31,13 +31,12 @@ public class DevisDao {
     
     }
     
-    
-        // select c from Conseiller e join e.attributDeCPointantC unNom
+         // select c from Conseiller e join e.attributDeCPointantC unNom
 
     public static List<Conseiller> choixConseiller(Devis d){
          EntityManagerFactory emf =  Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
             EntityManager em = emf.createEntityManager();
-            Query query = em.createQuery("Select conseillers from Conseiller cons join Pays.conseillers where Pays.nom = :nomPays")  ;
+            Query query = em.createQuery("select conseillers from Pays pays join pays.conseillers conseillers where pays.nom = :nomPays and SIZE(conseillers.clients) = 0 ")  ;
             query.setParameter("nomPays", d.getVoyageDuDevis().getPaysDuVoyage().getNom());
             //Conseiller conseiller = (Conseiller) query.getSingleResult();
             List<Conseiller> conseiller = (List<Conseiller>) query.getResultList();
