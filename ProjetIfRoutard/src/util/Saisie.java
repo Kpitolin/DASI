@@ -28,11 +28,12 @@ public class Saisie {
         } catch (java.lang.NumberFormatException e) {
             System.out.println("erreur de saisie");
             valeurLue = lireInteger(invite);
-        }      
+        }
         return valeurLue;
     }
 
-     public static Integer lireInteger(String invite, List<Integer> valeursPossibles) {
+    public static Integer lireInteger(String invite,
+            List<Integer> valeursPossibles) {
         Integer valeurLue = null;
         try {
             valeurLue = new Integer(lireChaine(invite));
@@ -45,7 +46,5 @@ public class Saisie {
         }
         return valeurLue;
     }
-            
+
 }
-
-

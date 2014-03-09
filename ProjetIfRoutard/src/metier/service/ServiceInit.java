@@ -12,6 +12,9 @@ import util.LectureDonneesCsv;
  */
 public class ServiceInit {
     
+    /**
+     * Initialise toute la base de données.
+     */
     public static void initialisation () {
         LectureDonneesCsv.initAll();
     }

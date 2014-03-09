@@ -10,6 +10,7 @@ import javax.persistence.RollbackException;
  * fonctionnalités de JPA (Entity Manager, Entity Transaction). Le nom de
  * l'unité de persistance (PERSISTENCE_UNIT_NAME) doit être conforme à la
  * configuration indiquée dans le fichier persistence.xml du projet.
+ *
  * @author DASI Team
  */
 public class JpaUtil {
@@ -19,17 +20,21 @@ public class JpaUtil {
     // *************************************************************************************
     /**
      * Nom de l'unité de persistance utilisée par la Factory de Entity Manager.
-     * <br/><strong>Vérifier le nom de l'unité de persistance (cf.&nbsp;persistence.xml)</strong>
+     * <br/><strong>Vérifier le nom de l'unité de persistance
+     * (cf.&nbsp;persistence.xml)</strong>
      */
     public static final String PERSISTENCE_UNIT_NAME = "ProjetIfRoutardPU";
     /**
      * Factory de Entity Manager liée à l'unité de persistance.
-     * <br/><strong>Vérifier le nom de l'unité de persistance indiquée dans l'attribut statique PERSISTENCE_UNIT_NAME (cf.&nbsp;persistence.xml)</strong>
+     * <br/><strong>Vérifier le nom de l'unité de persistance indiquée dans
+     * l'attribut statique PERSISTENCE_UNIT_NAME
+     * (cf.&nbsp;persistence.xml)</strong>
      */
     private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
     /**
      * Gère les instances courantes de Entity Manager liées aux Threads.
-     * L'utilisation de ThreadLocal garantie une unique instance courante par Thread.
+     * L'utilisation de ThreadLocal garantie une unique instance courante par
+     * Thread.
      */
     private static final ThreadLocal<EntityManager> threadLocalEntityManager = new ThreadLocal<EntityManager>() {
 
@@ -91,6 +96,7 @@ public class JpaUtil {
     /**
      * Valide la transaction courante sur l'instance courante de Entity Manager.
      * <br/><strong>À utiliser uniquement au niveau Service.</strong>
+     *
      * @exception RollbackException lorsque le <em>commit</em> n'a pas réussi.
      */
     public static void validerTransaction() throws RollbackException {
@@ -101,7 +107,8 @@ public class JpaUtil {
 
     /**
      * Annule la transaction courante sur l'instance courante de Entity Manager.
-     * Si la transaction courante n'est pas démarrée, cette méthode n'effectue aucune opération.
+     * Si la transaction courante n'est pas démarrée, cette méthode n'effectue
+     * aucune opération.
      * <br/><strong>À utiliser uniquement au niveau Service.</strong>
      */
     public static void annulerTransaction() {
@@ -116,20 +123,19 @@ public class JpaUtil {
     /**
      * Retourne l'instance courante de Entity Manager.
      * <br/><strong>À utiliser uniquement au niveau DAO.</strong>
+     *
      * @return instance de Entity Manager
      */
     protected static EntityManager obtenirEntityManager() {
         log("obtention du contexte de persistance");
         return threadLocalEntityManager.get();
     }
-    
-    
-    
-    public static void persist (Object o){
+
+    public static void persist(Object o) {
         obtenirEntityManager().persist(o);
     }
-    
-    public static void merge (Object o){
+
+    public static void merge(Object o) {
         obtenirEntityManager().merge(o);
     }
 }

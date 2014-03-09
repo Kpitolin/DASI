@@ -19,11 +19,11 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Pays {
-    
+
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idPays;
-    
+
     private String nom;
     private String code;
     private String region;
@@ -32,12 +32,14 @@ public class Pays {
     private Float superficie;
     private Float population;
     private String regimePolitique;
-    @ManyToMany 
+    @ManyToMany
     List<Conseiller> conseillers = new ArrayList();
-    @OneToMany(mappedBy="paysDuVoyage")
+    @OneToMany(mappedBy = "paysDuVoyage")
     List<Voyage> voyages = new ArrayList<Voyage>();
 
-    public Pays(String nom, String code, String region, String capitale, String langues, Float superficie, Float population, String regimePolitique) {
+    public Pays(String nom, String code, String region, String capitale,
+            String langues, Float superficie, Float population,
+            String regimePolitique) {
         this.nom = nom;
         this.code = code;
         this.region = region;
@@ -46,7 +48,7 @@ public class Pays {
         this.superficie = superficie;
         this.population = population;
         this.regimePolitique = regimePolitique;
-        
+
     }
 
     public Pays() {
@@ -55,7 +57,7 @@ public class Pays {
     public Integer getIdPays() {
         return idPays;
     }
-    
+
     public String getNom() {
         return nom;
     }
@@ -128,14 +130,12 @@ public class Pays {
         this.conseillers = conseillers;
     }
 
-    
-    
     @Override
     public String toString() {
-        return "Pays{" + "nom=" + nom + ", code=" + code + ", region=" + region + ", capitale=" + capitale + ", langues=" + langues + ", superficie=" + superficie + ", population=" + population + ", regimePolitique=" + regimePolitique + /*", conseillers=" + conseillers + */'}';
+        return "Pays{" + "nom=" + nom + ", code=" + code + ", region=" + region + ", capitale=" + capitale + ", langues=" + langues + ", superficie=" + superficie + ", population=" + population + ", regimePolitique=" + regimePolitique + /*", conseillers=" + conseillers + */ '}';
     }
-    
-    public Conseiller chooseConseiller(){
+
+    public Conseiller chooseConseiller() {
         return new Conseiller();
     }
 
@@ -148,22 +148,19 @@ public class Pays {
             return false;
         }
         final Pays other = (Pays) obj;
-        if ((this.code == null) ? (other.code != null) : !this.code.equals(other.code)) {
+        if ((this.code == null) ? (other.code != null)
+                : !this.code.equals(other.code)) {
             return false;
         }
         return true;
     }
 
-
     public void addConseillers(Conseiller conseiller) {
         this.conseillers.add(conseiller);
     }
-    
-        public void addVoyage( Voyage voyage)
-        {
-            this.voyages.add(voyage);
-        }
-    
-  
-    
+
+    public void addVoyage(Voyage voyage) {
+        this.voyages.add(voyage);
+    }
+
 }

@@ -20,27 +20,27 @@ import javax.persistence.OneToMany;
  * @author Administrateur
  */
 @Entity
-@Inheritance (strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Voyage {
-    
-    
-@Id
-@GeneratedValue(strategy= GenerationType.AUTO)
 
-protected Integer idVoyage;    
-protected String CodePays;
-protected String CodeVoyage;
-protected String Intitule;
-protected Integer Duree;
-protected String Description;
-@ManyToOne
-protected Pays paysDuVoyage;
-@OneToMany (mappedBy = "voyageAssocie")
-List <InfoPrincipale> infos = new ArrayList <InfoPrincipale> ();
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
+    protected Integer idVoyage;
+    protected String CodePays;
+    protected String CodeVoyage;
+    protected String Intitule;
+    protected Integer Duree;
+    protected String Description;
+    @ManyToOne
+    protected Pays paysDuVoyage;
+    @OneToMany(mappedBy = "voyageAssocie")
+    List<InfoPrincipale> infos = new ArrayList<InfoPrincipale>();
+
     public Voyage() {
     }
 
-    public Voyage(String CodePays, String CodeVoyage, String Intitule, 
+    public Voyage(String CodePays, String CodeVoyage, String Intitule,
             Integer Duree, String Description) {
         this.CodePays = CodePays;
         this.CodeVoyage = CodeVoyage;
@@ -51,12 +51,11 @@ List <InfoPrincipale> infos = new ArrayList <InfoPrincipale> ();
 
     @Override
     public String toString() {
-        return "Voyage  : " + "CodePays=" + CodePays + ", CodeVoyage=" + 
-                CodeVoyage + ", Intitule=" + Intitule + ", Duree=" + 
-                Duree + "\n Description: \n" + Description +"\n";
+        return "Voyage  : " + "CodePays=" + CodePays + ", CodeVoyage="
+                + CodeVoyage + ", Intitule=" + Intitule + ", Duree="
+                + Duree + "\n Description: \n" + Description + "\n";
     }
 
- 
     public String getCodePays() {
         return CodePays;
     }
@@ -80,8 +79,7 @@ List <InfoPrincipale> infos = new ArrayList <InfoPrincipale> ();
     public Integer getIdVoyage() {
         return idVoyage;
     }
-    
-    
+
     public void setCodePays(String CodePays) {
         this.CodePays = CodePays;
     }
@@ -109,29 +107,22 @@ List <InfoPrincipale> infos = new ArrayList <InfoPrincipale> ();
     public void setPaysDuVoyage(Pays paysDuVoyage) {
         this.paysDuVoyage = paysDuVoyage;
     }
-    
-    public void addInfos (InfoPrincipale info){
+
+    public void addInfos(InfoPrincipale info) {
         this.infos.add(info);
     }
-    public String descriptionPourCatalogue (){
-    String chaine = "";  
-    
-    chaine +=toString();
-    for (int i = 0; i < this.infos.size(); i++) {
 
-                chaine += "   Choix " + (i+1) + " : \n" + this.infos.get(i).toString()+"\n";
+    public String descriptionPourCatalogue() {
+        String chaine = "";
+
+        chaine += toString();
+        for (int i = 0; i < this.infos.size(); i++) {
+
+            chaine += "   Choix " + (i + 1) + " : \n" + 
+                    this.infos.get(i).toString() + "\n";
         }
-    
-    return chaine;
-}
-   
 
+        return chaine;
+    }
 
-    
-    
-    
-    
-    
-    
-    
 }

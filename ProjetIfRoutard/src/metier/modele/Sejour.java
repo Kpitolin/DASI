@@ -11,9 +11,9 @@ import javax.persistence.Entity;
  * @author Administrateur
  */
 @Entity
-public class Sejour extends Voyage{
-    
-    private String Residence ;
+public class Sejour extends Voyage {
+
+    private String Residence;
 
     public Sejour() {
     }
@@ -26,7 +26,8 @@ public class Sejour extends Voyage{
         this.Residence = Residence;
     }
 
-    public Sejour(String Residence, String CodePays, String CodeVoyage, String Intitule, Integer Duree, String Description) {
+    public Sejour(String Residence, String CodePays, String CodeVoyage,
+            String Intitule, Integer Duree, String Description) {
         super(CodePays, CodeVoyage, Intitule, Duree, Description);
         this.Residence = Residence;
     }
@@ -36,18 +37,4 @@ public class Sejour extends Voyage{
         return super.toString() + "Residence=" + Residence + '}';
     }
 
-  
-
- 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

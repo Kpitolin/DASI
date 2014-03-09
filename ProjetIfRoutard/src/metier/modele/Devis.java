@@ -91,15 +91,22 @@ public class Devis {
 
     @Override
     public String toString() {
-        return "Devis {" + "dateDevis=" + dateDevis + ", voyageDuDevis=" + voyageDuDevis.getDescription() + "Client "+clientDevis+'}';
+        return "Devis {" + "dateDevis=" + dateDevis + ", voyageDuDevis="
+                + voyageDuDevis.getDescription() + "Client " + clientDevis + 
+                '}';
     }
-    
-    public String afficheDevis(){
-                return   " Le Devis a été établi le  : dateDevis=" + dateDevis + ", voyageDuDevis=" + voyageDuDevis.getDescription() + ", conseillerDevis=" + conseillerDevis.getNom()+" "+conseillerDevis.getPrenom() + ", nbPersonnes=" + nbPersonnes + ", choixCaracteristiques=" + choixCaracteristiques +"\n"+"Prix Total : "+calculePrix() +"€";
+
+    public String afficheDevis() {
+        return " Le Devis a été établi le  : dateDevis=" + dateDevis + 
+                ", voyageDuDevis=" + voyageDuDevis.getDescription() + 
+                ", conseillerDevis=" + conseillerDevis.getNom() + " " + 
+                conseillerDevis.getPrenom() + ", nbPersonnes=" + nbPersonnes +
+                ", choixCaracteristiques=" + choixCaracteristiques + 
+                "\n" + "Prix Total : " + calculePrix() + "€";
 
     }
-    
-    public int calculePrix(){
-        return choixCaracteristiques.getTarif()*nbPersonnes;
+
+    public int calculePrix() {
+        return choixCaracteristiques.getTarif() * nbPersonnes;
     }
 }

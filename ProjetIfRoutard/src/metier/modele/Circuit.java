@@ -11,9 +11,7 @@ import javax.persistence.Entity;
  * @author Administrateur
  */
 @Entity
-public class Circuit extends Voyage{
-    
-    
+public class Circuit extends Voyage {
 
     private String Transport;
     private Integer Kilometres;
@@ -21,7 +19,9 @@ public class Circuit extends Voyage{
     public Circuit() {
     }
 
-    public Circuit(String Transport, Integer Kilometres, String CodePays, String CodeVoyage, String Intitule, Integer Duree, String Description) {
+    public Circuit(String Transport, Integer Kilometres, String CodePays,
+            String CodeVoyage, String Intitule, Integer Duree,
+            String Description) {
         super(CodePays, CodeVoyage, Intitule, Duree, Description);
         this.Transport = Transport;
         this.Kilometres = Kilometres;
@@ -29,12 +29,10 @@ public class Circuit extends Voyage{
 
     @Override
     public String toString() {
-        return super.toString() + "Transport=" + Transport + ", Kilometres=" + Kilometres + '}';
+        return super.toString() + "Transport=" + Transport + ", Kilometres="
+                + Kilometres + '}';
     }
-    
 
- 
-    
     public String getTransport() {
         return Transport;
     }
@@ -50,8 +48,5 @@ public class Circuit extends Voyage{
     public void setKilometres(Integer Kilometres) {
         this.Kilometres = Kilometres;
     }
-    
-    
-    
-    
+
 }

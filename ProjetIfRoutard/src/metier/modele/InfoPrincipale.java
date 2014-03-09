@@ -21,9 +21,9 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class InfoPrincipale {
-    
+
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer IdInfoPrincipale;
     private String codeInfoPrincipale;
     private String villeDepart;
@@ -39,29 +39,31 @@ public class InfoPrincipale {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 83 * hash + (this.IdInfoPrincipale != null ? this.IdInfoPrincipale.hashCode() : 0);
-        hash = 83 * hash + (this.codeInfoPrincipale != null ? this.codeInfoPrincipale.hashCode() : 0);
-        hash = 83 * hash + (this.villeDepart != null ? this.villeDepart.hashCode() : 0);
-        hash = 83 * hash + (this.dateDepart != null ? this.dateDepart.hashCode() : 0);
-        hash = 83 * hash + (this.tarif != null ? this.tarif.hashCode() : 0);
-        hash = 83 * hash + (this.Transport != null ? this.Transport.hashCode() : 0);
+        hash = 83 * hash + (this.IdInfoPrincipale
+                != null ? this.IdInfoPrincipale.hashCode() : 0);
+        hash = 83 * hash + (this.codeInfoPrincipale
+                != null ? this.codeInfoPrincipale.hashCode() : 0);
+        hash = 83 * hash + (this.villeDepart
+                != null ? this.villeDepart.hashCode() : 0);
+        hash = 83 * hash + (this.dateDepart
+                != null ? this.dateDepart.hashCode() : 0);
+        hash = 83 * hash + (this.tarif
+                != null ? this.tarif.hashCode() : 0);
+        hash = 83 * hash + (this.Transport
+                != null ? this.Transport.hashCode() : 0);
         return hash;
     }
 
-    
-    
-    
-    
-    
     public InfoPrincipale() {
     }
 
-    public InfoPrincipale(String villeDepart, Date dateDepart, Integer tarif, String Transport) {
+    public InfoPrincipale(String villeDepart, Date dateDepart, Integer tarif,
+            String Transport) {
         this.villeDepart = villeDepart;
         this.dateDepart = dateDepart;
         this.tarif = tarif;
         this.Transport = Transport;
-        setCodeInfoPrincipale(hashCode()+"");
+        setCodeInfoPrincipale(hashCode() + "");
     }
 
     public String getCodeInfoPrincipale() {
@@ -72,8 +74,6 @@ public class InfoPrincipale {
         this.codeInfoPrincipale = codeInfoPrincipale;
     }
 
-    
-        
     public Integer getIdInfoPrincipale() {
         return IdInfoPrincipale;
     }
@@ -82,7 +82,7 @@ public class InfoPrincipale {
         return villeDepart;
     }
 
-    public void setVilleDepart(String villeDepart)  {
+    public void setVilleDepart(String villeDepart) {
         this.villeDepart = villeDepart;
     }
 
@@ -120,8 +120,9 @@ public class InfoPrincipale {
 
     @Override
     public String toString() {
-        return  "Code : "+codeInfoPrincipale + " villeDepart=" + villeDepart + ", dateDepart=" + dateDepart + ", tarif=" + tarif + ", Transport=" + Transport ;
+        return "Code : " + codeInfoPrincipale + " villeDepart=" + villeDepart
+                + ", dateDepart=" + dateDepart + ", tarif=" + tarif
+                + ", Transport=" + Transport;
     }
-    
-    
+
 }

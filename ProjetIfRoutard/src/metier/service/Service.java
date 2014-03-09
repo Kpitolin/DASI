@@ -40,7 +40,8 @@ public class Service {
             = new SimpleDateFormat("dd-MM-yyyy");
     protected static DateFormat US_DATE_FORMAT
             = new SimpleDateFormat("yyyy-MM-dd");
-     /**
+
+    /**
      * Cette méthode créée un Devis à partir du code du voyage et de l'adresse
      * mail du client, du Départ (infosPrincipale) et du nombre de personnes
      * demandant le devis. Les liens entre les entités se font automatiquement.
@@ -51,12 +52,15 @@ public class Service {
      * @param CodeVoyage
      * @param addresseMailClient
      * @param choixInfos
-     * @param nbPersonnes 
+     * @param nbPersonnes
      */
-    public static void creerDevis(String CodeVoyage, String addresseMailClient, String choixInfos, String nbPersonnes) {
+    public static void creerDevis(String CodeVoyage, String addresseMailClient,
+            String choixInfos, String nbPersonnes) {
         JpaUtil.ouvrirTransaction();
-        Date currentDate = new Date(new GregorianCalendar().getTime().getTime());
-        Devis d = new Devis(currentDate, VoyageDao.findVoyageByCodeVoyage(CodeVoyage),
+        Date currentDate
+                = new Date(new GregorianCalendar().getTime().getTime());
+        Devis d = new Devis(currentDate,
+                VoyageDao.findVoyageByCodeVoyage(CodeVoyage),
                 ClientDao.findClientByMail(addresseMailClient));
         JpaUtil.persist(d);
 
@@ -65,7 +69,8 @@ public class Service {
         if (choisirConseiller(d)) {
             JpaUtil.ouvrirTransaction();
             d.setNbPersonnes(Integer.parseInt(nbPersonnes));
-            d.setChoixCaracteristiques(InfoPrincipaleDao.findInfoByCodeInfo(choixInfos));
+            InfoPrincipale i = InfoPrincipaleDao.findInfoByCodeInfo(choixInfos);
+            d.setChoixCaracteristiques(i);
 
             JpaUtil.merge(d);
             d.getClientDevis().addDevis(d);
@@ -78,6 +83,7 @@ public class Service {
         }
 
     }
+
     /**
      * Cette méthode créée un Devis à partir du code du voyage et de l'adresse
      * mail du client demandant le devis. Les liens entre les entités se font
@@ -90,10 +96,13 @@ public class Service {
      * @param CodeVoyage
      * @param addresseMailClient
      */
-    public static void creerDevis(String CodeVoyage, String addresseMailClient) {
+    public static void creerDevis(String CodeVoyage,
+            String addresseMailClient) {
         JpaUtil.ouvrirTransaction();
-        Date currentDate = new Date(new GregorianCalendar().getTime().getTime());
-        Devis d = new Devis(currentDate, VoyageDao.findVoyageByCodeVoyage(CodeVoyage),
+        Date currentDate
+                = new Date(new GregorianCalendar().getTime().getTime());
+        Devis d = new Devis(currentDate,
+                VoyageDao.findVoyageByCodeVoyage(CodeVoyage),
                 ClientDao.findClientByMail(addresseMailClient));
         JpaUtil.persist(d);
 
@@ -115,7 +124,7 @@ public class Service {
         }
 
     }
-    
+
     /**
      * Cette méthode créée un Client à partir de ses caractéritique. La date
      * doit être une chaine de caractère de format "AAAA-MM-JJ". L'envoie du
@@ -136,7 +145,8 @@ public class Service {
     public static void creerClient(String Civilite, String Nom, String prenom,
             String Date, String Adresse, String telephone, String mail) {
         JpaUtil.ouvrirTransaction();
-        Client c = new Client(Civilite, Nom, prenom, parseDateUsFormat(Date), Adresse, telephone, mail);
+        Client c = new Client(Civilite, Nom, prenom, parseDateUsFormat(Date),
+                Adresse, telephone, mail);
 
         JpaUtil.persist(c);
         System.out.println(c);
@@ -145,6 +155,7 @@ public class Service {
 
         JpaUtil.validerTransaction();
     }
+
     /**
      * Cette méthode créée un Pays à partir des ses caractéristiques. Le pays
      * est également ajouté à la base de données.
@@ -170,7 +181,7 @@ public class Service {
 
         JpaUtil.validerTransaction();
     }
-    
+
     /**
      * Cette méthode créée un Conseiller à partir de ses paramètres puis le
      * conseiller est enregistré dans la base de données.Le paramètre
@@ -187,8 +198,9 @@ public class Service {
      * @param mail
      * @param CodePaysConseilles
      */
-    public static void creerConseiller(String Civilite, String Nom, String prenom,
-            String Date, String Adresse, String telephone, String mail, String[] CodePaysConseilles) {
+    public static void creerConseiller(String Civilite, String Nom,
+            String prenom, String Date, String Adresse, String telephone,
+            String mail, String[] CodePaysConseilles) {
         JpaUtil.ouvrirTransaction();
         Conseiller c = new Conseiller(Civilite, Nom, prenom,
                 parseDateUsFormat(Date), Adresse, telephone, mail);
@@ -218,8 +230,8 @@ public class Service {
      * @param transport
      * @param codeVoyage
      */
-    public static void creerInfoPrincipale(String villeDepart, String dateDepart,
-            int Prix, String transport, String codeVoyage) {
+    public static void creerInfoPrincipale(String villeDepart,
+            String dateDepart, int Prix, String transport, String codeVoyage) {
         JpaUtil.ouvrirTransaction();
 
         InfoPrincipale iP = new InfoPrincipale(villeDepart,
@@ -265,7 +277,7 @@ public class Service {
         JpaUtil.merge(pays);
         JpaUtil.validerTransaction();
     }
-    
+
     /**
      * Cette méthode créée un Sejour à partir de ses caractéristiques. Le Pays
      * ayant le code pays codePays doit être présent dans la base de donées. Le
@@ -294,7 +306,7 @@ public class Service {
         JpaUtil.merge(pays);
         JpaUtil.validerTransaction();
     }
-    
+
     /**
      * Cette Méthode affiche la liste de tous les Pays contenus dasn la base de
      * données avec leurs caractéristiques.
@@ -461,7 +473,8 @@ public class Service {
             List<Sejour> voyages = VoyageDao.listerSejoursParPays(nomPays);
             for (int i = 0; i < voyages.size(); i++) {
 
-                System.out.print(voyages.get(i).descriptionPourCatalogue() + "\n");
+                System.out.print(voyages.get(i).descriptionPourCatalogue()
+                        + "\n");
             }
             if (voyages.isEmpty()) {
                 System.out.println("Aucun séjour pour le pays " + nomPays);
@@ -470,7 +483,8 @@ public class Service {
             List<Circuit> voyages = VoyageDao.listerCircuitsParPays(nomPays);
             for (int i = 0; i < voyages.size(); i++) {
 
-                System.out.print(voyages.get(i).descriptionPourCatalogue() + "\n");
+                System.out.print(voyages.get(i).descriptionPourCatalogue()
+                        + "\n");
             }
             if (voyages.isEmpty()) {
                 System.out.println("Aucun Circuit pour le pays " + nomPays);
@@ -523,58 +537,58 @@ public class Service {
                 + "Depuis catalogue entier (C) \n");
         choixMode = Saisie.lireChaine("MODE CHOIX\n");
 
-        if(choixMode.equals("C")) {
+        if (choixMode.equals("C")) {
             listerTousLesVoyages();
-             System.out.println("Choisissez un voyage : ");
-        descriptionDevis[1] = Saisie.lireChaine("CODE VOYAGE\n");
-         System.out.println("Choix des caractéristiques ");
-        descriptionDevis[2] = Saisie.lireChaine("CODE CHOIX\n");
-        descriptionDevis[3] = Saisie.lireChaine("NOMBRE PARTICIPANTS\n");
-        } 
-        if(choixMode.equals("P")){
-            listerTousLesPays();
-             System.out.println("Choisissez un pays : ");
-             String pays  = Saisie.lireChaine("CODE Pays\n");
-             listerVoyagesParPays(pays);
-             System.out.println("Choisissez un voyage : ");
-        descriptionDevis[1] = Saisie.lireChaine("CODE VOYAGE\n");
-         System.out.println("Choix des caractéristiques ");
-        descriptionDevis[2] = Saisie.lireChaine("CODE CHOIX\n");
-        descriptionDevis[3] = Saisie.lireChaine("NOMBRE PARTICIPANTS\n");
+            System.out.println("Choisissez un voyage : ");
+            descriptionDevis[1] = Saisie.lireChaine("CODE VOYAGE\n");
+            System.out.println("Choix des caractéristiques ");
+            descriptionDevis[2] = Saisie.lireChaine("CODE CHOIX\n");
+            descriptionDevis[3] = Saisie.lireChaine("NOMBRE PARTICIPANTS\n");
         }
-         if(choixMode.equals("T")){
+        if (choixMode.equals("P")) {
+            listerTousLesPays();
+            System.out.println("Choisissez un pays : ");
+            String pays = Saisie.lireChaine("CODE Pays\n");
+            listerVoyagesParPays(pays);
+            System.out.println("Choisissez un voyage : ");
+            descriptionDevis[1] = Saisie.lireChaine("CODE VOYAGE\n");
+            System.out.println("Choix des caractéristiques ");
+            descriptionDevis[2] = Saisie.lireChaine("CODE CHOIX\n");
+            descriptionDevis[3] = Saisie.lireChaine("NOMBRE PARTICIPANTS\n");
+        }
+        if (choixMode.equals("T")) {
             System.out.println("Choisissez C pour Circuit ou S pour Séjour");
             String type = Saisie.lireChaine("TYPE\n");
-            if(type.equals("C")){
+            if (type.equals("C")) {
                 listerCircuits();
-                
-            }else if(type.equals("S")){
+
+            } else if (type.equals("S")) {
                 listerSejours();
             }
-                System.out.println("Choisissez un voyage : ");
-        descriptionDevis[1] = Saisie.lireChaine("CODE VOYAGE\n");
-         System.out.println("Choix des caractéristiques ");
-        descriptionDevis[2] = Saisie.lireChaine("CODE CHOIX\n");
-        descriptionDevis[3] = Saisie.lireChaine("NOMBRE PARTICIPANTS\n");
-            
-        }
-         if(choixMode.equals("PT")){
-             listerTousLesPays();
-             System.out.println("Choisissez un pays : ");
-             String pays  = Saisie.lireChaine("CODE Pays\n");
-             System.out.println("Choisissez Circuit ou Sejour");
-            String type = Saisie.lireChaine("TYPE\n");
-             listerVoyagesParPaysEtType(pays, type);
-             System.out.println("Choisissez un voyage : ");
-        descriptionDevis[1] = Saisie.lireChaine("CODE VOYAGE\n");
-         System.out.println("Choix des caractéristiques ");
-        descriptionDevis[2] = Saisie.lireChaine("CODE CHOIX\n");
-        descriptionDevis[3] = Saisie.lireChaine("NOMBRE PARTICIPANTS\n");
-            
-        }
-       
+            System.out.println("Choisissez un voyage : ");
+            descriptionDevis[1] = Saisie.lireChaine("CODE VOYAGE\n");
+            System.out.println("Choix des caractéristiques ");
+            descriptionDevis[2] = Saisie.lireChaine("CODE CHOIX\n");
+            descriptionDevis[3] = Saisie.lireChaine("NOMBRE PARTICIPANTS\n");
 
-        creerDevis(descriptionDevis[1], descriptionDevis[0], descriptionDevis[2], descriptionDevis[3]);
+        }
+        if (choixMode.equals("PT")) {
+            listerTousLesPays();
+            System.out.println("Choisissez un pays : ");
+            String pays = Saisie.lireChaine("CODE Pays\n");
+            System.out.println("Choisissez Circuit ou Sejour");
+            String type = Saisie.lireChaine("TYPE\n");
+            listerVoyagesParPaysEtType(pays, type);
+            System.out.println("Choisissez un voyage : ");
+            descriptionDevis[1] = Saisie.lireChaine("CODE VOYAGE\n");
+            System.out.println("Choix des caractéristiques ");
+            descriptionDevis[2] = Saisie.lireChaine("CODE CHOIX\n");
+            descriptionDevis[3] = Saisie.lireChaine("NOMBRE PARTICIPANTS\n");
+
+        }
+
+        creerDevis(descriptionDevis[1], descriptionDevis[0],
+                descriptionDevis[2], descriptionDevis[3]);
     }
 
     /**
@@ -609,12 +623,13 @@ public class Service {
         return null;
     }
 
-     /**
-      * Cette méthode permet de transformer une chaine de caractère au format
-      * "AAAA-MM-JJ" en Date.
-      * @param date
-      * @return 
-      */
+    /**
+     * Cette méthode permet de transformer une chaine de caractère au format
+     * "AAAA-MM-JJ" en Date.
+     *
+     * @param date
+     * @return
+     */
     private static Date parseDateUsFormat(String date) {
         try {
             return US_DATE_FORMAT.parse(date);

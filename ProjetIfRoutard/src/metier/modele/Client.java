@@ -34,13 +34,15 @@ public class Client {
     private String telephone;
     private String email;
     private boolean autorisationPartenaires;
-    @OneToMany (mappedBy = "clientDevis")
-    private List <Devis> devisDuClient = new ArrayList<Devis>(); 
+    @OneToMany(mappedBy = "clientDevis")
+    private List<Devis> devisDuClient = new ArrayList<Devis>();
 
     public Client() {
     }
 
-    public Client(String civilite, String nom, String prenom, Date dateNaissance, String adresse, String telephone, String email) {
+    public Client(String civilite, String nom, String prenom,
+            Date dateNaissance, String adresse, String telephone,
+            String email) {
         this.civilite = civilite;
         this.nom = nom;
         this.prenom = prenom;
@@ -59,7 +61,8 @@ public class Client {
             return false;
         }
         final Client other = (Client) obj;
-        if (this.idClient != other.idClient && (this.idClient == null || !this.idClient.equals(other.idClient))) {
+        if (this.idClient != other.idClient && (this.idClient == null
+                || !this.idClient.equals(other.idClient))) {
             return false;
         }
         return true;
@@ -132,28 +135,27 @@ public class Client {
     public void setAutorisationPartenaires(boolean autorisationPartenaires) {
         this.autorisationPartenaires = autorisationPartenaires;
     }
-    
-    public void addDevis(Devis d)
-    {
+
+    public void addDevis(Devis d) {
         devisDuClient.add(d);
     }
 
     @Override
     public String toString() {
-        return "Client{" + "civilite=" + civilite + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance + ", adresse=" + adresse + ", telephone=" + telephone + ", email=" + email + '}';
+        return "Client{" + "civilite=" + civilite + ", nom=" + nom
+                + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance
+                + ", adresse=" + adresse + ", telephone=" + telephone
+                + ", email=" + email + '}';
     }
-    
+
     public String listeDevis() {
         String chaine = "";
-          for (int i = 0; i < this.devisDuClient.size(); i++) {
+        for (int i = 0; i < this.devisDuClient.size(); i++) {
 
-                chaine += "   Devis " + (i+1) + " : " + this.devisDuClient.get(i).afficheDevis()+"\n";
+            chaine += "   Devis " + (i + 1) + " : "
+                    + this.devisDuClient.get(i).afficheDevis() + "\n";
         }
-        
-        
-        
-        
-        
+
         return chaine;
     }
 }

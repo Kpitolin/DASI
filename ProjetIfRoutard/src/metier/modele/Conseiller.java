@@ -36,12 +36,14 @@ public class Conseiller {
     @ManyToMany(mappedBy = "conseillers")
     List<Pays> paysConseilles = new ArrayList();
     @OneToMany
-    List <Client> clients= new ArrayList();
+    List<Client> clients = new ArrayList();
 
     public Conseiller() {
     }
 
-    public Conseiller(String civilite, String nom, String prenom, Date dateNaissance, String adresse, String telephone, String email) {
+    public Conseiller(String civilite, String nom, String prenom,
+            Date dateNaissance, String adresse, String telephone,
+            String email) {
         this.civilite = civilite;
         this.nom = nom;
         this.prenom = prenom;
@@ -113,7 +115,10 @@ public class Conseiller {
 
     @Override
     public String toString() {
-        return "Conseiller{" + "civilite=" + civilite + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance + ", adresse=" + adresse + ", telephone=" + telephone + ", email=" + email + creeListePays() + '}';
+        return "Conseiller{" + "civilite=" + civilite + ", nom=" + nom
+                + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance
+                + ", adresse=" + adresse + ", telephone=" + telephone
+                + ", email=" + email + creeListePays() + '}';
     }
 
     public String creeListePays() {
@@ -121,7 +126,8 @@ public class Conseiller {
         String chaine = "";
         for (int i = 0; i < this.paysConseilles.size(); i++) {
 
-                chaine += ", pays" + i + " " + this.paysConseilles.get(i).getNom();
+            chaine += ", pays" + i + " "
+                    + this.paysConseilles.get(i).getNom();
         }
         return chaine;
     }
@@ -135,25 +141,33 @@ public class Conseiller {
             return false;
         }
         final Conseiller other = (Conseiller) obj;
-        if ((this.civilite == null) ? (other.civilite != null) : !this.civilite.equals(other.civilite)) {
+        if ((this.civilite == null) ? (other.civilite != null)
+                : !this.civilite.equals(other.civilite)) {
             return false;
         }
-        if ((this.nom == null) ? (other.nom != null) : !this.nom.equals(other.nom)) {
+        if ((this.nom == null) ? (other.nom != null)
+                : !this.nom.equals(other.nom)) {
             return false;
         }
-        if ((this.prenom == null) ? (other.prenom != null) : !this.prenom.equals(other.prenom)) {
+        if ((this.prenom == null) ? (other.prenom != null)
+                : !this.prenom.equals(other.prenom)) {
             return false;
         }
-        if (this.dateNaissance != other.dateNaissance && (this.dateNaissance == null || !this.dateNaissance.equals(other.dateNaissance))) {
+        if (this.dateNaissance != other.dateNaissance
+                && (this.dateNaissance == null
+                || !this.dateNaissance.equals(other.dateNaissance))) {
             return false;
         }
-        if ((this.adresse == null) ? (other.adresse != null) : !this.adresse.equals(other.adresse)) {
+        if ((this.adresse == null) ? (other.adresse != null)
+                : !this.adresse.equals(other.adresse)) {
             return false;
         }
-        if ((this.telephone == null) ? (other.telephone != null) : !this.telephone.equals(other.telephone)) {
+        if ((this.telephone == null) ? (other.telephone != null)
+                : !this.telephone.equals(other.telephone)) {
             return false;
         }
-        if ((this.email == null) ? (other.email != null) : !this.email.equals(other.email)) {
+        if ((this.email == null) ? (other.email != null)
+                : !this.email.equals(other.email)) {
             return false;
         }
         return true;
@@ -162,10 +176,8 @@ public class Conseiller {
     public void addPays(Pays pays) {
         this.paysConseilles.add(pays);
     }
-    
-    
+
     public void addClient(Client client) {
         this.clients.add(client);
     }
 }
-     
