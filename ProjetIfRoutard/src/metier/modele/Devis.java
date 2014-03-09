@@ -89,4 +89,10 @@ public class Devis {
         this.choixCaracteristiques = choixCaracteristiques;
     }
 
+    @Override
+    public String toString() {
+        return "Devis{" + "dateDevis=" + dateDevis + ", voyageDuDevis=" + voyageDuDevis + ", conseillerDevis=" + conseillerDevis + ", clientDevis=" + clientDevis + ", nbPersonnes=" + nbPersonnes + ", choixCaracteristiques=" + choixCaracteristiques + '}';
+    }
+    
+
 }

@@ -68,7 +68,7 @@ public class ProjetIfRoutard {
         JpaUtil.creerEntityManager();
         JpaUtil.ouvrirTransaction();
         
-        ServiceInit.initialisation();
+//        ServiceInit.initialisation();
         
        Sejour s = new Sejour ("Hotel 5 etoiles","FR","FGHJK1" ,"Voyage à Meulun" ,3650 , "Une escursion magnifique dans la vielle ville de meulun en bus");
        Service.creerSejour(s);
