@@ -115,18 +115,37 @@ public class Service {
 
     }
 
+    public static void creerInfoPrincipale(String villeDepart, String DateDepart,
+            int Prix, String transport, String codeVoyage)
+    {
+        InfoPrincipale iP = new InfoPrincipale(villeDepart, parseDate(DateDepart),
+                Prix, transport);
+        Voyage voyageAssocie = VoyageDao.findVoyageByCodeVoyage(codeVoyage);
+        iP.setVoyageAssocie(voyageAssocie);
+        creerInfoPrincipale(iP);
+        voyageAssocie.addInfos(iP);
+        JpaUtil.merge(voyageAssocie);
+    }
     public static void creerCircuit(Circuit circuit) {
         JpaUtil.persist(circuit);
         System.out.println(circuit);
 
     }
-
+    //public static void creerCircuit(Circuit circuit)
+    {
+        
+    }
+    
     public static void creerSejour(Sejour s) {
         JpaUtil.persist(s);
         System.out.println(s);
 
     }
 
+   // public static void creerSejour(Sejour s)
+    {
+        
+    }
     public static void miseAjour(Object o) {
         JpaUtil.merge(o);
     }
