@@ -39,39 +39,38 @@ public class Service {
     protected static DateFormat USR_BIRTH_DATE = new SimpleDateFormat("dd-MM-yyyy");
     protected static DateFormat US_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
-    
-    
-  public static void creerDevis(String CodeVoyage, String addresseMailClient , String choixInfos, String nbPersonnes){
-      JpaUtil.ouvrirTransaction();
+    public static void creerDevis(String CodeVoyage, String addresseMailClient, String choixInfos, String nbPersonnes) {
+        JpaUtil.ouvrirTransaction();
         Date currentDate = new Date(new GregorianCalendar().getTime().getTime());
         Devis d = new Devis(currentDate, VoyageDao.findVoyageByCodeVoyage(CodeVoyage),
                 ClientDao.findClientByMail(addresseMailClient));
-                JpaUtil.persist(d);
+        JpaUtil.persist(d);
 
         JpaUtil.validerTransaction();
-        
-           if (choisirConseiller(d)) {
+
+        if (choisirConseiller(d)) {
             JpaUtil.ouvrirTransaction();
             d.setNbPersonnes(Integer.parseInt(nbPersonnes));
             d.setChoixCaracteristiques(InfoPrincipaleDao.findInfoByCodeInfo(choixInfos));
-            
+
             JpaUtil.merge(d);
             d.getClientDevis().addDevis(d);
             JpaUtil.merge(d.getClientDevis());
             System.out.println(afficheDevis(d));
             JpaUtil.validerTransaction();
-            
+
         } else {
             JpaUtil.annulerTransaction();
         }
 
-  }
+    }
+
     public static void creerDevis(String CodeVoyage, String addresseMailClient) {
         JpaUtil.ouvrirTransaction();
         Date currentDate = new Date(new GregorianCalendar().getTime().getTime());
         Devis d = new Devis(currentDate, VoyageDao.findVoyageByCodeVoyage(CodeVoyage),
                 ClientDao.findClientByMail(addresseMailClient));
-                JpaUtil.persist(d);
+        JpaUtil.persist(d);
 
         JpaUtil.validerTransaction();
 
@@ -79,34 +78,31 @@ public class Service {
             JpaUtil.ouvrirTransaction();
             d.setNbPersonnes(ChoisirNbPassager());
             d.setChoixCaracteristiques(ChoisirInfoPrincipale(CodeVoyage));
-            
+
             JpaUtil.merge(d);
             d.getClientDevis().addDevis(d);
             JpaUtil.merge(d.getClientDevis());
             System.out.println(afficheDevis(d));
             JpaUtil.validerTransaction();
-            
+
         } else {
             JpaUtil.annulerTransaction();
         }
 
     }
 
-  
     public static void creerClient(String Civilite, String Nom, String prenom,
             String Date, String Adresse, String telephone, String mail) {
         JpaUtil.ouvrirTransaction();
         Client c = new Client(Civilite, Nom, prenom, parseDateUsFormat(Date), Adresse, telephone, mail);
-        
+
         JpaUtil.persist(c);
         System.out.println(c);
         c.setAutorisationPartenaires(true);
         System.out.println(envoyerMailPartenaires(c));
-        
+
         JpaUtil.validerTransaction();
     }
-
-    
 
     public static void creerPays(String nom, String code, String continent,
             String capitale, String langues, float superficie, float population,
@@ -114,14 +110,12 @@ public class Service {
         JpaUtil.ouvrirTransaction();
         Pays p = new Pays(nom, code, nom, capitale, langues, superficie,
                 population, regimePolitique);
-        
+
         JpaUtil.persist(p);
         System.out.println(p);
-        
+
         JpaUtil.validerTransaction();
     }
-
-   
 
     public static void creerConseiller(String Civilite, String Nom, String prenom,
             String Date, String Adresse, String telephone, String mail, String[] CodePaysConseilles) {
@@ -141,7 +135,6 @@ public class Service {
     }
 
     public static void creerInfoPrincipale(InfoPrincipale info) {
-        
 
     }
 
@@ -153,16 +146,15 @@ public class Service {
                 parseDateUsFormat(DateDepart), Prix, transport);
         Voyage voyageAssocie = VoyageDao.findVoyageByCodeVoyage(codeVoyage);
         iP.setVoyageAssocie(voyageAssocie);
-        
+
         JpaUtil.persist(iP);
         System.out.println(iP);
-        
+
         voyageAssocie.addInfos(iP);
         JpaUtil.merge(voyageAssocie);
         JpaUtil.validerTransaction();
     }
 
-  
     public static void creerCircuit(String moyenDeTransport, int kilometres,
             String codePays, String codeVoyage, String intitule, int duree,
             String description) {
@@ -171,16 +163,15 @@ public class Service {
                 intitule, duree, description);
         Pays pays = PaysDao.findPaysByCodePays(codePays);
         c.setPaysDuVoyage(pays);
-        
+
         JpaUtil.persist(c);
         System.out.println(c);
-        
+
         pays.addVoyage(c);
         JpaUtil.merge(pays);
         JpaUtil.validerTransaction();
     }
 
-    
     public static void creerSejour(String residence, String codePays,
             String codeVoyage, String intitule, int duree, String description) {
         JpaUtil.ouvrirTransaction();
@@ -188,16 +179,14 @@ public class Service {
                 description);
         Pays pays = PaysDao.findPaysByCodePays(codePays);
         s.setPaysDuVoyage(pays);
-        
+
         JpaUtil.persist(s);
         System.out.println(s);
-        
+
         pays.addVoyage(s);
         JpaUtil.merge(pays);
         JpaUtil.validerTransaction();
     }
-
-    
 
     public static void listerTousLesPays() {
 
@@ -343,25 +332,25 @@ public class Service {
     }
 
     public static void SaisirDevis() {
-        
+        String[] descriptionDevis = new String[4];
         System.out.println("Identifiez-vous : ");
 
-        String[] descriptionDevis = new String[4];
         descriptionDevis[0] = Saisie.lireChaine("ADDRESSE EMAIL CLIENT\n");
         listerTousLesVoyages();
         System.out.println("Choisissez un voyage : ");
         descriptionDevis[1] = Saisie.lireChaine("CODE VOYAGE\n");
+         System.out.println("Choix des caractéristiques ");
         descriptionDevis[2] = Saisie.lireChaine("CHOIX DEPART\n");
         descriptionDevis[3] = Saisie.lireChaine("NOMBRE PARTICIPANTS\n");
-        
-        creerDevis(descriptionDevis[1], descriptionDevis[0],descriptionDevis[2],descriptionDevis[3]);
+
+        creerDevis(descriptionDevis[1], descriptionDevis[0], descriptionDevis[2], descriptionDevis[3]);
     }
 
     private static int ChoisirNbPassager() {
         return Aleatoire.random(2, 5);
     }
-    
-    public static String afficheDevis(Devis d){
+
+    public static String afficheDevis(Devis d) {
         return d.afficheDevis();
     }
 
