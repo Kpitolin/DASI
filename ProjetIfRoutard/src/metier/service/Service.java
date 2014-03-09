@@ -4,7 +4,6 @@
  */
 package metier.service;
 
-import dao.DevisDao;
 import dao.JpaUtil;
 import dao.PaysDao;
 import dao.VoyageDao;
@@ -223,20 +222,20 @@ public class Service {
             descriptionDevis[1] = Saisie.lireChaine("CODE VOYAGE\n");
             
     }
-        public int ChoisirNbPassager()
+        public static int ChoisirNbPassager()
         {
           return Aleatoire.random(2, 5);
         }
         
-        public InfoPrincipale ChoisirInfoPrincipale(String CodeVoyage)
+        public static InfoPrincipale ChoisirInfoPrincipale(String CodeVoyage)
         {
-            int TailleListeInfoPrincipale = VoyageDao.findVoyageByCodeVoayge(CodeVoyage).size();
-            if (TailleListeInfoPrincipale >0)
+            List<InfoPrincipale> lInfosPrincipales = VoyageDao.listerInfos(CodeVoyage);
+            if (lInfosPrincipales.size() > 0)
             {
-                int indexInfoPrincipale = Aleatoire.random(0, TailleListeInfoPrincipale);
-  
+                int indexInfoPrincipale = Aleatoire.random(0, lInfosPrincipales.size());
+                return lInfosPrincipales.get(indexInfoPrincipale);
             }
-            
+            return null;
         }
         
         
@@ -247,4 +246,9 @@ public class Service {
             return new Date();
             }
         }
+         
+         public static void creerDevis(String CodeVoyage, String addresseMailClient)
+         {
+             
+         }
 }

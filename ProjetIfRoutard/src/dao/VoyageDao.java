@@ -73,7 +73,7 @@ public class VoyageDao {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
         EntityManager em = emf.createEntityManager();
         Query query = em.createQuery("select c from Voyage c where c in (select ci from Circuit ci ) "
-                                                        + " and c.paysDuVoyage.nom = :nom "); // Changer Requète
+                                                        + " and c.paysDuVoyage.nom = :nom "); 
         query.setParameter("nom", nomPays);
         List<Circuit> circuits = (List<Circuit>) query.getResultList();
         if (circuits == null) {
@@ -85,7 +85,7 @@ public class VoyageDao {
     public static List<Sejour> listerSejoursParPays(String nomPays) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
         EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("select s from Voyage s where s in (select se from Sejour se) and s.paysDuVoyage.nom = :nom "); // Changer Requète
+        Query query = em.createQuery("select s from Voyage s where s in (select se from Sejour se) and s.paysDuVoyage.nom = :nom ");
         query.setParameter("nom", nomPays);
         List<Sejour> sejours = (List<Sejour>) query.getResultList();
         if (sejours == null) {
@@ -126,10 +126,11 @@ public class VoyageDao {
 
     }
     
-    public static List<InfoPrincipale> listerInfos (){
+    public static List<InfoPrincipale> listerInfos (String CV){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
         EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("select s.infos from Voyage s"); 
+        Query query = em.createQuery("select v.infos from Voyage v where v.CodeVoyage =:CV");
+        query.setParameter("CV", CV);
         List<InfoPrincipale> infos = (List<InfoPrincipale>) query.getResultList();
         if (infos == null) {
             throw new EntityNotFoundException("pas d'infos pour ce voyage");

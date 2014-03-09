@@ -7,7 +7,9 @@ package vue;
 
 import dao.JpaUtil;
 import dao.PaysDao;
+import dao.VoyageDao;
 import static java.lang.System.exit;
+import java.util.List;
 import metier.modele.Circuit;
 import metier.modele.Client;
 import metier.modele.Conseiller;
@@ -139,11 +141,20 @@ public class ProjetIfRoutard {
        
        JpaUtil.validerTransaction();
        // Mises a jour des objets persistés
+       
        JpaUtil.ouvrirTransaction();
-       
-       
+              
        //Service.choisirConseiller(d);
        
+       JpaUtil.validerTransaction();
+       
+       JpaUtil.ouvrirTransaction();
+              System.out.println("List des infos du voyage s");
+        List<InfoPrincipale> lIP = VoyageDao.listerInfos(s.getCodeVoyage());
+       for(int it =0; it< lIP.size(); it++)
+       {
+           System.out.println(lIP.get(it));
+       }
        JpaUtil.validerTransaction();
        
        for(;;)
