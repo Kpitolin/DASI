@@ -4,6 +4,7 @@
  */
 package dao;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityNotFoundException;
@@ -52,7 +53,17 @@ public class ClientDao {
                 }
             return client;
         }
-    
+        public static List<Client> listerClients() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createQuery("select c from Client c");
+
+        List<Client> clients = (List<Client>) query.getResultList();
+        if (clients == null) {
+            throw new EntityNotFoundException("Pas de clients inscrits");
+        }
+        return clients;
+    }
     
     
     

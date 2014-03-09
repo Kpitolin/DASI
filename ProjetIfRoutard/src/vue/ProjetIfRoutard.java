@@ -68,7 +68,7 @@ public class ProjetIfRoutard {
         JpaUtil.creerEntityManager();
         JpaUtil.ouvrirTransaction();
         
-//        ServiceInit.initialisation();
+        ServiceInit.initialisation();
         
        Sejour s = new Sejour ("Hotel 5 etoiles","FR","FGHJK1" ,"Voyage à Meulun" ,3650 , "Une escursion magnifique dans la vielle ville de meulun en bus");
        Service.creerSejour(s);
@@ -160,7 +160,7 @@ public class ProjetIfRoutard {
            System.out.println(lIP.get(it));
        }
        JpaUtil.validerTransaction();
-       
+       Service.listerClients();
        for(;;)
        {
            String str = Saisie.lireChaine("Taper D pour renter un devis ou taper C pour créer un client Et Q pour quitter\n");

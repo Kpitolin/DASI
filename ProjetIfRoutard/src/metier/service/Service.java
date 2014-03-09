@@ -156,6 +156,15 @@ public class Service {
         }
     }
 
+     public static void listerClients() {
+
+        List<Client> clients = ClientDao.listerClients();
+        for (int i = 0; i < clients.size(); i++) {
+
+            System.out.print(clients.get(i) + "\n");
+        }
+      
+    }
     
     
     public static void envoyerMailPartenaires(Client client){

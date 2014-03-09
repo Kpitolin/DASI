@@ -91,7 +91,7 @@ public class Devis {
 
     @Override
     public String toString() {
-        return "Devis{" + "dateDevis=" + dateDevis + ", voyageDuDevis=" + voyageDuDevis + ", conseillerDevis=" + conseillerDevis + ", clientDevis=" + clientDevis + ", nbPersonnes=" + nbPersonnes + ", choixCaracteristiques=" + choixCaracteristiques + '}';
+        return "{" + "dateDevis=" + dateDevis + ", voyageDuDevis=" + voyageDuDevis.getDescription() + ", conseillerDevis=" + conseillerDevis.getNom()+" "+conseillerDevis.getPrenom() + ", nbPersonnes=" + nbPersonnes + ", choixCaracteristiques=" + choixCaracteristiques + '}';
     }
     
 
