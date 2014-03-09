@@ -68,7 +68,7 @@ public class ProjetIfRoutard {
         JpaUtil.creerEntityManager();
         JpaUtil.ouvrirTransaction();
         
-        ServiceInit.initialisation();
+        //ServiceInit.initialisation();
         
        Sejour s = new Sejour ("Hotel 5 etoiles","FR","FGHJK1" ,"Voyage à Meulun" ,3650 , "Une escursion magnifique dans la vielle ville de meulun en bus");
        Service.creerSejour(s);
@@ -144,10 +144,12 @@ public class ProjetIfRoutard {
        // Mises a jour des objets persistés
        
        JpaUtil.ouvrirTransaction();
-              
+       Service.creerClient("M", "Cot", "ga", "27-01-1993", "chap", "01456", "gc@mail.fr");
        //Service.choisirConseiller(d);
-        System.out.println(ClientDao.findClientByMail("nolmeadamarais1551@gmail.com"));
-       Service.creerDevis("FGHJK1", "nolmeadamarais1551@gmail.com");
+       JpaUtil.validerTransaction();
+       JpaUtil.ouvrirTransaction();
+        System.out.println(ClientDao.findClientByMail("gc@mail.fr"));
+       Service.creerDevis("FGHJK1", "gc@mail.fr");
        
        
        JpaUtil.validerTransaction();
@@ -163,14 +165,17 @@ public class ProjetIfRoutard {
        
        JpaUtil.ouvrirTransaction();
         System.out.println("Test creation Conseiller");
-        String [] CP = new String [3];
+        String [] CP = new String [2];
         CP[0] = "FR";
         CP[1] = "BEL";
-        CP[2] = "ALB";
         Service.creerConseiller("Mme", "bettrave", "giselle", "21-01-1993", 
                 "st-martin", "0256", "toto@gmail.com", CP);
        JpaUtil.validerTransaction();
        
+       JpaUtil.ouvrirTransaction();
+       System.out.println("Test creation inforincipale");
+       Service.creerInfoPrincipale("toulouse", "10-03-2014", 1248, "Boeing", "FGHJK3");
+       JpaUtil.validerTransaction();
        for(;;)
        {
            String str = Saisie.lireChaine("Taper D pour renter un devis ou taper C pour créer un client Et Q pour quitter\n");
