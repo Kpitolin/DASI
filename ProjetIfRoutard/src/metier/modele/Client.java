@@ -132,6 +132,11 @@ public class Client {
     public void setAutorisationPartenaires(boolean autorisationPartenaires) {
         this.autorisationPartenaires = autorisationPartenaires;
     }
+    
+    public void addDevis(Devis d)
+    {
+        devisDuClient.add(d);
+    }
 
     @Override
     public String toString() {

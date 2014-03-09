@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import metier.modele.Circuit;
 import metier.modele.Client;
@@ -39,6 +40,17 @@ public class Service {
         System.out.println(d);
        
     }
+    
+    public static void creerDevis(String CodeVoyage, String addresseMailClient)
+         {
+             Date currentDate = new Date(new GregorianCalendar().getTime().getTime());
+             Devis d = new Devis (currentDate,VoyageDao.findVoyageByCodeVoyage(CodeVoyage),
+                     clientBelge);
+             creerDevis(d);
+             d.getClientDevis().addDevis(d);
+             JpaUtil.merge(d.getClientDevis());
+         }
+         
     public static void creerClient(Client c) {
         
         JpaUtil.persist(c);
@@ -220,7 +232,7 @@ public class Service {
             String [] descriptionDevis = new String [2];
             descriptionDevis[0] = Saisie.lireChaine("ADDRESSE EMAIL CLIENT\n");
             descriptionDevis[1] = Saisie.lireChaine("CODE VOYAGE\n");
-            
+            creerDevis(descriptionDevis[1], descriptionDevis[0]);
     }
         public static int ChoisirNbPassager()
         {
@@ -247,8 +259,4 @@ public class Service {
             }
         }
          
-         public static void creerDevis(String CodeVoyage, String addresseMailClient)
-         {
-             
-         }
 }
