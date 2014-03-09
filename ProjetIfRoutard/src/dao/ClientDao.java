@@ -19,16 +19,7 @@ import metier.modele.Client;
 public class ClientDao {
     
     
-    public static void persistClient (Client c){
-        ObjectDao.persitObject(c);
-    
-    }
-    
-       
-    public static  void mergeClient (Client c){
-        ObjectDao.mergeObject(c);
-    
-    }
+  
     
         public static  Client findClientById(Integer objectId)
         {

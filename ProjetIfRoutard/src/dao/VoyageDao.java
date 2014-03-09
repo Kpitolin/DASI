@@ -118,15 +118,8 @@ public class VoyageDao {
     
     
 
-    public void persistVoyage(Voyage v) {
-        ObjectDao.persitObject(v);
-
-    }
-
-    public void mergeVoyage(Voyage v) {
-        ObjectDao.mergeObject(v);
-
-    }
+ 
+   
     
     public static List<InfoPrincipale> listerInfos (String CV){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
