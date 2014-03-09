@@ -263,7 +263,9 @@ public class Service {
         if (cons != null) {
             System.out.println(cons);
             d.setConseillerDevis(cons);
+            cons.addClient(d.getClientDevis());
             JpaUtil.merge(d);
+            JpaUtil.merge(cons);
             res = true;
         }
 
