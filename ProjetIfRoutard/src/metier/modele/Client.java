@@ -140,14 +140,14 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" + "civilite=" + civilite + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance + ", adresse=" + adresse + ", telephone=" + telephone + ", email=" + email +listeDevis()+ '}';
+        return "Client{" + "civilite=" + civilite + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance + ", adresse=" + adresse + ", telephone=" + telephone + ", email=" + email + '}';
     }
     
     public String listeDevis() {
         String chaine = "";
           for (int i = 0; i < this.devisDuClient.size(); i++) {
 
-                chaine += ", Devis" + i + " " + this.devisDuClient.get(i);
+                chaine += "   Devis" + i + " " + this.devisDuClient.get(i).afficheDevis()+"\n";
         }
         
         

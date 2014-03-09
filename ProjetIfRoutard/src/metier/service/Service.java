@@ -161,7 +161,7 @@ public class Service {
         List<Client> clients = ClientDao.listerClients();
         for (int i = 0; i < clients.size(); i++) {
 
-            System.out.print(clients.get(i) + "\n");
+            System.out.print(clients.get(i) + "\n" + clients.get(i).listeDevis());
         }
       
     }

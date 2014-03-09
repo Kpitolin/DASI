@@ -92,7 +92,7 @@ public class InfoPrincipale {
 
     @Override
     public String toString() {
-        return "{" + "villeDepart=" + villeDepart + ", dateDepart=" + dateDepart + ", tarif=" + tarif + ", Transport=" + Transport + ", voyageAssocie=" + voyageAssocie + '}';
+        return "InfoPrincipale {" + "villeDepart=" + villeDepart + ", dateDepart=" + dateDepart + ", tarif=" + tarif + ", Transport=" + Transport + ", voyageAssocie=" + voyageAssocie + '}';
     }
     
     
