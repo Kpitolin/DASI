@@ -57,6 +57,7 @@ public class Service {
              d.getClientDevis().addDevis(d);
              JpaUtil.merge(d.getClientDevis());
              JpaUtil.validerTransaction();
+             d.afficheDevis();
          }
          
     public static void creerClient(Client c) {

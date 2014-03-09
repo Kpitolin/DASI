@@ -23,8 +23,9 @@ import metier.service.Service;
 
 public class LectureDonneesCsv {
 
-    public static final String cheminFichier ="C:\\Users\\Ordi\\Desktop\\INSA"
+    public static final String cheminFichier1 ="C:\\Users\\Ordi\\Desktop\\INSA"
             + "\\3IF\\TP_DASI\\DASI-master\\Projets\\data\\";
+    public static final String cheminFichier ="/Users/KEV/NetBeansProjects/GitHub/DASI/Projets/data/";
     public static final String fichierClients = cheminFichier+ "IFRoutard-Clients.csv";
     public static final String fichierPays = cheminFichier+"IFRoutard-Pays.csv";
     public static final String fichierDeparts = cheminFichier+"IFRoutard-Departs.csv";
