@@ -135,7 +135,7 @@ public class LectureDonneesCsv {
      * La date de naissance est notamment interpétée comme un objet Date.
      * @param descriptionClient Ligne du fichier CSV de Clients.
      */
-    public static void creerClient(String[] descriptionClient) {
+    public void creerClient(String[] descriptionClient) {
         
         String civilite = descriptionClient[0];
         String nom = descriptionClient[1];
@@ -144,10 +144,11 @@ public class LectureDonneesCsv {
         String adresse = descriptionClient[4];
         String telephone = descriptionClient[5];
         String email = descriptionClient[6];
+        String codevoyagepourdevis = descriptionClient[7];
         
         System.out.println("Client: "+  civilite + " " + nom + " " + prenom + ", né le " + formatDate(dateNaissance) + ", habitant à " + adresse + ", téléphone: " + telephone + ", e-mail: " + email);
+        System.out.println(codevoyagepourdevis);
         
-        // À implémenter...
         Client client = new Client(civilite,nom,prenom,dateNaissance,adresse,telephone,email);
         System.out.println(client);
         Service.creerClient(client);
@@ -186,7 +187,7 @@ public class LectureDonneesCsv {
      * La superficie et la population sont notamment interpétées comme des nombres.
      * @param descriptionClient Ligne du fichier CSV de Pays.
      */
-    public static void creerPays(String[] descriptionPays) {
+    public void creerPays(String[] descriptionPays) {
         
         String nom = descriptionPays[0];
         String code = descriptionPays[1];
@@ -205,6 +206,7 @@ public class LectureDonneesCsv {
         Service.creerPays(pays);
         
     }
+    
     
         /**
      * Lit le fichier CSV, affiche son en-tête, puis appelle la création de Conseiller pour chaque ligne.
@@ -274,9 +276,12 @@ public class LectureDonneesCsv {
     public static void initClientEtPays() {
         
         try {
-            String fichierClients = "C:\\Temp\\IFRoutard-Clients.csv";
-            String fichierPays = "C:\\Temp\\IFRoutard-Pays.csv";
+            //String fichierClients = "C:\\Temp\\IFRoutard-Clients.csv";
+            //String fichierPays = "C:\\Temp\\IFRoutard-Pays.csv";
             //String fichierConseiller = "C:\\Temp\\IFRoutard-Conseillers.csv";
+            String fichierClients = "C:\\Users\\Ordi\\Desktop\\INSA\\3IF\\TP_DASI\\DASI-master\\Projets\\data\\IFRoutard-Clients.csv";
+            String fichierPays = "C:\\Users\\Ordi\\Desktop\\INSA\\3IF\\TP_DASI\\DASI-master\\Projets\\data\\IFRoutard-Pays.csv";
+            
             LectureDonneesCsv lectureDonneesCsv_Clients = new LectureDonneesCsv(fichierClients);
             
             // Pour tester: limite à 10

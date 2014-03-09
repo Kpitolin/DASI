@@ -16,6 +16,7 @@ import metier.modele.InfoPrincipale;
 import metier.modele.Pays;
 import metier.modele.Sejour;
 import metier.service.Service;
+import metier.service.ServiceInit;
 import util.Saisie;
 /**
  *
@@ -35,7 +36,7 @@ public class ProjetIfRoutard {
     
     public static void main(String[] args) {
         // TODO code application logic here
-       //ServiceInit.initialisation();
+       
        
        
        
@@ -64,6 +65,7 @@ public class ProjetIfRoutard {
         JpaUtil.creerEntityManager();
         JpaUtil.ouvrirTransaction();
         
+        ServiceInit.initialisation();
         
        Sejour s = new Sejour ("Hotel 5 etoiles","FR","FGHJK" ,"Voyage à Meulun" ,3650 , "Une escursion magnifique dans la vielle ville de meulun en bus");
        Service.creerSejour(s);
@@ -146,7 +148,7 @@ public class ProjetIfRoutard {
        
        for(;;)
        {
-           String str = Saisie.lireChaine("Taper D pour renter un client ou taper C pour créer un client Et Q pour quitter");
+           String str = Saisie.lireChaine("Taper D pour renter un devis ou taper C pour créer un client Et Q pour quitter\n");
            System.out.println("");
            
            if( str.equals("C") || str.equals("c"))

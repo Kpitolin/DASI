@@ -8,6 +8,10 @@ import dao.DevisDao;
 import dao.JpaUtil;
 import dao.PaysDao;
 import dao.VoyageDao;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import metier.modele.Circuit;
 import metier.modele.Client;
@@ -17,7 +21,6 @@ import metier.modele.InfoPrincipale;
 import metier.modele.Pays;
 import metier.modele.Sejour;
 import metier.modele.Voyage;
-import util.LectureDonneesCsv;
 import util.Saisie;
 
 /**
@@ -29,7 +32,7 @@ public class Service {
     /**
      *
      */
-
+    protected static DateFormat USR_BIRTH_DATE = new SimpleDateFormat("dd-MM-yyyy");
     
     public static void creerDevis (Devis d){
         JpaUtil.persist(d);
@@ -192,14 +195,20 @@ public class Service {
         System.out.println("Veuillez écrire : \"CIVILITE\" \"NOM\" \"PRENOM\" "
          + "\"AAAA-JJ-MM\" \"ADRESSE\" \"TELEPHONE\" \"EMAIL\" ");
         
-        descriptionClient[0] = Saisie.lireChaine("CIVILITE");
-        descriptionClient[1] = Saisie.lireChaine("NOM");
-        descriptionClient[2] = Saisie.lireChaine("PRENOM");
-        descriptionClient[3] = Saisie.lireChaine("AAAA-JJ-MM");
-        descriptionClient[4] = Saisie.lireChaine("ADRESSE");
-        descriptionClient[5] = Saisie.lireChaine("TELEPHONE");
-        descriptionClient[6] = Saisie.lireChaine("EMAIL");
-        LectureDonneesCsv.creerClient(descriptionClient);
+        descriptionClient[0] = Saisie.lireChaine("CIVILITE\n");
+        descriptionClient[1] = Saisie.lireChaine("NOM\n");
+        descriptionClient[2] = Saisie.lireChaine("PRENOM\n");
+        descriptionClient[3] = Saisie.lireChaine("JJ-MM-AAAA\n");
+        descriptionClient[4] = Saisie.lireChaine("ADRESSE\n");
+        descriptionClient[5] = Saisie.lireChaine("TELEPHONE\n");
+        descriptionClient[6] = Saisie.lireChaine("EMAIL\n");
+
+        
+        Client client = new Client(descriptionClient[0],descriptionClient[1],
+                descriptionClient[2],parseDate(descriptionClient[3]),descriptionClient[4],descriptionClient[5],
+                descriptionClient[6]);
+        System.out.println(client);
+        Service.creerClient(client);
         
     }
     
@@ -209,5 +218,14 @@ public class Service {
             System.out.println("Veuillez écrire : \"AAAA-JJ-MM\" \"CODEVOYAGE\" \"CODEPAYS\" "
             + "\"CLIENT\" \"NBPERSONNES\" \"CHOIXDEPART\"  ");
         
+            
+    }
+        
+    public static Date parseDate(String date) {
+        try {
+            return USR_BIRTH_DATE.parse(date);
+        } catch (ParseException ex) {
+            return new Date();
+        }
     }
 }
