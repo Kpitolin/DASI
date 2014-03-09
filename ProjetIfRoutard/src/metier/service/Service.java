@@ -58,13 +58,15 @@ public class Service {
              d.getClientDevis().addDevis(d);
              JpaUtil.merge(d.getClientDevis());
              JpaUtil.validerTransaction();
+             d.afficheDevis();
          }
          
     public static void creerClient(Client c) {
         
         JpaUtil.persist(c);
         System.out.println(c);
-        envoyerMailPartenaires(c);
+        c.setAutorisationPartenaires(true);
+        System.out.println(envoyerMailPartenaires(c)); 
 
     }
     
@@ -248,7 +250,7 @@ public class Service {
     }
     
     
-    public static void envoyerMailPartenaires(Client client){
+    public static String envoyerMailPartenaires(Client client){
         
         if(client.isAutorisationPartenaires()){
              String civilite = client.getCivilite();
@@ -256,10 +258,11 @@ public class Service {
         String prenom = client.getPrenom();
         String email = client.getEmail();
         
-        System.out.println("Nous sommes heureux de vous prévenir de l'adhésion de "
+        return "Nous sommes heureux de vous prévenir de l'adhésion de "
                 +civilite+" " + nom +" "+ prenom + " dont l'adresse électronique est "+
-                    email+" ."); 
+                    email+" ."; 
         }
+        return null;
       
         
         

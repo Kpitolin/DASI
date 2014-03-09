@@ -24,9 +24,8 @@ public class PaysDao {
                    
    public static  Pays findPaysById(Integer paysId)
         {
-            EntityManagerFactory emf =  Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
-            EntityManager em = emf.createEntityManager();
-            Pays pays = em.find(Pays.class , paysId);
+            
+            Pays pays = JpaUtil.obtenirEntityManager().find(Pays.class , paysId);
             if (pays == null) {
                 throw  new EntityNotFoundException("Can't find client for ID " + paysId );
                 }
@@ -35,9 +34,8 @@ public class PaysDao {
     
       public static  Pays findPaysByCodePays(String codePays)
         {
-            EntityManagerFactory emf =  Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
-            EntityManager em = emf.createEntityManager();
-            Query query = em.createQuery("select p from Pays p where p.code = :code " );
+            
+            Query query = JpaUtil.obtenirEntityManager().createQuery("select p from Pays p where p.code = :code " );
             query.setParameter("code", codePays);
             Pays pays = (Pays) query.getSingleResult();
             if (pays == null) {
@@ -49,9 +47,8 @@ public class PaysDao {
       
           public static  List<Pays> listerPays ()
         {
-            EntityManagerFactory emf =  Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
-            EntityManager em = emf.createEntityManager();
-            Query query = em.createQuery("select p from Pays p" );
+          
+            Query query = JpaUtil.obtenirEntityManager().createQuery("select p from Pays p" );
             
             List<Pays> pays = (List<Pays>) query.getResultList();
             if (pays == null) {

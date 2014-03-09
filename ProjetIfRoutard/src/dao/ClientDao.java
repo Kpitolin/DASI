@@ -23,9 +23,8 @@ public class ClientDao {
     
         public static  Client findClientById(Integer objectId)
         {
-            EntityManagerFactory emf =  Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
-            EntityManager em = emf.createEntityManager();
-            Client client = em.find(Client.class , objectId);
+            
+            Client client = JpaUtil.obtenirEntityManager().find(Client.class , objectId);
             if (client == null) {
                 throw  new EntityNotFoundException("Can't find client for ID " + objectId );
                 }
@@ -34,9 +33,8 @@ public class ClientDao {
         
         public static  Client findClientByMail(String mail)
         {
-            EntityManagerFactory emf =  Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
-            EntityManager em = emf.createEntityManager();
-            Query query = em.createQuery("select c from Client c where c.email = :code ");
+            
+            Query query = JpaUtil.obtenirEntityManager().createQuery("select c from Client c where c.email = :code ");
             query.setParameter("code", mail);
             Client client = (Client) query.getSingleResult();
             if (client == null) {
@@ -45,9 +43,8 @@ public class ClientDao {
             return client;
         }
         public static List<Client> listerClients() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
-        EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("select c from Client c");
+        
+        Query query = JpaUtil.obtenirEntityManager().createQuery("select c from Client c");
 
         List<Client> clients = (List<Client>) query.getResultList();
         if (clients == null) {
