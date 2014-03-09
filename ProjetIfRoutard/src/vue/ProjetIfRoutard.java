@@ -5,19 +5,8 @@
 package vue;
 
 
-import dao.ClientDao;
 import dao.JpaUtil;
-import dao.PaysDao;
-import dao.VoyageDao;
 import static java.lang.System.exit;
-import java.util.List;
-import metier.modele.Circuit;
-import metier.modele.Client;
-import metier.modele.Conseiller;
-import metier.modele.Devis;
-import metier.modele.InfoPrincipale;
-import metier.modele.Pays;
-import metier.modele.Sejour;
 import metier.service.Service;
 import metier.service.ServiceInit;
 import util.Saisie;
@@ -29,21 +18,45 @@ public class ProjetIfRoutard {
 
     /**
      * @param args the command line arguments
-     */
-    public static void afficheClient (Client c){
-        System.out.print(c.getCivilite() + " ");
-        System.out.print(c.getNom()+" ");
-        System.out.println(c.getPrenom());
-    }
-    
+     */    
     
     public static void main(String[] args) {
         // TODO code application logic here
        
-       
-       
-       
+        JpaUtil.creerEntityManager();
 
+        JpaUtil.ouvrirTransaction();
+        ServiceInit.initialisationPays();
+        JpaUtil.validerTransaction();
+       
+        JpaUtil.ouvrirTransaction();
+        ServiceInit.initialisationConseiller();
+        JpaUtil.validerTransaction();
+        /*
+        JpaUtil.ouvrirTransaction();
+       
+        
+        JpaUtil.validerTransaction();
+        JpaUtil.ouvrirTransaction();
+       
+        
+        JpaUtil.validerTransaction();
+        JpaUtil.ouvrirTransaction();
+       
+        
+        JpaUtil.validerTransaction();
+        
+        JpaUtil.ouvrirTransaction();
+       
+        
+        JpaUtil.validerTransaction();
+        
+        JpaUtil.ouvrirTransaction();
+       
+        
+        JpaUtil.validerTransaction();
+       
+*/
        
        
        
@@ -64,7 +77,7 @@ public class ProjetIfRoutard {
        */
        // Creation sejours et circuits fictifs
         
-        
+        /*
         JpaUtil.creerEntityManager();
         JpaUtil.ouvrirTransaction();
         
@@ -139,7 +152,7 @@ public class ProjetIfRoutard {
         Devis d = new Devis (null,c2,clientBelge);
        Service.creerDevis(d);*/
        
-       
+       /*
        JpaUtil.validerTransaction();
        // Mises a jour des objets persistés
        
@@ -188,8 +201,9 @@ public class ProjetIfRoutard {
        System.out.println("Test creation circuit");
        Service.creerCircuit("poney", 120, "FR", "RandoPoney", "Jolyjumper"
                , 5,"visite de vesoul et ses environs en poney");
-       JpaUtil.validerTransaction();
+       JpaUtil.validerTransaction();*/
        
+ 
        
        for(;;)
        {

@@ -23,7 +23,8 @@ import metier.service.Service;
 
 public class LectureDonneesCsv {
 
-    public static final String cheminFichier ="/Users/KEV/NetBeansProjects/GitHub/DASI/Projets/data/";
+    public static final String cheminFichier ="C:\\Users\\Ordi\\Desktop\\INSA"
+            + "\\3IF\\TP_DASI\\DASI-master\\Projets\\data\\";
     public static final String fichierClients = cheminFichier+ "IFRoutard-Clients.csv";
     public static final String fichierPays = cheminFichier+"IFRoutard-Pays.csv";
     public static final String fichierDeparts = cheminFichier+"IFRoutard-Departs.csv";
@@ -31,7 +32,7 @@ public class LectureDonneesCsv {
     public static final String fichierSejours = cheminFichier+"IFRoutard-Sejours.csv";
     public static final String fichierConseillers = cheminFichier+"IFRoutard-Conseillers.csv";
 
-    public static int NBLIGNES = 10;
+    public static int NBLIGNES = -1;
 
     /**
      * Format de date pour la lecture des dates dans les fichiers CSV fournis.
@@ -262,6 +263,8 @@ public class LectureDonneesCsv {
         {
             PaysConseilles[tailletab] = descriptionConseiller[tailletab + 7];
         }
+        
+        
         Service.creerConseiller(civilite,nom,prenom,dateNaissance,adresse,
                 telephone,email, PaysConseilles);
        
@@ -363,13 +366,14 @@ public class LectureDonneesCsv {
         String codePays = descriptionCircuits[0];
         String codeVoyage = descriptionCircuits[1];
         String intitule = descriptionCircuits[2];
-        String duree = descriptionCircuits[3];
+        int duree = Integer.parseInt(descriptionCircuits[3]);
         String description = descriptionCircuits[4];
         String transport = descriptionCircuits[5];
-        String kilometres = descriptionCircuits[6];
+        int kilometres = Integer.parseInt(descriptionCircuits[6]);
 
        
-        Service.creerCircuit(null);
+        Service.creerCircuit(transport, kilometres, codePays, codeVoyage, intitule, 
+                duree, description);
        
     }
     /**

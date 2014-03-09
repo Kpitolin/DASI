@@ -33,7 +33,7 @@ public class Devis {
     @ManyToOne
     private Client clientDevis;
     private Integer nbPersonnes;
-    @OneToOne
+    @ManyToOne
     private InfoPrincipale choixCaracteristiques;
 
     public Devis() {

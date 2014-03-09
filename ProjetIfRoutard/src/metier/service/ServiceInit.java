@@ -16,5 +16,25 @@ public class ServiceInit {
         LectureDonneesCsv.initAll();
     }
     
+    public static void initialisationPays () {
+        LectureDonneesCsv.initPays();
+    }
+      
+    public static void initialisationClient () {
+        LectureDonneesCsv.initClient();
+    }
+    public static void initialisationConseiller () {
+        LectureDonneesCsv.initConseillers();
+    }
+    public static void initialisationCircuit () {
+        LectureDonneesCsv.initCircuits();
+    }
+    public static void initialisationSejour () {
+        LectureDonneesCsv.initSejours();
+    }
+    public static void initialisationInfoPrincipale () {
+        LectureDonneesCsv.initDeparts();
+    }
+    
     
 }

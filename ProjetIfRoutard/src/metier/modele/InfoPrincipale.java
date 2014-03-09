@@ -4,14 +4,15 @@
  */
 package metier.modele;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -32,7 +33,7 @@ public class InfoPrincipale {
     @ManyToOne
     private Voyage voyageAssocie;
     @OneToMany
-    private Devis devisAssocie;
+    private List<Devis> devisAssocie = new ArrayList<Devis>();
     
     
     
