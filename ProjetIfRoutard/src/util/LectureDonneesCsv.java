@@ -329,12 +329,12 @@ public class LectureDonneesCsv {
         String codePays = descriptionSejours[0];
         String codeVoyage = descriptionSejours[1];
         String intitule = descriptionSejours[2];
-        String duree = descriptionSejours[3];
+        int duree = Integer.parseInt(descriptionSejours[3]);
         String description = descriptionSejours[4];
         String residence = descriptionSejours[5];
 
-       
-        Service.creerSejour(null);
+      
+        Service.creerSejour(residence,codePays,codeVoyage,intitule,duree,description);
        
     }
          public void lireCircuits(int limite) throws IOException {
