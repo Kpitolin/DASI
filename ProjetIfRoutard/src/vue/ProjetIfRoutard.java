@@ -184,7 +184,11 @@ public class ProjetIfRoutard {
                "Vivez les expériences d'un esquimeau en belgique");
        JpaUtil.validerTransaction();
        
-
+       JpaUtil.ouvrirTransaction();
+       System.out.println("Test creation circuit");
+       Service.creerCircuit("poney", 120, "FR", "RandoPoney", "Jolyjumper"
+               , 5,"visite de vesoul et ses environs en poney");
+       JpaUtil.validerTransaction();
        
        
        for(;;)

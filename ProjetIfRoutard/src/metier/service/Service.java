@@ -131,9 +131,17 @@ public class Service {
         System.out.println(circuit);
 
     }
-    //public static void creerCircuit(Circuit circuit)
+    public static void creerCircuit(String moyenDeTransport, int kilometres, 
+            String codePays,String codeVoyage, String intitule,int duree, 
+            String description )
     {
-        
+       Circuit c = new Circuit(moyenDeTransport, kilometres, codePays, codeVoyage, 
+               intitule, duree, description);
+       Pays pays = PaysDao.findPaysByCodePays(codePays);
+       c.setPaysDuVoyage(pays);
+        creerCircuit(c);
+        pays.addVoyage(c);
+        JpaUtil.merge(pays);
     }
     
     public static void creerSejour(Sejour s) {
