@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import metier.modele.Client;
 
 /**
@@ -43,7 +44,9 @@ public class ClientDao {
         {
             EntityManagerFactory emf =  Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
             EntityManager em = emf.createEntityManager();
-            Client client = em.find(Client.class , mail);
+            Query query = em.createQuery("select c from Client c where c.email = :code ");
+            query.setParameter("code", mail);
+            Client client = (Client) query.getSingleResult();
             if (client == null) {
                 throw  new EntityNotFoundException("Can't find client for mail " + mail );
                 }

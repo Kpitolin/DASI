@@ -5,6 +5,7 @@
 package vue;
 
 
+import dao.ClientDao;
 import dao.JpaUtil;
 import dao.PaysDao;
 import dao.VoyageDao;
@@ -67,18 +68,18 @@ public class ProjetIfRoutard {
         JpaUtil.creerEntityManager();
         JpaUtil.ouvrirTransaction();
         
-        //ServiceInit.initialisation();
+        ServiceInit.initialisation();
         
-       Sejour s = new Sejour ("Hotel 5 etoiles","FR","FGHJK" ,"Voyage à Meulun" ,3650 , "Une escursion magnifique dans la vielle ville de meulun en bus");
+       Sejour s = new Sejour ("Hotel 5 etoiles","FR","FGHJK1" ,"Voyage à Meulun" ,3650 , "Une escursion magnifique dans la vielle ville de meulun en bus");
        Service.creerSejour(s);
      
-       Sejour s2 = new Sejour ("Hotel IBIS","BEL","FGHJK" ,"Voyage à ????" ,3650 , " Non def");
+       Sejour s2 = new Sejour ("Hotel IBIS","BEL","FGHJK2" ,"Voyage à ????" ,3650 , " Non def");
        Service.creerSejour(s2);
        
-       Circuit c = new Circuit ("jeep",11232,"BEL","FGHJK" ,"Visite du plat pays" ,100 , "Vélo et randonée");
+       Circuit c = new Circuit ("jeep",11232,"BEL","FGHJK3" ,"Visite du plat pays" ,100 , "Vélo et randonée");
        Service.creerCircuit(c);
        
-       Circuit c2 = new Circuit ("jeep",11232,"BEL","FGHJK" ,"Visite " ,100 , "randonée");
+       Circuit c2 = new Circuit ("jeep",11232,"BEL","FGHJK4" ,"Visite " ,100 , "randonée");
        Service.creerCircuit(c2);
        
        
@@ -144,12 +145,15 @@ public class ProjetIfRoutard {
        
        JpaUtil.ouvrirTransaction();
               
-       Service.choisirConseiller(d);
+       //Service.choisirConseiller(d);
+        System.out.println(ClientDao.findClientByMail("nolmeadamarais1551@gmail.com"));
+       Service.creerDevis("FGHJK1", "nolmeadamarais1551@gmail.com");
+       
        
        JpaUtil.validerTransaction();
        
        JpaUtil.ouvrirTransaction();
-              System.out.println("List des infos du voyage s");
+       System.out.println("List des infos du voyage s");
         List<InfoPrincipale> lIP = VoyageDao.listerInfos(s.getCodeVoyage());
        for(int it =0; it< lIP.size(); it++)
        {

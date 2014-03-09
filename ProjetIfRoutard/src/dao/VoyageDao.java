@@ -107,7 +107,9 @@ public class VoyageDao {
     public static Voyage findVoyageByCodeVoyage(String codeVoyage) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
         EntityManager em = emf.createEntityManager();
-        Voyage voyage = em.find(Voyage.class, codeVoyage);
+        Query query = em.createQuery("select v from Voyage v where v.CodeVoyage = :code ");
+        query.setParameter("code", codeVoyage);
+        Voyage voyage = (Voyage) query.getSingleResult();
         if (voyage == null) {
             throw new EntityNotFoundException("Can't find voyage for code " + codeVoyage);
         }
