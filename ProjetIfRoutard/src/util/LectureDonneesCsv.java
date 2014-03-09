@@ -140,19 +140,17 @@ public class LectureDonneesCsv {
         String civilite = descriptionClient[0];
         String nom = descriptionClient[1];
         String prenom = descriptionClient[2];
-        Date dateNaissance = parseDate(descriptionClient[3]);
+        String dateNaissance = descriptionClient[3];
         String adresse = descriptionClient[4];
         String telephone = descriptionClient[5];
         String email = descriptionClient[6];
         String codevoyagepourdevis = descriptionClient[7];
         
-        System.out.println("Client: "+  civilite + " " + nom + " " + prenom + ", né le " + formatDate(dateNaissance) + ", habitant à " + adresse + ", téléphone: " + telephone + ", e-mail: " + email);
+        //System.out.println("Client: "+  civilite + " " + nom + " " + prenom + ", né le " + dateNaissance + ", habitant à " + adresse + ", téléphone: " + telephone + ", e-mail: " + email);
         System.out.println(codevoyagepourdevis);
         
-        Client client = new Client(civilite,nom,prenom,dateNaissance,adresse,telephone,email);
-        System.out.println(client);
-        Service.creerClient(client);
-        
+        Service.creerClient(civilite,nom,prenom,dateNaissance,adresse,telephone,email);
+        //Service.creerDevis(codevoyagepourdevis, email);
     }
 
     /**
@@ -198,12 +196,10 @@ public class LectureDonneesCsv {
         Float population = Float.parseFloat(descriptionPays[6]);
         String regime = descriptionPays[7];
         
-        System.out.println("Pays: "+  nom + " [" + code + "] (" + regime + "), Capitale: " + capitale + ", Région: " + region + ", Langues: " + langues + ", " + superficie + " km², " + population + " millions d'hbitants");
+        //System.out.println("Pays: "+  nom + " [" + code + "] (" + regime + "), Capitale: " + capitale + ", Région: " + region + ", Langues: " + langues + ", " + superficie + " km², " + population + " millions d'hbitants");
         
         // À implémenter...
-        Pays pays = new Pays(nom,code,region,capitale,langues,superficie,population, regime);
-        System.out.println(pays);
-        Service.creerPays(pays);
+        Service.creerPays(nom,code,region,capitale,langues,superficie,population, regime);
         
     }
     
@@ -213,7 +209,7 @@ public class LectureDonneesCsv {
      * @param limite Nombre maximum de lignes à lire ou -1 pour ne pas limiter
      * @throws IOException 
      */
-    /*
+    
     public void lireConseiller(int limite) throws IOException {
 
         String[] nextLine;
@@ -241,31 +237,29 @@ public class LectureDonneesCsv {
      * La date de naissance est notamment interpétée comme un objet Date.
      * @param descriptionClient Ligne du fichier CSV de Clients.
      */
-    /*
+    
     public void creerConseiller(String[] descriptionConseiller) {
         
         String civilite = descriptionConseiller[0];
         String nom = descriptionConseiller[1];
         String prenom = descriptionConseiller[2];
-        Date dateNaissance = parseDate(descriptionConseiller[3]);
+        String dateNaissance = descriptionConseiller[3];
         String adresse = descriptionConseiller[4];
         String telephone = descriptionConseiller[5];
         String email = descriptionConseiller[6];
-        System.out.println("Client: "+  civilite + " " + nom + " " + prenom + ", né le " + formatDate(dateNaissance) + ", habitant à " + adresse + ", téléphone: " + telephone + ", e-mail: " + email);
-        
-        // À implémenter...
-        Conseiller conseiller = new Conseiller(civilite,nom,prenom,dateNaissance,adresse,telephone,email);
-        String PaysConseille [];
-        int taille = 7 ;
-        while( taille < descriptionConseiller.length)
+        //System.out.println("Client: "+  civilite + " " + nom + " " + prenom + 
+               // ", né le " + formatDate(dateNaissance) + ", habitant à " + 
+                //adresse + ", téléphone: " + telephone + ", e-mail: " + email);
+        String[] PaysConseilles = new String[descriptionConseiller.length - 7];
+        for (int tailletab = 0; tailletab <descriptionConseiller.length - 7;
+                tailletab++)
         {
-           // conseiller.addPays(descriptionConseiller[taille]);
-            taille ++;
+            PaysConseilles[tailletab] = descriptionConseiller[tailletab + 7];
         }
-        System.out.println(conseiller);
-        Service.creerConseiller(conseiller);
-        
-    }*/
+        Service.creerConseiller(civilite,nom,prenom,dateNaissance,adresse,
+                telephone,email, PaysConseilles);
+       
+    }
     
     /**
      * Cette méthode main() permet de tester cette classe avant de l'intégrer dans votre code.

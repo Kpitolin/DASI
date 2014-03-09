@@ -64,6 +64,13 @@ public class Service {
         envoyerMailPartenaires(c);
 
     }
+    
+    public static void creerClient (String Civilite, String Nom, String prenom, 
+             String Date, String Adresse, String telephone, String mail)
+    {
+        Client c = new Client(Civilite, Nom, prenom, parseDate(Date), Adresse, telephone, mail);
+        creerClient(c);
+    }
 
     public static void creerPays(Pays p) {
         JpaUtil.persist(p);
@@ -71,12 +78,37 @@ public class Service {
 
     }
 
+    public static void creerPays(String nom, String code, String continent, 
+            String capitale, String langues, float superficie, float population,
+            String regimePolitique)
+    {
+        Pays p = new Pays(nom, code, nom, capitale, langues, superficie, 
+                population, regimePolitique);
+        creerPays(p);
+    }
+             
     public static void creerConseiller(Conseiller c) {
         JpaUtil.persist(c);
         System.out.println(c);
 
     }
-
+  
+     public static void creerConseiller(String Civilite, String Nom, String prenom, 
+             String Date, String Adresse, String telephone, String mail, String[] CodePaysConseilles) 
+     {
+         Conseiller c = new Conseiller(Civilite, Nom, prenom, parseDate(Date),
+                 Adresse, telephone, mail);
+         creerConseiller(c);
+         for (int lgtCodePC = 0; lgtCodePC < CodePaysConseilles.length; lgtCodePC++)
+         {
+             Pays p =PaysDao.findPaysByCodePays(CodePaysConseilles[lgtCodePC]);
+             p.addConseillers(c);
+             c.addPays(PaysDao.findPaysByCodePays(CodePaysConseilles[lgtCodePC]));
+             JpaUtil.merge(p);
+         }
+         JpaUtil.merge(c);         
+         
+     }
     public static void creerInfoPrincipale(InfoPrincipale info) {
         JpaUtil.persist(info);
         System.out.println(info);
@@ -224,12 +256,9 @@ public class Service {
         descriptionClient[6] = Saisie.lireChaine("EMAIL\n");
 
         
-        Client client = new Client(descriptionClient[0],descriptionClient[1],
-                descriptionClient[2],parseDate(descriptionClient[3]),descriptionClient[4],descriptionClient[5],
-                descriptionClient[6]);
-        System.out.println(client);
-        Service.creerClient(client);
-        
+        creerClient(descriptionClient[0],descriptionClient[1],
+                descriptionClient[2],descriptionClient[3],descriptionClient[4],
+                descriptionClient[5], descriptionClient[6]);
     }
     
         public static void SaisirDevis(){

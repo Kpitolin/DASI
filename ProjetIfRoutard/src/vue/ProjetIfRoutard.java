@@ -161,6 +161,16 @@ public class ProjetIfRoutard {
        }
        JpaUtil.validerTransaction();
        
+       JpaUtil.ouvrirTransaction();
+        System.out.println("Test creation Conseiller");
+        String [] CP = new String [3];
+        CP[0] = "FR";
+        CP[1] = "BEL";
+        CP[2] = "ALB";
+        Service.creerConseiller("Mme", "bettrave", "giselle", "21-01-1993", 
+                "st-martin", "0256", "toto@gmail.com", CP);
+       JpaUtil.validerTransaction();
+       
        for(;;)
        {
            String str = Saisie.lireChaine("Taper D pour renter un devis ou taper C pour créer un client Et Q pour quitter\n");
