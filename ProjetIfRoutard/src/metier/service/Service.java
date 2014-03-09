@@ -49,10 +49,11 @@ public class Service {
              Devis d = new Devis (currentDate,VoyageDao.findVoyageByCodeVoyage(CodeVoyage),
                      ClientDao.findClientByMail(addresseMailClient));
              creerDevis(d);
-             d.getClientDevis().addDevis(d);
              d.setNbPersonnes(ChoisirNbPassager());
              d.setChoixCaracteristiques(ChoisirInfoPrincipale(CodeVoyage));
+             Service.choisirConseiller(d);
              JpaUtil.merge(d);
+             d.getClientDevis().addDevis(d);
              JpaUtil.merge(d.getClientDevis());
          }
          
