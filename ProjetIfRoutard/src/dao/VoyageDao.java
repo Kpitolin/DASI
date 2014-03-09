@@ -11,6 +11,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import metier.modele.Circuit;
+import metier.modele.InfoPrincipale;
 import metier.modele.Sejour;
 import metier.modele.Voyage;
 
@@ -98,10 +99,22 @@ public class VoyageDao {
         EntityManager em = emf.createEntityManager();
         Voyage voyage = em.find(Voyage.class, voyageId);
         if (voyage == null) {
-            throw new EntityNotFoundException("Can't find client for ID " + voyageId);
+            throw new EntityNotFoundException("Can't find voyage for ID " + voyageId);
         }
         return voyage;
     }
+    
+    public static Voyage findVoyageByCodeVoyage(String codeVoyage) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
+        EntityManager em = emf.createEntityManager();
+        Voyage voyage = em.find(Voyage.class, codeVoyage);
+        if (voyage == null) {
+            throw new EntityNotFoundException("Can't find voyage for code " + codeVoyage);
+        }
+        return voyage;
+    }
+    
+    
 
     public void persistVoyage(Voyage v) {
         ObjectDao.persitObject(v);
@@ -112,4 +125,16 @@ public class VoyageDao {
         ObjectDao.mergeObject(v);
 
     }
+    
+    public static List<InfoPrincipale> listerInfos (){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createQuery("select s.infos from Voyage s"); 
+        List<InfoPrincipale> infos = (List<InfoPrincipale>) query.getResultList();
+        if (infos == null) {
+            throw new EntityNotFoundException("pas d'infos pour ce voyage");
+        }
+        return infos;
+        
+    } 
 }

@@ -53,7 +53,7 @@ List <InfoPrincipale> infos = new ArrayList <InfoPrincipale> ();
         return "Voyage{" + "CodePays=" + CodePays + ", CodeVoyage=" + CodeVoyage + ", Intitule=" + Intitule + ", Duree=" + Duree + ", Description=" + Description ;
     }
 
-
+ 
     public String getCodePays() {
         return CodePays;
     }
