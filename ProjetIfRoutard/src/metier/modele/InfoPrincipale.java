@@ -25,6 +25,7 @@ public class InfoPrincipale {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer IdInfoPrincipale;
+    private String codeInfoPrincipale;
     private String villeDepart;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateDepart;
@@ -34,6 +35,20 @@ public class InfoPrincipale {
     private Voyage voyageAssocie;
     @OneToMany
     private List<Devis> devisAssocie = new ArrayList<Devis>();
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 83 * hash + (this.IdInfoPrincipale != null ? this.IdInfoPrincipale.hashCode() : 0);
+        hash = 83 * hash + (this.codeInfoPrincipale != null ? this.codeInfoPrincipale.hashCode() : 0);
+        hash = 83 * hash + (this.villeDepart != null ? this.villeDepart.hashCode() : 0);
+        hash = 83 * hash + (this.dateDepart != null ? this.dateDepart.hashCode() : 0);
+        hash = 83 * hash + (this.tarif != null ? this.tarif.hashCode() : 0);
+        hash = 83 * hash + (this.Transport != null ? this.Transport.hashCode() : 0);
+        return hash;
+    }
+
+    
     
     
     
@@ -46,8 +61,19 @@ public class InfoPrincipale {
         this.dateDepart = dateDepart;
         this.tarif = tarif;
         this.Transport = Transport;
+        setCodeInfoPrincipale(hashCode()+"");
     }
 
+    public String getCodeInfoPrincipale() {
+        return codeInfoPrincipale;
+    }
+
+    public void setCodeInfoPrincipale(String codeInfoPrincipale) {
+        this.codeInfoPrincipale = codeInfoPrincipale;
+    }
+
+    
+        
     public Integer getIdInfoPrincipale() {
         return IdInfoPrincipale;
     }
@@ -94,7 +120,7 @@ public class InfoPrincipale {
 
     @Override
     public String toString() {
-        return "InfoPrincipale {" + "villeDepart=" + villeDepart + ", dateDepart=" + dateDepart + ", tarif=" + tarif + ", Transport=" + Transport + ", voyageAssocie=" + voyageAssocie + '}';
+        return  "Code : "+codeInfoPrincipale + " villeDepart=" + villeDepart + ", dateDepart=" + dateDepart + ", tarif=" + tarif + ", Transport=" + Transport + ", voyageAssocie=" + voyageAssocie ;
     }
     
     

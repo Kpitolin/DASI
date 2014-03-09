@@ -6,6 +6,7 @@ package metier.service;
 
 import dao.ClientDao;
 import dao.DevisDao;
+import dao.InfoPrincipaleDao;
 import dao.JpaUtil;
 import dao.PaysDao;
 import dao.VoyageDao;
@@ -40,7 +41,31 @@ public class Service {
 
     
     
-  
+  public static void creerDevis(String CodeVoyage, String addresseMailClient , String choixInfos, String nbPersonnes){
+      JpaUtil.ouvrirTransaction();
+        Date currentDate = new Date(new GregorianCalendar().getTime().getTime());
+        Devis d = new Devis(currentDate, VoyageDao.findVoyageByCodeVoyage(CodeVoyage),
+                ClientDao.findClientByMail(addresseMailClient));
+                JpaUtil.persist(d);
+
+        JpaUtil.validerTransaction();
+        
+           if (choisirConseiller(d)) {
+            JpaUtil.ouvrirTransaction();
+            d.setNbPersonnes(Integer.parseInt(nbPersonnes));
+            d.setChoixCaracteristiques(InfoPrincipaleDao.findInfoByCodeInfo(choixInfos));
+            
+            JpaUtil.merge(d);
+            d.getClientDevis().addDevis(d);
+            JpaUtil.merge(d.getClientDevis());
+            System.out.println(afficheDevis(d));
+            JpaUtil.validerTransaction();
+            
+        } else {
+            JpaUtil.annulerTransaction();
+        }
+
+  }
     public static void creerDevis(String CodeVoyage, String addresseMailClient) {
         JpaUtil.ouvrirTransaction();
         Date currentDate = new Date(new GregorianCalendar().getTime().getTime());
@@ -200,7 +225,7 @@ public class Service {
         List<Voyage> voyages = VoyageDao.findVoyageByNomPays(nomPays);
         for (int i = 0; i < voyages.size(); i++) {
 
-            System.out.print(voyages.get(i) + "\n");
+            System.out.print(voyages.get(i).descriptionPourCatalogue() + "\n");
         }
         if (voyages.isEmpty()) {
             System.out.println("Aucun voyage pour le pays " + nomPays);
@@ -212,7 +237,7 @@ public class Service {
         List<Sejour> voyages = VoyageDao.listerSejours();
         for (int i = 0; i < voyages.size(); i++) {
 
-            System.out.print(voyages.get(i) + "\n");
+            System.out.print(voyages.get(i).descriptionPourCatalogue() + "\n");
         }
         if (voyages.isEmpty()) {
             System.out.println("Aucun séjour");
@@ -224,7 +249,7 @@ public class Service {
         List<Circuit> voyages = VoyageDao.listerCircuits();
         for (int i = 0; i < voyages.size(); i++) {
 
-            System.out.print(voyages.get(i) + "\n");
+            System.out.print(voyages.get(i).descriptionPourCatalogue() + "\n");
         }
         if (voyages.isEmpty()) {
             System.out.println("Aucun circuit");
@@ -279,7 +304,7 @@ public class Service {
             List<Sejour> voyages = VoyageDao.listerSejoursParPays(nomPays);
             for (int i = 0; i < voyages.size(); i++) {
 
-                System.out.print(voyages.get(i) + "\n");
+                System.out.print(voyages.get(i).descriptionPourCatalogue() + "\n");
             }
             if (voyages.isEmpty()) {
                 System.out.println("Aucun séjour pour le pays " + nomPays);
@@ -288,7 +313,7 @@ public class Service {
             List<Circuit> voyages = VoyageDao.listerCircuitsParPays(nomPays);
             for (int i = 0; i < voyages.size(); i++) {
 
-                System.out.print(voyages.get(i) + "\n");
+                System.out.print(voyages.get(i).descriptionPourCatalogue() + "\n");
             }
             if (voyages.isEmpty()) {
                 System.out.println("Aucun Circuit pour le pays " + nomPays);
@@ -319,12 +344,17 @@ public class Service {
 
     public static void SaisirDevis() {
         
-        System.out.println("Veuillez écrire : \"CODEVOYAGE\" \"NBPERSONNES\" \"CHOIXDEPART\"  ");
+        System.out.println("Identifiez-vous : ");
 
-        String[] descriptionDevis = new String[2];
+        String[] descriptionDevis = new String[4];
         descriptionDevis[0] = Saisie.lireChaine("ADDRESSE EMAIL CLIENT\n");
+        listerTousLesVoyages();
+        System.out.println("Choisissez un voyage : ");
         descriptionDevis[1] = Saisie.lireChaine("CODE VOYAGE\n");
-        creerDevis(descriptionDevis[1], descriptionDevis[0]);
+        descriptionDevis[2] = Saisie.lireChaine("CHOIX DEPART\n");
+        descriptionDevis[3] = Saisie.lireChaine("NOMBRE PARTICIPANTS\n");
+        
+        creerDevis(descriptionDevis[1], descriptionDevis[0],descriptionDevis[2],descriptionDevis[3]);
     }
 
     private static int ChoisirNbPassager() {
