@@ -36,8 +36,10 @@ public class Service {
     /**
      *
      */
-    protected static DateFormat USR_BIRTH_DATE = new SimpleDateFormat("dd-MM-yyyy");
-    protected static DateFormat US_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    protected static DateFormat USR_BIRTH_DATE
+            = new SimpleDateFormat("dd-MM-yyyy");
+    protected static DateFormat US_DATE_FORMAT
+            = new SimpleDateFormat("yyyy-MM-dd");
 
     public static void creerDevis(String CodeVoyage, String addresseMailClient, String choixInfos, String nbPersonnes) {
         JpaUtil.ouvrirTransaction();
@@ -120,14 +122,15 @@ public class Service {
     public static void creerConseiller(String Civilite, String Nom, String prenom,
             String Date, String Adresse, String telephone, String mail, String[] CodePaysConseilles) {
         JpaUtil.ouvrirTransaction();
-        Conseiller c = new Conseiller(Civilite, Nom, prenom, parseDateUsFormat(Date),
-                Adresse, telephone, mail);
+        Conseiller c = new Conseiller(Civilite, Nom, prenom,
+                parseDateUsFormat(Date), Adresse, telephone, mail);
         JpaUtil.persist(c);
         System.out.println(c);
-        for (int lgtCodePC = 0; lgtCodePC < CodePaysConseilles.length; lgtCodePC++) {
+        for (int lgtCodePC = 0; lgtCodePC < CodePaysConseilles.length;
+                lgtCodePC++) {
             Pays p = PaysDao.findPaysByCodePays(CodePaysConseilles[lgtCodePC]);
             p.addConseillers(c);
-            c.addPays(PaysDao.findPaysByCodePays(CodePaysConseilles[lgtCodePC]));
+            c.addPays(p);
             JpaUtil.merge(p);
         }
         JpaUtil.merge(c);
@@ -141,7 +144,7 @@ public class Service {
         JpaUtil.ouvrirTransaction();
 
         InfoPrincipale iP = new InfoPrincipale(villeDepart,
-                parseDateUsFormat(DateDepart), Prix, transport);
+                parseDateUsFormat(dateDepart), Prix, transport);
         Voyage voyageAssocie = VoyageDao.findVoyageByCodeVoyage(codeVoyage);
         iP.setVoyageAssocie(voyageAssocie);
 
@@ -157,8 +160,8 @@ public class Service {
             String codePays, String codeVoyage, String intitule, int duree,
             String description) {
         JpaUtil.ouvrirTransaction();
-        Circuit c = new Circuit(moyenDeTransport, kilometres, codePays, codeVoyage,
-                intitule, duree, description);
+        Circuit c = new Circuit(moyenDeTransport, kilometres, codePays,
+                codeVoyage, intitule, duree, description);
         Pays pays = PaysDao.findPaysByCodePays(codePays);
         c.setPaysDuVoyage(pays);
 
@@ -195,6 +198,11 @@ public class Service {
         }
     }
 
+    /**
+     * Cette Méthode affiche la liste de tous les Voyages (Circuit et Sejour)
+     * contenus dasn la base de données avec leurs caractéristiques.
+     *
+     */
     public static void listerTousLesVoyages() {
 
         List<Voyage> voyages = VoyageDao.listerVoyages();
@@ -207,6 +215,14 @@ public class Service {
         }
     }
 
+    /**
+     * Cette Méthode affiche la liste de tous les Voyages (Circuits et Sejours)
+     * se déroulant dans le Pays nomPays contenus dans la base de données avec
+     * leurs caractéristiques. Le Pays ayant pour nom nompays doit être présent
+     * dans la base.
+     *
+     * @param nomPays
+     */
     public static void listerVoyagesParPays(String nomPays) {
 
         List<Voyage> voyages = VoyageDao.findVoyageByNomPays(nomPays);
@@ -219,6 +235,11 @@ public class Service {
         }
     }
 
+    /**
+     * Cette Méthode affiche la liste de tous les Sejours contenus dans la base
+     * de données avec leurs caractéristiques.
+     *
+     */
     public static void listerSejours() {
 
         List<Sejour> voyages = VoyageDao.listerSejours();
@@ -231,6 +252,11 @@ public class Service {
         }
     }
 
+    /**
+     * Cette Méthode affiche la liste de tous les Circuits contenus dans la base
+     * de données avec leurs caractéristiques.
+     *
+     */
     public static void listerCircuits() {
 
         List<Circuit> voyages = VoyageDao.listerCircuits();
@@ -243,16 +269,30 @@ public class Service {
         }
     }
 
+    /**
+     * Cette Méthode affiche la liste de tous les Clients contenus dans la base
+     * de données avec leurs caractéristiques dont leurs Devis.
+     *
+     */
     public static void listerClients() {
 
         List<Client> clients = ClientDao.listerClients();
         for (int i = 0; i < clients.size(); i++) {
 
-            System.out.print(clients.get(i) + "\n" + clients.get(i).listeDevis());
+            System.out.print(clients.get(i) + "\n"
+                    + clients.get(i).listeDevis());
         }
 
     }
 
+    /**
+     * Cette méthode renvoie le mail envoyé à un partenaireCommerciale pour lui
+     * transmettre les informations du Client client sous forme de chaine de
+     * caractères. Le Client client doit être présent dans la base de données.
+     *
+     * @param client
+     * @return
+     */
     public static String envoyerMailPartenaires(Client client) {
 
         if (client.isAutorisationPartenaires()) {
@@ -262,13 +302,23 @@ public class Service {
             String email = client.getEmail();
 
             return "Nous sommes heureux de vous prévenir de l'adhésion de "
-                    + civilite + " " + nom + " " + prenom + " dont l'adresse électronique est "
-                    + email + " .";
+                    + civilite + " " + nom + " " + prenom
+                    + " dont l'adresse électronique est " + email + " .";
         }
         return null;
 
     }
 
+    /**
+     * Cette méthode permet de choisir le Conseiller à l'élaboration d'un Devis
+     * d. Le Devis d doit être présent dans la base de données. Le conseiller
+     * selectionné est un spécialiste du Pays du voyage où se situe le devis, et
+     * il s'occupe du moins de Clients possible. Attention, cette méthode ne
+     * valide pas la transaction avec la base de données.
+     *
+     * @param d
+     * @return
+     */
     private static boolean choisirConseiller(Devis d) {
         boolean res = false;
         Conseiller cons = DevisDao.choixConseiller(d);
@@ -285,6 +335,15 @@ public class Service {
 
     }
 
+    /**
+     * Cette Méthode affiche la liste de tous les Circuits ou tous les Sejours
+     * se déroulant dans le Pays nomPays contenus dans la base de données avec
+     * leurs caractéristiques. Le Pays ayant pour nom nompays doit être présent
+     * dans la base. Le type est Sejour ou Circuit.
+     *
+     * @param nomPays
+     * @param type
+     */
     public static void listerVoyagesParPaysEtType(String nomPays, String type) {
 
         if (type.equals("Sejour")) {
@@ -310,6 +369,11 @@ public class Service {
         }
     }
 
+    /**
+     * Cette métthode permet de saisir un Client à l'aide du clavier. Les
+     * indications sur les champs à fournir sont données au fur et à mesure.
+     *
+     */
     public static void SaisirClient() {
 
         String[] descriptionClient = new String[7];
@@ -325,10 +389,16 @@ public class Service {
         descriptionClient[6] = Saisie.lireChaine("EMAIL\n");
 
         creerClient(descriptionClient[0], descriptionClient[1],
-                descriptionClient[2], descriptionClient[3], descriptionClient[4],
-                descriptionClient[5], descriptionClient[6]);
+                descriptionClient[2], descriptionClient[3],
+                descriptionClient[4], descriptionClient[5],
+                descriptionClient[6]);
     }
 
+    /**
+     * Cette métthode permet de saisir un Devis à l'aide du clavier. Les
+     * indications sur les champs à fournir sont données au fur et à mesure.
+     *
+     */
     public static void SaisirDevis() {
         String[] descriptionDevis = new String[4];
         String choixMode = "";
@@ -396,6 +466,11 @@ public class Service {
         creerDevis(descriptionDevis[1], descriptionDevis[0], descriptionDevis[2], descriptionDevis[3]);
     }
 
+    /**
+     * Cette méthide revcoie un nombre entier aléatoire en 2 et 5.
+     *
+     * @return
+     */
     private static int ChoisirNbPassager() {
         return Aleatoire.random(2, 5);
     }
@@ -404,15 +479,31 @@ public class Service {
         return d.afficheDevis();
     }
 
-    private static InfoPrincipale ChoisirInfoPrincipale(String CodeVoyage) {
-        List<InfoPrincipale> lInfosPrincipales = VoyageDao.listerInfos(CodeVoyage);
+    /**
+     * Cette méthode renvoie aléatoirement une des Infoprincipale (Départ) du
+     * Voyage ayant pour code voyage codeVoyage. Ce dernier doit être présent
+     * dans la base de données.
+     *
+     * @param CodeVoyage
+     * @return
+     */
+    private static InfoPrincipale ChoisirInfoPrincipale(String codeVoyage) {
+        List<InfoPrincipale> lInfosPrincipales
+                = VoyageDao.listerInfos(codeVoyage);
         if (lInfosPrincipales.size() > 0) {
-            int indexInfoPrincipale = Aleatoire.random(0, lInfosPrincipales.size() - 1);
+            int indexInfoPrincipale = Aleatoire.random(0,
+                    lInfosPrincipales.size() - 1);
             return lInfosPrincipales.get(indexInfoPrincipale);
         }
         return null;
     }
 
+     /**
+      * Cette méthode permet de transformer une chaine de caractère au format
+      * "AAAA-MM-JJ" en Date.
+      * @param date
+      * @return 
+      */
     private static Date parseDateUsFormat(String date) {
         try {
             return US_DATE_FORMAT.parse(date);
