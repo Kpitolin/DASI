@@ -176,12 +176,9 @@ public class Service {
     
    
     public static void choisirConseiller (Devis d) {
-         List<Conseiller> conseiller = DevisDao.choixConseiller(d);
-            for (int i = 0; i < conseiller.size(); i++) {
-
-                System.out.print(conseiller.get(i) + "\n");
-            }
-   // d.setConseillerDevis(DevisDao.choixConseiller(d));
+        Conseiller cons = DevisDao.choixConseiller(d);
+        System.out.println(cons);
+        d.setConseillerDevis(cons);
     
 }
     public static void listerVoyagesParPaysEtType(String nomPays, String type) {
