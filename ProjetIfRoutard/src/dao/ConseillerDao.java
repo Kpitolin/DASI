@@ -23,9 +23,8 @@ public class ConseillerDao {
     
                 public static  Conseiller findConseillerById(Integer conseillerId)
         {
-            EntityManagerFactory emf =  Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
-            EntityManager em = emf.createEntityManager();
-            Conseiller conseiller = em.find(Conseiller.class , conseillerId);
+            
+            Conseiller conseiller = JpaUtil.obtenirEntityManager().find(Conseiller.class , conseillerId);
             if (conseiller == null) {
                 throw  new EntityNotFoundException("Can't find client for ID " + conseillerId );
                 }
