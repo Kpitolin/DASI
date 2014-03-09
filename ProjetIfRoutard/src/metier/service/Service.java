@@ -40,7 +40,19 @@ public class Service {
             = new SimpleDateFormat("dd-MM-yyyy");
     protected static DateFormat US_DATE_FORMAT
             = new SimpleDateFormat("yyyy-MM-dd");
-
+     /**
+     * Cette méthode créée un Devis à partir du code du voyage et de l'adresse
+     * mail du client, du Départ (infosPrincipale) et du nombre de personnes
+     * demandant le devis. Les liens entre les entités se font automatiquement.
+     * Le conseiller est choisi parmis les conseillées de ce pays qui ont le
+     * moins de clients. Tous les changements et le devis sont sauvergardés dans
+     * la base de données.
+     *
+     * @param CodeVoyage
+     * @param addresseMailClient
+     * @param choixInfos
+     * @param nbPersonnes 
+     */
     public static void creerDevis(String CodeVoyage, String addresseMailClient, String choixInfos, String nbPersonnes) {
         JpaUtil.ouvrirTransaction();
         Date currentDate = new Date(new GregorianCalendar().getTime().getTime());
@@ -66,7 +78,18 @@ public class Service {
         }
 
     }
-
+    /**
+     * Cette méthode créée un Devis à partir du code du voyage et de l'adresse
+     * mail du client demandant le devis. Les liens entre les entités se font
+     * automatiquement. Le choix du nombre de passager est aléatoire et compris
+     * entre 2 et 5. Le choix de l'infoPrincipale (ou départ) est aléatoire
+     * parmis les départs disponibles pour le voyage. Le conseiller est choisie
+     * parmis les conseillées de ce pays qui ont le moins de clients. Tous les
+     * changements et le devis sont sauvergardés dans la base de données.
+     *
+     * @param CodeVoyage
+     * @param addresseMailClient
+     */
     public static void creerDevis(String CodeVoyage, String addresseMailClient) {
         JpaUtil.ouvrirTransaction();
         Date currentDate = new Date(new GregorianCalendar().getTime().getTime());
@@ -92,7 +115,24 @@ public class Service {
         }
 
     }
-
+    
+    /**
+     * Cette méthode créée un Client à partir de ses caractéritique. La date
+     * doit être une chaine de caractère de format "AAAA-MM-JJ". L'envoie du
+     * mail au partenaire est simulé par l'affichage d'un message. Le client est
+     * sauvegardé dans la base de donées. Le Voyage ayant le code Voyage
+     * codeVoyage et le client ayant l'addresse mail addresseMailClient doivent
+     * être présent dans la base de donées.
+     *
+     *
+     * @param Civilite
+     * @param Nom
+     * @param prenom
+     * @param Date
+     * @param Adresse
+     * @param telephone
+     * @param mail
+     */
     public static void creerClient(String Civilite, String Nom, String prenom,
             String Date, String Adresse, String telephone, String mail) {
         JpaUtil.ouvrirTransaction();
@@ -105,7 +145,19 @@ public class Service {
 
         JpaUtil.validerTransaction();
     }
-
+    /**
+     * Cette méthode créée un Pays à partir des ses caractéristiques. Le pays
+     * est également ajouté à la base de données.
+     *
+     * @param nom
+     * @param code
+     * @param continent
+     * @param capitale
+     * @param langues
+     * @param superficie
+     * @param population
+     * @param regimePolitique
+     */
     public static void creerPays(String nom, String code, String continent,
             String capitale, String langues, float superficie, float population,
             String regimePolitique) {
@@ -118,7 +170,23 @@ public class Service {
 
         JpaUtil.validerTransaction();
     }
-
+    
+    /**
+     * Cette méthode créée un Conseiller à partir de ses paramètres puis le
+     * conseiller est enregistré dans la base de données.Le paramètre
+     * CodePaysConseilles est un tableau de string contenant des codes de pays
+     * enregistrés dans la base de données. Les liens entre le Conseiller et les
+     * Pays qu'il conseille se font automatiquement.
+     *
+     * @param Civilite
+     * @param Nom
+     * @param prenom
+     * @param Date
+     * @param Adresse
+     * @param telephone
+     * @param mail
+     * @param CodePaysConseilles
+     */
     public static void creerConseiller(String Civilite, String Nom, String prenom,
             String Date, String Adresse, String telephone, String mail, String[] CodePaysConseilles) {
         JpaUtil.ouvrirTransaction();
@@ -137,8 +205,19 @@ public class Service {
         JpaUtil.validerTransaction();
     }
 
-    
-
+    /**
+     * Cette méthode créée un Infoprincipale (ou Départ) à partir de ses
+     * caractéristiques. La date doit être une chaine de caractère de format
+     * "AAAA-MM-JJ". Le Voyage ayant le code voyage codeVoyage doit être présent
+     * dans la base de donées. Le lien entre le Voyage et le Départ se fait
+     * automatiquement. Le Départ est également ajouté à la base de données.
+     *
+     * @param villeDepart
+     * @param DateDepart
+     * @param Prix
+     * @param transport
+     * @param codeVoyage
+     */
     public static void creerInfoPrincipale(String villeDepart, String dateDepart,
             int Prix, String transport, String codeVoyage) {
         JpaUtil.ouvrirTransaction();
@@ -156,6 +235,20 @@ public class Service {
         JpaUtil.validerTransaction();
     }
 
+    /**
+     * Cette méthode créée un Circuit à partir de ses caractéristiques. Le Pays
+     * ayant le code pays codePays doit être présent dans la base de donées. Le
+     * liens entre le Circuit et le Pays se fait automatiquement. La durée est
+     * en jour. Le Circuit est également ajouter à la base de données.
+     *
+     * @param moyenDeTransport
+     * @param kilometres
+     * @param codePays
+     * @param codeVoyage
+     * @param intitule
+     * @param duree
+     * @param description
+     */
     public static void creerCircuit(String moyenDeTransport, int kilometres,
             String codePays, String codeVoyage, String intitule, int duree,
             String description) {
@@ -172,7 +265,20 @@ public class Service {
         JpaUtil.merge(pays);
         JpaUtil.validerTransaction();
     }
-
+    
+    /**
+     * Cette méthode créée un Sejour à partir de ses caractéristiques. Le Pays
+     * ayant le code pays codePays doit être présent dans la base de donées. Le
+     * liens entre le Sejour et le Pays se fait automatiquement. La durée est en
+     * jour. Le Sejour est également ajouter à la base de données.
+     *
+     * @param residence
+     * @param codePays
+     * @param codeVoyage
+     * @param intitule
+     * @param duree
+     * @param description
+     */
     public static void creerSejour(String residence, String codePays,
             String codeVoyage, String intitule, int duree, String description) {
         JpaUtil.ouvrirTransaction();
@@ -188,7 +294,12 @@ public class Service {
         JpaUtil.merge(pays);
         JpaUtil.validerTransaction();
     }
-
+    
+    /**
+     * Cette Méthode affiche la liste de tous les Pays contenus dasn la base de
+     * données avec leurs caractéristiques.
+     *
+     */
     public static void listerTousLesPays() {
 
         List<Pays> pays = PaysDao.listerPays();
