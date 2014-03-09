@@ -28,8 +28,8 @@ public class LectureDonneesCsv {
     public static final String fichierClients = cheminFichier+ "IFRoutard-Clients.csv";
     public static final String fichierPays = cheminFichier+"IFRoutard-Pays.csv";
     public static final String fichierDeparts = cheminFichier+"IFRoutard-Departs.csv";
-    public static final String fichierCircuits = cheminFichier+"IFRoutard-Circuits.csv";
-    public static final String fichierSejours = cheminFichier+"IFRoutard-Sejours.csv";
+    public static final String fichierCircuits = cheminFichier+"IFRoutard-Voyages-Circuits.csv";
+    public static final String fichierSejours = cheminFichier+"IFRoutard-Voyages-Sejours.csv";
     public static final String fichierConseillers = cheminFichier+"IFRoutard-Conseillers.csv";
 
     public static int NBLIGNES = -1;
@@ -368,6 +368,7 @@ public class LectureDonneesCsv {
         String intitule = descriptionCircuits[2];
         int duree = Integer.parseInt(descriptionCircuits[3]);
         String description = descriptionCircuits[4];
+               System.out.println("PANDA");
         String transport = descriptionCircuits[5];
         int kilometres = Integer.parseInt(descriptionCircuits[6]);
 
@@ -458,7 +459,7 @@ public class LectureDonneesCsv {
           
             LectureDonneesCsv lectureDonneesCsv_Sejours = new LectureDonneesCsv(fichierSejours);
       
-            lectureDonneesCsv_Sejours.lireCircuits(NBLIGNES);
+            lectureDonneesCsv_Sejours.lireSejours(NBLIGNES);
             
             lectureDonneesCsv_Sejours.fermer();
             

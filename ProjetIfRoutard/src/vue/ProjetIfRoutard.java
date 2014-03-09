@@ -26,9 +26,11 @@ public class ProjetIfRoutard {
         JpaUtil.creerEntityManager();
 
         ServiceInit.initialisationPays();
-       
         ServiceInit.initialisationConseiller();
-               
+        ServiceInit.initialisationCircuit();
+        ServiceInit.initialisationSejour();
+            //ServiceInit.initDeparts();
+            //ServiceInit.initClient();       
         /*
         JpaUtil.ouvrirTransaction();
        
