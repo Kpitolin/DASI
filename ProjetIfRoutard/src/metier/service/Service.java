@@ -142,9 +142,16 @@ public class Service {
 
     }
 
-   // public static void creerSejour(Sejour s)
+    public static void creerSejour(String residence, String codePays, 
+            String codeVoyage, String intitule,int duree, String description )
     {
-        
+       Sejour s = new Sejour(residence, codePays, codeVoyage, intitule, duree,
+               description);
+       Pays pays = PaysDao.findPaysByCodePays(codePays);
+       s.setPaysDuVoyage(pays);
+        creerSejour(s);
+        pays.addVoyage(s);
+        JpaUtil.merge(pays);
     }
     public static void miseAjour(Object o) {
         JpaUtil.merge(o);
@@ -310,7 +317,7 @@ public class Service {
             if (lInfosPrincipales.size() > 0)
             {
                 int indexInfoPrincipale = Aleatoire.random(0, lInfosPrincipales.size());
-                return lInfosPrincipales.get(indexInfoPrincipale);
+                return lInfosPrincipales.get(indexInfoPrincipale-1);
             }
             return null;
         }
