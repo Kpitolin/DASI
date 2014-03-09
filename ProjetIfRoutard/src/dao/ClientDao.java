@@ -38,7 +38,17 @@ public class ClientDao {
                 }
             return client;
         }
-    
+        
+        public static  Client findClientByMail(String mail)
+        {
+            EntityManagerFactory emf =  Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
+            EntityManager em = emf.createEntityManager();
+            Client client = em.find(Client.class , mail);
+            if (client == null) {
+                throw  new EntityNotFoundException("Can't find client for mail " + mail );
+                }
+            return client;
+        }
     
     
     
