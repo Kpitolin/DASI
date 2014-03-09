@@ -29,7 +29,7 @@ public class LectureDonneesCsv {
     public static final String fichierDeparts = cheminFichier+"IFRoutard-Departs.csv";
     public static final String fichierCircuits = cheminFichier+"IFRoutard-Circuits.csv";
     public static final String fichierSejours = cheminFichier+"IFRoutard-Sejours.csv";
-
+    public static int NBLIGNES = 10;
 
     /**
      * Format de date pour la lecture des dates dans les fichiers CSV fournis.
@@ -279,7 +279,7 @@ public class LectureDonneesCsv {
         // Lecture des lignes
         while ((nextLine = this.lecteurFichier.readNext()) != null) {
         
-            creerConseiller(nextLine);
+            creerDeparts(nextLine);
             
             // Limite (ou -1 si pas de limite)
             if ( !(limite < 0) && (--limite < 1) ) {
@@ -296,11 +296,10 @@ public class LectureDonneesCsv {
         String codeVoyage = descriptionDeparts[0];
         String date = descriptionDeparts[1];
         String ville = descriptionDeparts[2];
-        String tarif = descriptionDeparts[3];
+        int tarif = Integer.parseInt(descriptionDeparts[3]);
         String transport = descriptionDeparts[4];
         
-       
-        Service.creerInfoPrincipale(null);
+        Service.creerInfoPrincipale(ville,date,tarif,transport,codeVoyage);
        
     }
         public void lireSejours(int limite) throws IOException {
@@ -315,7 +314,7 @@ public class LectureDonneesCsv {
         // Lecture des lignes
         while ((nextLine = this.lecteurFichier.readNext()) != null) {
         
-            creerConseiller(nextLine);
+            creerSejours(nextLine);
             
             // Limite (ou -1 si pas de limite)
             if ( !(limite < 0) && (--limite < 1) ) {
@@ -335,7 +334,7 @@ public class LectureDonneesCsv {
         String residence = descriptionSejours[5];
 
        
-        Service.creerCircuit(null);
+        Service.creerSejour(null);
        
     }
          public void lireCircuits(int limite) throws IOException {
@@ -350,7 +349,7 @@ public class LectureDonneesCsv {
         // Lecture des lignes
         while ((nextLine = this.lecteurFichier.readNext()) != null) {
         
-            creerConseiller(nextLine);
+            creerCircuits(nextLine);
             
             // Limite (ou -1 si pas de limite)
             if ( !(limite < 0) && (--limite < 1) ) {
@@ -379,43 +378,100 @@ public class LectureDonneesCsv {
      * 10 premiers éléments de chaque fichier.
      * @param args non utilisé ici
      */  
-    public static void initClientEtPays() {
+    public static void initClient() {
         
         try {
-            //String fichierClients = "C:\\Temp\\IFRoutard-Clients.csv";
-            //String fichierPays = "C:\\Temp\\IFRoutard-Pays.csv";
-            //String fichierConseiller = "C:\\Temp\\IFRoutard-Conseillers.csv";
-            //String fichierClients = "C:\\Users\\Ordi\\Desktop\\INSA\\3IF\\TP_DASI\\DASI-master\\Projets\\data\\IFRoutard-Clients.csv";
-            //String fichierPays = "C:\\Users\\Ordi\\Desktop\\INSA\\3IF\\TP_DASI\\DASI-master\\Projets\\data\\IFRoutard-Pays.csv";
-            
-            
+    
             LectureDonneesCsv lectureDonneesCsv_Clients = new LectureDonneesCsv(fichierClients);
-            LectureDonneesCsv lectureDonneesCsv_Departs = new LectureDonneesCsv(fichierDeparts);
-            LectureDonneesCsv lectureDonneesCsv_Circuits = new LectureDonneesCsv(fichierCircuits);
-            LectureDonneesCsv lectureDonneesCsv_Sejours = new LectureDonneesCsv(fichierSejours);
+            
 
-            // Pour tester: limite à 10
-            lectureDonneesCsv_Clients.lireClients(2);
-            // Puis, quand tout est au point!
-            //lectureDonneesCsv_Clients.lireClients(-1);
-
+            lectureDonneesCsv_Clients.lireClients(NBLIGNES);
+       
             lectureDonneesCsv_Clients.fermer();
 
-            LectureDonneesCsv lectureDonneesCsv_Pays = new LectureDonneesCsv(fichierPays);
-            
-            lectureDonneesCsv_Pays.lirePays(2);
-            
-            lectureDonneesCsv_Pays.fermer();
-            
-           /* LectureDonneesCsv lectureDonneesCsv_Conseiller = new LectureDonneesCsv(fichierConseiller);
-
-            lectureDonneesCsv_Conseiller.lireConseiller(2);
-
-            lectureDonneesCsv_Conseiller.fermer();*/
-            
         } catch (IOException ex) {
             ex.printStackTrace(System.err);
         }
 
     }
+    
+    
+    
+     public static void initPays() {
+        
+        try {
+          
+            LectureDonneesCsv lectureDonneesCsv_Pays = new LectureDonneesCsv(fichierPays);
+      
+            lectureDonneesCsv_Pays.lirePays(NBLIGNES);
+            
+            lectureDonneesCsv_Pays.fermer();
+            
+        
+        } catch (IOException ex) {
+            ex.printStackTrace(System.err);
+        }
+
+    }
+     
+       public static void initDeparts() {
+        
+        try {
+          
+            LectureDonneesCsv lectureDonneesCsv_Departs = new LectureDonneesCsv(fichierDeparts);
+      
+            lectureDonneesCsv_Departs.lireDeparts(NBLIGNES);
+            
+            lectureDonneesCsv_Departs.fermer();
+            
+        
+        } catch (IOException ex) {
+            ex.printStackTrace(System.err);
+        }
+
+    }
+       
+        public static void initCircuits() {
+        
+        try {
+          
+            LectureDonneesCsv lectureDonneesCsv_Circuits = new LectureDonneesCsv(fichierCircuits);
+      
+            lectureDonneesCsv_Circuits.lireCircuits(NBLIGNES);
+            
+            lectureDonneesCsv_Circuits.fermer();
+            
+        
+        } catch (IOException ex) {
+            ex.printStackTrace(System.err);
+        }
+
+    }
+        
+        public static void initSejours() {
+        
+        try {
+          
+            LectureDonneesCsv lectureDonneesCsv_Sejours = new LectureDonneesCsv(fichierSejours);
+      
+            lectureDonneesCsv_Sejours.lireCircuits(NBLIGNES);
+            
+            lectureDonneesCsv_Sejours.fermer();
+            
+        
+        } catch (IOException ex) {
+            ex.printStackTrace(System.err);
+        }
+
+    }
+        
+        public static void initAll(){
+            initPays();
+            initClient();
+            initCircuits();
+            initSejours();
+            initDeparts();
+            
+        }
+     
 }
