@@ -85,6 +85,10 @@ public class Conseiller {
         return email;
     }
 
+    public List<Client> getClients() {
+        return clients;
+    }
+
     public void setCivilite(String civilite) {
         this.civilite = civilite;
     }

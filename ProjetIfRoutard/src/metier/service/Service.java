@@ -448,7 +448,9 @@ public class Service {
         if (cons != null) {
             System.out.println(cons);
             d.setConseillerDevis(cons);
-            cons.addClient(d.getClientDevis());
+            if (!cons.getClients().contains(d.getClientDevis())) {
+                cons.addClient(d.getClientDevis());
+            }
             JpaUtil.merge(d);
             JpaUtil.merge(cons);
             res = true;
@@ -537,7 +539,7 @@ public class Service {
                 + "Depuis catalogue entier (C) \n");
         choixMode = Saisie.lireChaine("MODE CHOIX\n");
 
-        if (choixMode.equals("C")) {
+        if (choixMode.equals("C") || choixMode.equals("c")) {
             listerTousLesVoyages();
             System.out.println("Choisissez un voyage : ");
             descriptionDevis[1] = Saisie.lireChaine("CODE VOYAGE\n");
@@ -545,10 +547,10 @@ public class Service {
             descriptionDevis[2] = Saisie.lireChaine("CODE CHOIX\n");
             descriptionDevis[3] = Saisie.lireChaine("NOMBRE PARTICIPANTS\n");
         }
-        if (choixMode.equals("P")) {
+        if (choixMode.equals("P") || choixMode.equals("p")) {
             listerTousLesPays();
             System.out.println("Choisissez un pays : ");
-            String pays = Saisie.lireChaine("CODE Pays\n");
+            String pays = Saisie.lireChaine("Nom Pays\n");
             listerVoyagesParPays(pays);
             System.out.println("Choisissez un voyage : ");
             descriptionDevis[1] = Saisie.lireChaine("CODE VOYAGE\n");
@@ -556,7 +558,7 @@ public class Service {
             descriptionDevis[2] = Saisie.lireChaine("CODE CHOIX\n");
             descriptionDevis[3] = Saisie.lireChaine("NOMBRE PARTICIPANTS\n");
         }
-        if (choixMode.equals("T")) {
+        if (choixMode.equals("T") || choixMode.equals("t")) {
             System.out.println("Choisissez C pour Circuit ou S pour Séjour");
             String type = Saisie.lireChaine("TYPE\n");
             if (type.equals("C")) {
@@ -572,10 +574,11 @@ public class Service {
             descriptionDevis[3] = Saisie.lireChaine("NOMBRE PARTICIPANTS\n");
 
         }
-        if (choixMode.equals("PT")) {
+        if (choixMode.equals("PT") || choixMode.equals("pt")
+                || choixMode.equals("Pt") || choixMode.equals("pT")) {
             listerTousLesPays();
             System.out.println("Choisissez un pays : ");
-            String pays = Saisie.lireChaine("CODE Pays\n");
+            String pays = Saisie.lireChaine("Nom Pays\n");
             System.out.println("Choisissez Circuit ou Sejour");
             String type = Saisie.lireChaine("TYPE\n");
             listerVoyagesParPaysEtType(pays, type);
