@@ -120,7 +120,7 @@ public class InfoPrincipale {
 
     @Override
     public String toString() {
-        return  "Code : "+codeInfoPrincipale + " villeDepart=" + villeDepart + ", dateDepart=" + dateDepart + ", tarif=" + tarif + ", Transport=" + Transport + ", voyageAssocie=" + voyageAssocie ;
+        return  "Code : "+codeInfoPrincipale + " villeDepart=" + villeDepart + ", dateDepart=" + dateDepart + ", tarif=" + tarif + ", Transport=" + Transport ;
     }
     
     
