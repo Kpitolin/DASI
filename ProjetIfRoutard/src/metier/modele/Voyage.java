@@ -40,7 +40,8 @@ List <InfoPrincipale> infos = new ArrayList <InfoPrincipale> ();
     public Voyage() {
     }
 
-    public Voyage(String CodePays, String CodeVoyage, String Intitule, Integer Duree, String Description) {
+    public Voyage(String CodePays, String CodeVoyage, String Intitule, 
+            Integer Duree, String Description) {
         this.CodePays = CodePays;
         this.CodeVoyage = CodeVoyage;
         this.Intitule = Intitule;
@@ -50,7 +51,9 @@ List <InfoPrincipale> infos = new ArrayList <InfoPrincipale> ();
 
     @Override
     public String toString() {
-        return "Voyage{" + "CodePays=" + CodePays + ", CodeVoyage=" + CodeVoyage + ", Intitule=" + Intitule + ", Duree=" + Duree + ", Description=" + Description ;
+        return "Voyage  : " + "CodePays=" + CodePays + ", CodeVoyage=" + 
+                CodeVoyage + ", Intitule=" + Intitule + ", Duree=" + 
+                Duree + "\n Description: \n" + Description ;
     }
 
  
@@ -110,7 +113,17 @@ List <InfoPrincipale> infos = new ArrayList <InfoPrincipale> ();
     public void addInfos (InfoPrincipale info){
         this.infos.add(info);
     }
+    public String descriptionPourCatalogue (){
+    String chaine = null;  
+    
+    chaine +=toString();
+    for (int i = 0; i < this.infos.size(); i++) {
 
+                chaine += "   Choix " + (i+1) + " : \n" + this.infos.get(i).toString()+"\n";
+        }
+    
+    return chaine;
+}
    
 
 
