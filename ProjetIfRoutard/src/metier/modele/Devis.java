@@ -95,7 +95,7 @@ public class Devis {
     }
     
     public String afficheDevis(){
-                return "{" + "dateDevis=" + dateDevis + ", voyageDuDevis=" + voyageDuDevis.getDescription() + ", conseillerDevis=" + conseillerDevis.getNom()+" "+conseillerDevis.getPrenom() + ", nbPersonnes=" + nbPersonnes + ", choixCaracteristiques=" + choixCaracteristiques +"\n"+"Prix Total : "+calculePrix() +"€"+'}';
+                return   " Le Devis a été établi le  : dateDevis=" + dateDevis + ", voyageDuDevis=" + voyageDuDevis.getDescription() + ", conseillerDevis=" + conseillerDevis.getNom()+" "+conseillerDevis.getPrenom() + ", nbPersonnes=" + nbPersonnes + ", choixCaracteristiques=" + choixCaracteristiques +"\n"+"Prix Total : "+calculePrix() +"€";
 
     }
     

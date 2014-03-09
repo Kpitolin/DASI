@@ -147,7 +147,7 @@ public class Client {
         String chaine = "";
           for (int i = 0; i < this.devisDuClient.size(); i++) {
 
-                chaine += "   Devis" + i + " " + this.devisDuClient.get(i).afficheDevis()+"\n";
+                chaine += "   Devis " + (i+1) + " : " + this.devisDuClient.get(i).afficheDevis()+"\n";
         }
         
         
