@@ -139,7 +139,7 @@ public class Service {
 
     
 
-    public static void creerInfoPrincipale(String villeDepart, String DateDepart,
+    public static void creerInfoPrincipale(String villeDepart, String dateDepart,
             int Prix, String transport, String codeVoyage) {
         JpaUtil.ouvrirTransaction();
 
