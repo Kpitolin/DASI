@@ -23,6 +23,16 @@ import metier.service.Service;
 
 public class LectureDonneesCsv {
 
+    public static final String cheminFichier ="/Users/KEV/NetBeansProjects/GitHub/DASI/Projets/data/";
+    public static final String fichierClients = cheminFichier+ "IFRoutard-Clients.csv";
+    public static final String fichierPays = cheminFichier+"IFRoutard-Pays.csv";
+    public static final String fichierDeparts = cheminFichier+"IFRoutard-Departs.csv";
+    public static final String fichierCircuits = cheminFichier+"IFRoutard-Circuits.csv";
+    public static final String fichierSejours = cheminFichier+"IFRoutard-Sejours.csv";
+    public static final String fichierConseillers = cheminFichier+"IFRoutard-Conseillers.csv";
+
+    public static int NBLIGNES = 10;
+
     /**
      * Format de date pour la lecture des dates dans les fichiers CSV fournis.
      */
@@ -245,9 +255,7 @@ public class LectureDonneesCsv {
         String adresse = descriptionConseiller[4];
         String telephone = descriptionConseiller[5];
         String email = descriptionConseiller[6];
-        //System.out.println("Client: "+  civilite + " " + nom + " " + prenom + 
-               // ", né le " + formatDate(dateNaissance) + ", habitant à " + 
-                //adresse + ", téléphone: " + telephone + ", e-mail: " + email);
+        
         String[] PaysConseilles = new String[descriptionConseiller.length - 7];
         for (int tailletab = 0; tailletab <descriptionConseiller.length - 7;
                 tailletab++)
@@ -259,47 +267,228 @@ public class LectureDonneesCsv {
        
     }
     
+        public void lireDeparts(int limite) throws IOException {
+
+        String[] nextLine;
+
+         // En-tete du fichier CSV
+        nextLine = this.lecteurFichier.readNext();
+        afficherEnTeteCsv(nextLine);
+        
+        
+        // Lecture des lignes
+        while ((nextLine = this.lecteurFichier.readNext()) != null) {
+        
+            creerDeparts(nextLine);
+            
+            // Limite (ou -1 si pas de limite)
+            if ( !(limite < 0) && (--limite < 1) ) {
+                break;
+            }
+        }
+
+    }
+        
+        
+        
+         public void creerDeparts(String[] descriptionDeparts) {
+        
+        String codeVoyage = descriptionDeparts[0];
+        String date = descriptionDeparts[1];
+        String ville = descriptionDeparts[2];
+        int tarif = Integer.parseInt(descriptionDeparts[3]);
+        String transport = descriptionDeparts[4];
+        
+        Service.creerInfoPrincipale(ville,date,tarif,transport,codeVoyage);
+       
+    }
+        public void lireSejours(int limite) throws IOException {
+
+        String[] nextLine;
+
+         // En-tete du fichier CSV
+        nextLine = this.lecteurFichier.readNext();
+        afficherEnTeteCsv(nextLine);
+        
+        
+        // Lecture des lignes
+        while ((nextLine = this.lecteurFichier.readNext()) != null) {
+        
+            creerSejours(nextLine);
+            
+            // Limite (ou -1 si pas de limite)
+            if ( !(limite < 0) && (--limite < 1) ) {
+                break;
+            }
+        }
+
+    } 
+         
+         public void creerSejours(String[] descriptionSejours) {
+        
+        String codePays = descriptionSejours[0];
+        String codeVoyage = descriptionSejours[1];
+        String intitule = descriptionSejours[2];
+        int duree = Integer.parseInt(descriptionSejours[3]);
+        String description = descriptionSejours[4];
+        String residence = descriptionSejours[5];
+
+      
+        Service.creerSejour(residence,codePays,codeVoyage,intitule,duree,description);
+       
+    }
+         public void lireCircuits(int limite) throws IOException {
+
+        String[] nextLine;
+
+         // En-tete du fichier CSV
+        nextLine = this.lecteurFichier.readNext();
+        afficherEnTeteCsv(nextLine);
+        
+        
+        // Lecture des lignes
+        while ((nextLine = this.lecteurFichier.readNext()) != null) {
+        
+            creerCircuits(nextLine);
+            
+            // Limite (ou -1 si pas de limite)
+            if ( !(limite < 0) && (--limite < 1) ) {
+                break;
+            }
+        }
+
+    }
+           public void creerCircuits(String[] descriptionCircuits) {
+        
+        String codePays = descriptionCircuits[0];
+        String codeVoyage = descriptionCircuits[1];
+        String intitule = descriptionCircuits[2];
+        String duree = descriptionCircuits[3];
+        String description = descriptionCircuits[4];
+        String transport = descriptionCircuits[5];
+        String kilometres = descriptionCircuits[6];
+
+       
+        Service.creerCircuit(null);
+       
+    }
     /**
      * Cette méthode main() permet de tester cette classe avant de l'intégrer dans votre code.
      * Elle exploite initialement un fichier de Client et un fichier de Pays, en limitant la lecture aux
      * 10 premiers éléments de chaque fichier.
      * @param args non utilisé ici
      */  
-    public static void initClientEtPays() {
+    public static void initClient() {
         
         try {
-            //String fichierClients = "C:\\Temp\\IFRoutard-Clients.csv";
-            //String fichierPays = "C:\\Temp\\IFRoutard-Pays.csv";
-            //String fichierConseiller = "C:\\Temp\\IFRoutard-Conseillers.csv";
-            //String fichierClients = "C:\\Users\\Ordi\\Desktop\\INSA\\3IF\\TP_DASI\\DASI-master\\Projets\\data\\IFRoutard-Clients.csv";
-            //String fichierPays = "C:\\Users\\Ordi\\Desktop\\INSA\\3IF\\TP_DASI\\DASI-master\\Projets\\data\\IFRoutard-Pays.csv";
-            String fichierClients = "/Users/KEV/NetBeansProjects/GitHub/DASI/Projets/data/IFRoutard-Clients.csv";
-            String fichierPays = "/Users/KEV/NetBeansProjects/GitHub/DASI/Projets/data/IFRoutard-Pays.csv";
-            
+    
             LectureDonneesCsv lectureDonneesCsv_Clients = new LectureDonneesCsv(fichierClients);
             
-            // Pour tester: limite à 10
-            lectureDonneesCsv_Clients.lireClients(2);
-            // Puis, quand tout est au point!
-            //lectureDonneesCsv_Clients.lireClients(-1);
 
+            lectureDonneesCsv_Clients.lireClients(NBLIGNES);
+       
             lectureDonneesCsv_Clients.fermer();
 
-            LectureDonneesCsv lectureDonneesCsv_Pays = new LectureDonneesCsv(fichierPays);
-            
-            lectureDonneesCsv_Pays.lirePays(2);
-            
-            lectureDonneesCsv_Pays.fermer();
-            
-           /* LectureDonneesCsv lectureDonneesCsv_Conseiller = new LectureDonneesCsv(fichierConseiller);
-
-            lectureDonneesCsv_Conseiller.lireConseiller(2);
-
-            lectureDonneesCsv_Conseiller.fermer();*/
-            
         } catch (IOException ex) {
             ex.printStackTrace(System.err);
         }
 
     }
+    
+    
+    
+     public static void initPays() {
+        
+        try {
+          
+            LectureDonneesCsv lectureDonneesCsv_Pays = new LectureDonneesCsv(fichierPays);
+      
+            lectureDonneesCsv_Pays.lirePays(NBLIGNES);
+            
+            lectureDonneesCsv_Pays.fermer();
+            
+        
+        } catch (IOException ex) {
+            ex.printStackTrace(System.err);
+        }
+
+    }
+     
+       public static void initDeparts() {
+        
+        try {
+          
+            LectureDonneesCsv lectureDonneesCsv_Departs = new LectureDonneesCsv(fichierDeparts);
+      
+            lectureDonneesCsv_Departs.lireDeparts(NBLIGNES);
+            
+            lectureDonneesCsv_Departs.fermer();
+            
+        
+        } catch (IOException ex) {
+            ex.printStackTrace(System.err);
+        }
+
+    }
+       
+        public static void initCircuits() {
+        
+        try {
+          
+            LectureDonneesCsv lectureDonneesCsv_Circuits = new LectureDonneesCsv(fichierCircuits);
+      
+            lectureDonneesCsv_Circuits.lireCircuits(NBLIGNES);
+            
+            lectureDonneesCsv_Circuits.fermer();
+            
+        
+        } catch (IOException ex) {
+            ex.printStackTrace(System.err);
+        }
+
+    }
+        
+        public static void initSejours() {
+        
+        try {
+          
+            LectureDonneesCsv lectureDonneesCsv_Sejours = new LectureDonneesCsv(fichierSejours);
+      
+            lectureDonneesCsv_Sejours.lireCircuits(NBLIGNES);
+            
+            lectureDonneesCsv_Sejours.fermer();
+            
+        
+        } catch (IOException ex) {
+            ex.printStackTrace(System.err);
+        }
+
+    }
+           public static void initConseillers() {
+        
+        try {
+          
+            LectureDonneesCsv lectureDonneesCsv_Conseillers = new LectureDonneesCsv(fichierConseillers);
+      
+            lectureDonneesCsv_Conseillers.lireConseiller(NBLIGNES);
+            
+            lectureDonneesCsv_Conseillers.fermer();
+            
+        
+        } catch (IOException ex) {
+            ex.printStackTrace(System.err);
+        }
+
+    }
+        public static void initAll(){
+            initPays();
+            initConseillers();
+            initCircuits();
+            initSejours();
+            initDeparts();
+            initClient();
+            
+            
+        }
+     
 }

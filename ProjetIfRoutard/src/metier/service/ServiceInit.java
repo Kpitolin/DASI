@@ -13,7 +13,7 @@ import util.LectureDonneesCsv;
 public class ServiceInit {
     
     public static void initialisation () {
-        LectureDonneesCsv.initClientEtPays();
+        LectureDonneesCsv.initAll();
     }
     
     
