@@ -95,11 +95,11 @@ public class VoyageDao {
 
     public static Voyage findVoyageById(Integer voyageId) {
 
-        Voyage voyage = JpaUtil.obtenirEntityManager().find(Voyage.class, 
+        Voyage voyage = JpaUtil.obtenirEntityManager().find(Voyage.class,
                 voyageId);
         if (voyage == null) {
-            throw new EntityNotFoundException("Can't find voyage for ID " + 
-                    voyageId);
+            throw new EntityNotFoundException("Can't find voyage for ID "
+                    + voyageId);
         }
         return voyage;
     }
@@ -111,8 +111,8 @@ public class VoyageDao {
         query.setParameter("code", codeVoyage);
         Voyage voyage = (Voyage) query.getSingleResult();
         if (voyage == null) {
-            throw new EntityNotFoundException("Can't find voyage for code " + 
-                    codeVoyage);
+            throw new EntityNotFoundException("Can't find voyage for code "
+                    + codeVoyage);
         }
         return voyage;
     }
