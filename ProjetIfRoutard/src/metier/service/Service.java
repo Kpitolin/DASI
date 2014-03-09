@@ -188,7 +188,7 @@ public class Service {
         List<Voyage> voyages = VoyageDao.listerVoyages();
         for (int i = 0; i < voyages.size(); i++) {
 
-            System.out.print(voyages.get(i) + "\n");
+            System.out.print(voyages.get(i).descriptionPourCatalogue() + "\n");
         }
         if (voyages.isEmpty()) {
             System.out.println("Aucun voyage ");
@@ -318,9 +318,8 @@ public class Service {
     }
 
     public static void SaisirDevis() {
-
-        System.out.println("Veuillez écrire : \"AAAA-JJ-MM\" \"CODEVOYAGE\" \"CODEPAYS\" "
-                + "\"CLIENT\" \"NBPERSONNES\" \"CHOIXDEPART\"  ");
+        
+        System.out.println("Veuillez écrire : \"CODEVOYAGE\" \"NBPERSONNES\" \"CHOIXDEPART\"  ");
 
         String[] descriptionDevis = new String[2];
         descriptionDevis[0] = Saisie.lireChaine("ADDRESSE EMAIL CLIENT\n");
