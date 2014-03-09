@@ -154,12 +154,9 @@ public class LectureDonneesCsv {
         String telephone = descriptionClient[5];
         String email = descriptionClient[6];
         String codevoyagepourdevis = descriptionClient[7];
-        
-        //System.out.println("Client: "+  civilite + " " + nom + " " + prenom + ", né le " + dateNaissance + ", habitant à " + adresse + ", téléphone: " + telephone + ", e-mail: " + email);
-        System.out.println(codevoyagepourdevis);
-        
+            
         Service.creerClient(civilite,nom,prenom,dateNaissance,adresse,telephone,email);
-        //Service.creerDevis(codevoyagepourdevis, email);
+        Service.creerDevis(codevoyagepourdevis, email);
     }
 
     /**
@@ -368,7 +365,6 @@ public class LectureDonneesCsv {
         String intitule = descriptionCircuits[2];
         int duree = Integer.parseInt(descriptionCircuits[3]);
         String description = descriptionCircuits[4];
-               System.out.println("PANDA");
         String transport = descriptionCircuits[5];
         int kilometres = Integer.parseInt(descriptionCircuits[6]);
 
@@ -390,7 +386,7 @@ public class LectureDonneesCsv {
             LectureDonneesCsv lectureDonneesCsv_Clients = new LectureDonneesCsv(fichierClients);
             
 
-            lectureDonneesCsv_Clients.lireClients(NBLIGNES);
+            lectureDonneesCsv_Clients.lireClients(100);
        
             lectureDonneesCsv_Clients.fermer();
 

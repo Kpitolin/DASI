@@ -29,8 +29,8 @@ public class ProjetIfRoutard {
         ServiceInit.initialisationConseiller();
         ServiceInit.initialisationCircuit();
         ServiceInit.initialisationSejour();
-            //ServiceInit.initDeparts();
-            //ServiceInit.initClient();       
+        ServiceInit.initialisationInfoPrincipale();
+        ServiceInit.initialisationClient();
         /*
         JpaUtil.ouvrirTransaction();
        

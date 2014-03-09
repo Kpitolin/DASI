@@ -36,6 +36,7 @@ public class Service {
      *
      */
     protected static DateFormat USR_BIRTH_DATE = new SimpleDateFormat("dd-MM-yyyy");
+    protected static DateFormat US_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     
     public static void creerDevis (Devis d){
         JpaUtil.persist(d);
@@ -52,7 +53,7 @@ public class Service {
              creerDevis(d);
              d.setNbPersonnes(ChoisirNbPassager());
              d.setChoixCaracteristiques(ChoisirInfoPrincipale(CodeVoyage));
-             Service.choisirConseiller(d);
+             Service.choisirConseiller(d);             
              JpaUtil.merge(d);
              d.getClientDevis().addDevis(d);
              JpaUtil.merge(d.getClientDevis());
@@ -71,7 +72,7 @@ public class Service {
              String Date, String Adresse, String telephone, String mail)
     {
         JpaUtil.ouvrirTransaction();
-        Client c = new Client(Civilite, Nom, prenom, parseDate(Date), Adresse, telephone, mail);
+        Client c = new Client(Civilite, Nom, prenom, parseDateUsFormat(Date), Adresse, telephone, mail);
         creerClient(c);
         JpaUtil.validerTransaction();
     }
@@ -103,7 +104,7 @@ public class Service {
              String Date, String Adresse, String telephone, String mail, String[] CodePaysConseilles) 
      {
          JpaUtil.ouvrirTransaction();
-         Conseiller c = new Conseiller(Civilite, Nom, prenom, parseDate(Date),
+         Conseiller c = new Conseiller(Civilite, Nom, prenom, parseDateUsFormat(Date),
                  Adresse, telephone, mail);
          creerConseiller(c);
          for (int lgtCodePC = 0; lgtCodePC < CodePaysConseilles.length; lgtCodePC++)
@@ -127,8 +128,8 @@ public class Service {
     {
         JpaUtil.ouvrirTransaction();
                 
-        InfoPrincipale iP = new InfoPrincipale(villeDepart, parseDate(DateDepart),
-                Prix, transport);
+        InfoPrincipale iP = new InfoPrincipale(villeDepart, 
+                parseDateUsFormat(DateDepart), Prix, transport);
         Voyage voyageAssocie = VoyageDao.findVoyageByCodeVoyage(codeVoyage);
         iP.setVoyageAssocie(voyageAssocie);
         creerInfoPrincipale(iP);
@@ -266,12 +267,10 @@ public class Service {
     
    
     public static void choisirConseiller (Devis d) {
-        JpaUtil.ouvrirTransaction();
         Conseiller cons = DevisDao.choixConseiller(d);
         System.out.println(cons);
         d.setConseillerDevis(cons);
         JpaUtil.merge(d);
-        JpaUtil.validerTransaction();
                 
     
 }
@@ -311,7 +310,7 @@ public class Service {
         descriptionClient[0] = Saisie.lireChaine("CIVILITE\n");
         descriptionClient[1] = Saisie.lireChaine("NOM\n");
         descriptionClient[2] = Saisie.lireChaine("PRENOM\n");
-        descriptionClient[3] = Saisie.lireChaine("JJ-MM-AAAA\n");
+        descriptionClient[3] = Saisie.lireChaine("AAAA-MM-JJ\n");
         descriptionClient[4] = Saisie.lireChaine("ADRESSE\n");
         descriptionClient[5] = Saisie.lireChaine("TELEPHONE\n");
         descriptionClient[6] = Saisie.lireChaine("EMAIL\n");
@@ -342,19 +341,18 @@ public class Service {
             List<InfoPrincipale> lInfosPrincipales = VoyageDao.listerInfos(CodeVoyage);
             if (lInfosPrincipales.size() > 0)
             {
-                int indexInfoPrincipale = Aleatoire.random(0, lInfosPrincipales.size());
-                return lInfosPrincipales.get(indexInfoPrincipale-1);
+                int indexInfoPrincipale = Aleatoire.random(0, lInfosPrincipales.size()-1);
+                return lInfosPrincipales.get(indexInfoPrincipale);
             }
             return null;
         }
         
-        
-         public static Date parseDate(String date) {
+
+        public static Date parseDateUsFormat(String date) {
         try {
-            return USR_BIRTH_DATE.parse(date);
+            return US_DATE_FORMAT.parse(date);
         } catch (ParseException ex) {
             return new Date();
             }
         }
-         
 }
