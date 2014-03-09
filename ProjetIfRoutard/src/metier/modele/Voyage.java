@@ -118,7 +118,7 @@ public abstract class Voyage {
         chaine += toString();
         for (int i = 0; i < this.infos.size(); i++) {
 
-            chaine += "   Choix " + (i + 1) + " : \n" + 
+            chaine += "\nChoix " + (i + 1) + " : \n" + 
                     this.infos.get(i).toString() + "\n";
         }
 
