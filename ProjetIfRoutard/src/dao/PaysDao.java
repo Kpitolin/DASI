@@ -19,16 +19,7 @@ import metier.modele.Pays;
 public class PaysDao {
     
     
-     public void persistPays (Pays p){
-        ObjectDao.persitObject(p);
-    
-    }
-    
-       
-    public void mergePays  (Pays p){
-        ObjectDao.mergeObject(p);
-    
-    }
+ 
  
                    
    public static  Pays findPaysById(Integer paysId)

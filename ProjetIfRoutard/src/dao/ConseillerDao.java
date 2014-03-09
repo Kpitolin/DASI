@@ -19,16 +19,7 @@ public class ConseillerDao {
     
     
     
-     public void persistConseiller (Conseiller c){
-        ObjectDao.persitObject(c);
     
-    }
-    
-       
-    public void mergeConseiller  (Conseiller c){
-        ObjectDao.mergeObject(c);
-    
-    }
     
                 public static  Conseiller findConseillerById(Integer conseillerId)
         {

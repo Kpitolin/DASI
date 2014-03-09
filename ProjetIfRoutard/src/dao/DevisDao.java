@@ -22,16 +22,7 @@ import metier.modele.Devis;
 public class DevisDao {
     
     public static final int MAXRESULT = 1;
-      public void persistDevis (Devis p){
-        ObjectDao.persitObject(p);
-    
-    }
-    
-       
-    public void mergeDevis  (Devis p){
-        ObjectDao.mergeObject(p);
-    
-    }
+   
     
          // select c from Conseiller e join e.attributDeCPointantC unNom
 
