@@ -160,7 +160,7 @@ public class Service {
     
    
     public static void choisirConseiller (Devis d) {
-    d.setConseillerDevis(DevisDao.choixConseiller(d));
+   // d.setConseillerDevis(DevisDao.choixConseiller(d));
     
 }
     public static void listerVoyagesParPaysEtType(String nomPays, String type) {

@@ -32,17 +32,18 @@ public class DevisDao {
     }
     
     
-    
-    public static Conseiller choixConseiller(Devis d){
+        // select c from Conseiller e join e.attributDeCPointantC unNom
+
+    public static List<Conseiller> choixConseiller(Devis d){
          EntityManagerFactory emf =  Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
             EntityManager em = emf.createEntityManager();
-            Query query = em.createQuery("Select cons from Conseiller cons ")  ;
-            //query.setParameter("idPays", d.getVoyageDuDevis().getPaysDuVoyage().getIdPays());
+            Query query = em.createQuery("Select conseillers from Conseiller cons join Pays.conseillers where Pays.nom = :nomPays")  ;
+            query.setParameter("nomPays", d.getVoyageDuDevis().getPaysDuVoyage().getNom());
             //Conseiller conseiller = (Conseiller) query.getSingleResult();
             List<Conseiller> conseiller = (List<Conseiller>) query.getResultList();
             if (conseiller == null) {
-                throw  new EntityNotFoundException("Impossible de trouver conseiller pour le pays :  " + d.getVoyageDuDevis().getPaysDuVoyage() );
+                throw  new EntityNotFoundException("Impossible de trouver conseiller pour le pays :  " + d.getVoyageDuDevis().getPaysDuVoyage().getNom() );
                 }
-            return conseiller.get(0);
+            return conseiller;
     }
 }
