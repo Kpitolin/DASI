@@ -34,6 +34,7 @@ public class LectureDonneesCsv {
     public static final String fichierConseillers = cheminFichier+"IFRoutard-Conseillers.csv";
 
     public static int NBLIGNES = -1;
+    public static int NBCLIENTS = 10;
 
     /**
      * Format de date pour la lecture des dates dans les fichiers CSV fournis.
@@ -387,7 +388,7 @@ public class LectureDonneesCsv {
             LectureDonneesCsv lectureDonneesCsv_Clients = new LectureDonneesCsv(fichierClients);
             
 
-            lectureDonneesCsv_Clients.lireClients(100);
+            lectureDonneesCsv_Clients.lireClients(NBCLIENTS);
        
             lectureDonneesCsv_Clients.fermer();
 
