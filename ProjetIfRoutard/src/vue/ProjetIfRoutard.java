@@ -144,7 +144,7 @@ public class ProjetIfRoutard {
        
        JpaUtil.ouvrirTransaction();
               
-       //Service.choisirConseiller(d);
+       Service.choisirConseiller(d);
        
        JpaUtil.validerTransaction();
        
