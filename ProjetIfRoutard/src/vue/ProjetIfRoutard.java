@@ -25,13 +25,10 @@ public class ProjetIfRoutard {
        
         JpaUtil.creerEntityManager();
 
-        JpaUtil.ouvrirTransaction();
         ServiceInit.initialisationPays();
-        JpaUtil.validerTransaction();
        
-        JpaUtil.ouvrirTransaction();
         ServiceInit.initialisationConseiller();
-        JpaUtil.validerTransaction();
+               
         /*
         JpaUtil.ouvrirTransaction();
        
@@ -212,16 +209,12 @@ public class ProjetIfRoutard {
            
            if( str.equals("C") || str.equals("c"))
            {
-              JpaUtil.ouvrirTransaction(); 
               Service.SaisirClient();
-              JpaUtil.validerTransaction();   
            }
           
            if( str.equals("D") || str.equals("d") )
             { 
-              JpaUtil.ouvrirTransaction(); 
               Service.SaisirDevis();
-              JpaUtil.validerTransaction();
             }
             
            if( str.equals("Q") || str.equals("q") )

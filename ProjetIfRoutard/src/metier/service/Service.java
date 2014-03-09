@@ -45,6 +45,7 @@ public class Service {
     
     public static void creerDevis(String CodeVoyage, String addresseMailClient)
          {
+             JpaUtil.ouvrirTransaction();
              Date currentDate = new Date(new GregorianCalendar().getTime().getTime());
              Devis d = new Devis (currentDate,VoyageDao.findVoyageByCodeVoyage(CodeVoyage),
                      ClientDao.findClientByMail(addresseMailClient));
@@ -55,6 +56,7 @@ public class Service {
              JpaUtil.merge(d);
              d.getClientDevis().addDevis(d);
              JpaUtil.merge(d.getClientDevis());
+             JpaUtil.validerTransaction();
          }
          
     public static void creerClient(Client c) {
@@ -68,8 +70,10 @@ public class Service {
     public static void creerClient (String Civilite, String Nom, String prenom, 
              String Date, String Adresse, String telephone, String mail)
     {
+        JpaUtil.ouvrirTransaction();
         Client c = new Client(Civilite, Nom, prenom, parseDate(Date), Adresse, telephone, mail);
         creerClient(c);
+        JpaUtil.validerTransaction();
     }
 
     public static void creerPays(Pays p) {
@@ -82,9 +86,11 @@ public class Service {
             String capitale, String langues, float superficie, float population,
             String regimePolitique)
     {
+        JpaUtil.ouvrirTransaction();
         Pays p = new Pays(nom, code, nom, capitale, langues, superficie, 
                 population, regimePolitique);
         creerPays(p);
+        JpaUtil.validerTransaction();
     }
              
     public static void creerConseiller(Conseiller c) {
@@ -96,6 +102,7 @@ public class Service {
      public static void creerConseiller(String Civilite, String Nom, String prenom, 
              String Date, String Adresse, String telephone, String mail, String[] CodePaysConseilles) 
      {
+         JpaUtil.ouvrirTransaction();
          Conseiller c = new Conseiller(Civilite, Nom, prenom, parseDate(Date),
                  Adresse, telephone, mail);
          creerConseiller(c);
@@ -107,7 +114,7 @@ public class Service {
              JpaUtil.merge(p);
          }
          JpaUtil.merge(c);         
-         
+         JpaUtil.validerTransaction();
      }
     public static void creerInfoPrincipale(InfoPrincipale info) {
         JpaUtil.persist(info);
@@ -118,6 +125,8 @@ public class Service {
     public static void creerInfoPrincipale(String villeDepart, String DateDepart,
             int Prix, String transport, String codeVoyage)
     {
+        JpaUtil.ouvrirTransaction();
+                
         InfoPrincipale iP = new InfoPrincipale(villeDepart, parseDate(DateDepart),
                 Prix, transport);
         Voyage voyageAssocie = VoyageDao.findVoyageByCodeVoyage(codeVoyage);
@@ -125,6 +134,7 @@ public class Service {
         creerInfoPrincipale(iP);
         voyageAssocie.addInfos(iP);
         JpaUtil.merge(voyageAssocie);
+        JpaUtil.validerTransaction();
     }
     public static void creerCircuit(Circuit circuit) {
         JpaUtil.persist(circuit);
@@ -135,6 +145,7 @@ public class Service {
             String codePays,String codeVoyage, String intitule,int duree, 
             String description )
     {
+        JpaUtil.ouvrirTransaction();
        Circuit c = new Circuit(moyenDeTransport, kilometres, codePays, codeVoyage, 
                intitule, duree, description);
        Pays pays = PaysDao.findPaysByCodePays(codePays);
@@ -142,6 +153,7 @@ public class Service {
         creerCircuit(c);
         pays.addVoyage(c);
         JpaUtil.merge(pays);
+        JpaUtil.validerTransaction();
     }
     
     public static void creerSejour(Sejour s) {
@@ -153,6 +165,7 @@ public class Service {
     public static void creerSejour(String residence, String codePays, 
             String codeVoyage, String intitule,int duree, String description )
     {
+        JpaUtil.ouvrirTransaction();
        Sejour s = new Sejour(residence, codePays, codeVoyage, intitule, duree,
                description);
        Pays pays = PaysDao.findPaysByCodePays(codePays);
@@ -160,6 +173,7 @@ public class Service {
         creerSejour(s);
         pays.addVoyage(s);
         JpaUtil.merge(pays);
+        JpaUtil.validerTransaction();
     }
     public static void miseAjour(Object o) {
         JpaUtil.merge(o);
@@ -252,9 +266,13 @@ public class Service {
     
    
     public static void choisirConseiller (Devis d) {
+        JpaUtil.ouvrirTransaction();
         Conseiller cons = DevisDao.choixConseiller(d);
         System.out.println(cons);
         d.setConseillerDevis(cons);
+        JpaUtil.merge(d);
+        JpaUtil.validerTransaction();
+                
     
 }
     public static void listerVoyagesParPaysEtType(String nomPays, String type) {
