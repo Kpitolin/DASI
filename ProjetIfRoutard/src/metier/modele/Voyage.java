@@ -53,7 +53,7 @@ List <InfoPrincipale> infos = new ArrayList <InfoPrincipale> ();
     public String toString() {
         return "Voyage  : " + "CodePays=" + CodePays + ", CodeVoyage=" + 
                 CodeVoyage + ", Intitule=" + Intitule + ", Duree=" + 
-                Duree + "\n Description: \n" + Description ;
+                Duree + "\n Description: \n" + Description +"\n";
     }
 
  
@@ -114,7 +114,7 @@ List <InfoPrincipale> infos = new ArrayList <InfoPrincipale> ();
         this.infos.add(info);
     }
     public String descriptionPourCatalogue (){
-    String chaine = null;  
+    String chaine = "";  
     
     chaine +=toString();
     for (int i = 0; i < this.infos.size(); i++) {
