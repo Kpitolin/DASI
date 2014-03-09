@@ -69,10 +69,8 @@ public class Service {
 
     public static void creerDevis(String CodeVoyage, String addresseMailClient) {
         JpaUtil.ouvrirTransaction();
-        Date currentDate
-                = new Date(new GregorianCalendar().getTime().getTime());
-        Devis d = new Devis(currentDate,
-                VoyageDao.findVoyageByCodeVoyage(CodeVoyage),
+        Date currentDate = new Date(new GregorianCalendar().getTime().getTime());
+        Devis d = new Devis(currentDate, VoyageDao.findVoyageByCodeVoyage(CodeVoyage),
                 ClientDao.findClientByMail(addresseMailClient));
         JpaUtil.persist(d);
 
