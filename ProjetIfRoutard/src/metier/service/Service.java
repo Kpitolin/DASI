@@ -4,6 +4,7 @@
  */
 package metier.service;
 
+import dao.ClientDao;
 import dao.DevisDao;
 import dao.JpaUtil;
 import dao.PaysDao;
@@ -46,9 +47,12 @@ public class Service {
          {
              Date currentDate = new Date(new GregorianCalendar().getTime().getTime());
              Devis d = new Devis (currentDate,VoyageDao.findVoyageByCodeVoyage(CodeVoyage),
-                     clientBelge);
+                     ClientDao.findClientByMail(addresseMailClient));
              creerDevis(d);
              d.getClientDevis().addDevis(d);
+             d.setNbPersonnes(ChoisirNbPassager());
+             d.setChoixCaracteristiques(ChoisirInfoPrincipale(CodeVoyage));
+             JpaUtil.merge(d);
              JpaUtil.merge(d.getClientDevis());
          }
          

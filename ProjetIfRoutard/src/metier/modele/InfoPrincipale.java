@@ -89,6 +89,11 @@ public class InfoPrincipale {
     public void setVoyageAssocie(Voyage voyageAssocie) {
         this.voyageAssocie = voyageAssocie;
     }
+
+    @Override
+    public String toString() {
+        return "InfoPrincipale{" + "villeDepart=" + villeDepart + ", dateDepart=" + dateDepart + ", tarif=" + tarif + ", Transport=" + Transport + ", voyageAssocie=" + voyageAssocie + '}';
+    }
     
     
 }

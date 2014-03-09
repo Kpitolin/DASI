@@ -81,4 +81,12 @@ public class Devis {
         this.clientDevis = clientDevis;
     }
 
+    public void setNbPersonnes(Integer nbPersonnes) {
+        this.nbPersonnes = nbPersonnes;
+    }
+
+    public void setChoixCaracteristiques(InfoPrincipale choixCaracteristiques) {
+        this.choixCaracteristiques = choixCaracteristiques;
+    }
+
 }
