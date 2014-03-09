@@ -36,7 +36,7 @@ public class DevisDao {
     public static List<Conseiller> choixConseiller(Devis d){
          EntityManagerFactory emf =  Persistence.createEntityManagerFactory("ProjetIfRoutardPU");
             EntityManager em = emf.createEntityManager();
-            Query query = em.createQuery("select conseillers from Pays pays join pays.conseillers conseillers where pays.nom = :nomPays and SIZE(conseillers.clients) = 0 ")  ;
+            Query query = em.createQuery("select conseillers from Pays pays join pays.conseillers conseillers where pays.nom = :nomPays and SIZE(conseillers.clients) = (select MIN (SIZE(cons.clients))from Conseiller cons) ")  ;
             query.setParameter("nomPays", d.getVoyageDuDevis().getPaysDuVoyage().getNom());
             //Conseiller conseiller = (Conseiller) query.getSingleResult();
             List<Conseiller> conseiller = (List<Conseiller>) query.getResultList();
