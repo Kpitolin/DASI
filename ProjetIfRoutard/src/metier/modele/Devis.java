@@ -95,9 +95,11 @@ public class Devis {
     }
     
     public String afficheDevis(){
-                return "{" + "dateDevis=" + dateDevis + ", voyageDuDevis=" + voyageDuDevis.getDescription() + ", conseillerDevis=" + conseillerDevis.getNom()+" "+conseillerDevis.getPrenom() + ", nbPersonnes=" + nbPersonnes + ", choixCaracteristiques=" + choixCaracteristiques + '}';
+                return "{" + "dateDevis=" + dateDevis + ", voyageDuDevis=" + voyageDuDevis.getDescription() + ", conseillerDevis=" + conseillerDevis.getNom()+" "+conseillerDevis.getPrenom() + ", nbPersonnes=" + nbPersonnes + ", choixCaracteristiques=" + choixCaracteristiques +"\n"+"Prix Total : "+calculePrix() +"€"+'}';
 
     }
     
-
+    public int calculePrix(){
+        return choixCaracteristiques.getTarif()*nbPersonnes;
+    }
 }

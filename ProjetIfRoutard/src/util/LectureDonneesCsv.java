@@ -23,6 +23,14 @@ import metier.service.Service;
 
 public class LectureDonneesCsv {
 
+    public static final String cheminFichier ="/Users/KEV/NetBeansProjects/GitHub/DASI/Projets/data/";
+    public static final String fichierClients = cheminFichier+ "IFRoutard-Clients.csv";
+    public static final String fichierPays = cheminFichier+"IFRoutard-Pays.csv";
+    public static final String fichierDeparts = cheminFichier+"IFRoutard-Departs.csv";
+    public static final String fichierCircuits = cheminFichier+"IFRoutard-Circuits.csv";
+    public static final String fichierSejours = cheminFichier+"IFRoutard-Sejours.csv";
+
+
     /**
      * Format de date pour la lecture des dates dans les fichiers CSV fournis.
      */
@@ -259,6 +267,112 @@ public class LectureDonneesCsv {
        
     }
     
+        public void lireDeparts(int limite) throws IOException {
+
+        String[] nextLine;
+
+         // En-tete du fichier CSV
+        nextLine = this.lecteurFichier.readNext();
+        afficherEnTeteCsv(nextLine);
+        
+        
+        // Lecture des lignes
+        while ((nextLine = this.lecteurFichier.readNext()) != null) {
+        
+            creerConseiller(nextLine);
+            
+            // Limite (ou -1 si pas de limite)
+            if ( !(limite < 0) && (--limite < 1) ) {
+                break;
+            }
+        }
+
+    }
+        
+        
+        
+         public void creerDeparts(String[] descriptionDeparts) {
+        
+        String codeVoyage = descriptionDeparts[0];
+        String date = descriptionDeparts[1];
+        String ville = descriptionDeparts[2];
+        String tarif = descriptionDeparts[3];
+        String transport = descriptionDeparts[4];
+        
+       
+        Service.creerInfoPrincipale(null);
+       
+    }
+        public void lireSejours(int limite) throws IOException {
+
+        String[] nextLine;
+
+         // En-tete du fichier CSV
+        nextLine = this.lecteurFichier.readNext();
+        afficherEnTeteCsv(nextLine);
+        
+        
+        // Lecture des lignes
+        while ((nextLine = this.lecteurFichier.readNext()) != null) {
+        
+            creerConseiller(nextLine);
+            
+            // Limite (ou -1 si pas de limite)
+            if ( !(limite < 0) && (--limite < 1) ) {
+                break;
+            }
+        }
+
+    } 
+         
+         public void creerSejours(String[] descriptionSejours) {
+        
+        String codePays = descriptionSejours[0];
+        String codeVoyage = descriptionSejours[1];
+        String intitule = descriptionSejours[2];
+        String duree = descriptionSejours[3];
+        String description = descriptionSejours[4];
+        String residence = descriptionSejours[5];
+
+       
+        Service.creerCircuit(null);
+       
+    }
+         public void lireCircuits(int limite) throws IOException {
+
+        String[] nextLine;
+
+         // En-tete du fichier CSV
+        nextLine = this.lecteurFichier.readNext();
+        afficherEnTeteCsv(nextLine);
+        
+        
+        // Lecture des lignes
+        while ((nextLine = this.lecteurFichier.readNext()) != null) {
+        
+            creerConseiller(nextLine);
+            
+            // Limite (ou -1 si pas de limite)
+            if ( !(limite < 0) && (--limite < 1) ) {
+                break;
+            }
+        }
+
+    }
+           public void creerCircuits(String[] descriptionCircuits) {
+        
+        String codePays = descriptionCircuits[0];
+        String codeVoyage = descriptionCircuits[1];
+        String intitule = descriptionCircuits[2];
+        String duree = descriptionCircuits[3];
+        String description = descriptionCircuits[4];
+        String transport = descriptionCircuits[5];
+        String kilometres = descriptionCircuits[6];
+
+       
+        Service.creerCircuit(null);
+       
+    }
     /**
      * Cette méthode main() permet de tester cette classe avant de l'intégrer dans votre code.
      * Elle exploite initialement un fichier de Client et un fichier de Pays, en limitant la lecture aux
@@ -273,11 +387,13 @@ public class LectureDonneesCsv {
             //String fichierConseiller = "C:\\Temp\\IFRoutard-Conseillers.csv";
             //String fichierClients = "C:\\Users\\Ordi\\Desktop\\INSA\\3IF\\TP_DASI\\DASI-master\\Projets\\data\\IFRoutard-Clients.csv";
             //String fichierPays = "C:\\Users\\Ordi\\Desktop\\INSA\\3IF\\TP_DASI\\DASI-master\\Projets\\data\\IFRoutard-Pays.csv";
-            String fichierClients = "/Users/KEV/NetBeansProjects/GitHub/DASI/Projets/data/IFRoutard-Clients.csv";
-            String fichierPays = "/Users/KEV/NetBeansProjects/GitHub/DASI/Projets/data/IFRoutard-Pays.csv";
+            
             
             LectureDonneesCsv lectureDonneesCsv_Clients = new LectureDonneesCsv(fichierClients);
-            
+            LectureDonneesCsv lectureDonneesCsv_Departs = new LectureDonneesCsv(fichierDeparts);
+            LectureDonneesCsv lectureDonneesCsv_Circuits = new LectureDonneesCsv(fichierCircuits);
+            LectureDonneesCsv lectureDonneesCsv_Sejours = new LectureDonneesCsv(fichierSejours);
+
             // Pour tester: limite à 10
             lectureDonneesCsv_Clients.lireClients(2);
             // Puis, quand tout est au point!
