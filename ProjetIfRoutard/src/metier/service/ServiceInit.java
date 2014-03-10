@@ -11,33 +11,60 @@ import util.LectureDonneesCsv;
  * @author Administrateur
  */
 public class ServiceInit {
-    
+
     /**
      * Initialise toute la base de données.
      */
-    public static void initialisation () {
+    public static void initialisation() {
         LectureDonneesCsv.initAll();
     }
-    
-    public static void initialisationPays () {
+
+    public static void initialisationPays() {
         LectureDonneesCsv.initPays();
     }
-      
-    public static void initialisationClient () {
+
+    public static void initialisationPays(int nbLignes) {
+        LectureDonneesCsv.initPays(nbLignes);
+    }
+
+    public static void initialisationClient() {
         LectureDonneesCsv.initClient();
     }
-    public static void initialisationConseiller () {
+
+    public static void initialisationClient(int nbLignes) {
+        LectureDonneesCsv.initClient(nbLignes);
+    }
+
+    public static void initialisationConseiller() {
         LectureDonneesCsv.initConseillers();
     }
-    public static void initialisationCircuit () {
+
+    public static void initialisationConseiller(int nbLignes) {
+        LectureDonneesCsv.initConseillers(nbLignes);
+    }
+
+    public static void initialisationCircuit() {
         LectureDonneesCsv.initCircuits();
     }
-    public static void initialisationSejour () {
+
+    public static void initialisationCircuit(int nbLignes) {
+        LectureDonneesCsv.initCircuits(nbLignes);
+    }
+
+    public static void initialisationSejour() {
         LectureDonneesCsv.initSejours();
     }
-    public static void initialisationInfoPrincipale () {
+
+    public static void initialisationSejour(int nbLignes) {
+        LectureDonneesCsv.initSejours(nbLignes);
+    }
+
+    public static void initialisationInfoPrincipale() {
         LectureDonneesCsv.initDeparts();
     }
-    
-    
+
+    public static void initialisationInfoPrincipale(int nbLignes) {
+        LectureDonneesCsv.initDeparts(nbLignes);
+    }
+
 }

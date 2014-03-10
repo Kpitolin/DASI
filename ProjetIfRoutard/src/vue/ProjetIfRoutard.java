@@ -69,7 +69,7 @@ public class ProjetIfRoutard {
         ServiceInit.initialisationCircuit();
         ServiceInit.initialisationSejour();
         ServiceInit.initialisationInfoPrincipale();
-        ServiceInit.initialisationClient();
+        ServiceInit.initialisationClient(5);
         saisieInteractive();
 
              

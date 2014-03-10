@@ -42,7 +42,7 @@ public class LectureDonneesCsv {
             + "IFRoutard-Conseillers.csv";
 
     public static int NBLIGNES = -1;
-    public static int NBCLIENTS = 10;
+    public static int NBCLIENTS = -1;
 
     /**
      * Format de date pour la lecture des dates dans les fichiers CSV fournis.
@@ -397,14 +397,12 @@ public class LectureDonneesCsv {
 
     }
 
-    /**
-     * Cette méthode initClient permet de tester cette classe avant de
-     * l'intégrer dans votre code. Elle exploite initialement un fichier de
-     * Client et un fichier de Pays, en limitant la lecture aux 10 premiers
-     * éléments de chaque fichier.
-     */
-    public static void initClient() {
+     public static void initClient(){
+         initClient(-1);
+     }
+    public static void initClient(int nbClients) {
 
+        setNBCLIENTS(nbClients);
         try {
 
             LectureDonneesCsv lectureDonneesCsv_Clients
@@ -420,8 +418,13 @@ public class LectureDonneesCsv {
 
     }
 
-    public static void initPays() {
+    public static void initPays()
+    {
+        initPays(-1);
+    }
+    public static void initPays(int nbLignes) {
 
+        setNBLIGNES(nbLignes);
         try {
 
             LectureDonneesCsv lectureDonneesCsv_Pays
@@ -437,8 +440,12 @@ public class LectureDonneesCsv {
 
     }
 
-    public static void initDeparts() {
+     public static void initDeparts() {
+         initDeparts(-1);
+     }
+    public static void initDeparts(int nbLignes) {
 
+        setNBLIGNES(nbLignes);
         try {
 
             LectureDonneesCsv lectureDonneesCsv_Departs
@@ -455,7 +462,11 @@ public class LectureDonneesCsv {
     }
 
     public static void initCircuits() {
+        initCircuits(-1);
+    }
+    public static void initCircuits(int nbLigne) {
 
+        setNBLIGNES( nbLigne) ;
         try {
 
             LectureDonneesCsv lectureDonneesCsv_Circuits
@@ -470,11 +481,14 @@ public class LectureDonneesCsv {
         }
 
     }
-
-    public static void initSejours() {
+    public static void initSejours( ) {
+        initSejours(-1);
+    }
+    
+    public static void initSejours( int nbLigne) {
 
         try {
-
+    setNBLIGNES(nbLigne);
             LectureDonneesCsv lectureDonneesCsv_Sejours
                     = new LectureDonneesCsv(fichierSejours);
 
@@ -490,7 +504,14 @@ public class LectureDonneesCsv {
 
     public static void initConseillers() {
 
-        try {
+        initConseillers(-1);
+
+    }
+    
+public static void initConseillers( int nbLigne)
+{
+    setNBLIGNES(nbLigne);
+            try {
 
             LectureDonneesCsv lectureDonneesCsv_Conseillers
                     = new LectureDonneesCsv(fichierConseillers);
@@ -502,9 +523,9 @@ public class LectureDonneesCsv {
         } catch (IOException ex) {
             ex.printStackTrace(System.err);
         }
-
-    }
-
+    
+}
+    
     public static void initAll() {
         initPays();
         initConseillers();
@@ -515,4 +536,15 @@ public class LectureDonneesCsv {
 
     }
 
+    public static void setNBLIGNES(int NBLIGNES) {
+        LectureDonneesCsv.NBLIGNES = NBLIGNES;
+    }
+
+    public static void setNBCLIENTS(int NBCLIENTS) {
+        LectureDonneesCsv.NBCLIENTS = NBCLIENTS;
+    }
+
+
+
+    
 }
